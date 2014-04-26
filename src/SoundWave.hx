@@ -11,36 +11,43 @@ import flash.geom.Matrix;
  */
 class SoundWave extends Entity
 {
-	private var waveType: String;
 	private var waveRange: Int;
 	public var AimedWaveRange: Int;
 	public var rangeMod = 10;
 	private var waveFreq: Int;
 	public var AimedWaveFreq: Int;
 	public var freqMod = 1;
-	private var waveX: Int;
-	private var waveY: Int;
 	private var tick: Int;
+	private var waveType:Wavetype;
 	
 	
-	public function new(type:String,range:Int,frequency:Int, X:Int,Y:Int) 
+	public function new(type:Wavetype) 
 	{
 		super();
 		waveType = type;
-		AimedWaveRange = waveRange = range;
-		AimedWaveFreq = waveFreq = frequency;
-		tick = waveFreq * 10;
-		waveX = X;
-		waveY = Y;
 		setWave();
 	}
 	
 	private function setWave() {
-		x = waveX;
-		y = waveY;
 		var Gmatrix:Matrix = new Matrix();
+		var colorsetup: Array<UInt>;
+		switch(waveType) {
+			case Wavetype.RED:
+				colorsetup = [0xFFAAAA,0xAA0000];
+				waveRange = AimedWaveRange = 50;
+				waveFreq = AimedWaveFreq = 12;
+			case Wavetype.BLUE:
+				colorsetup = [0xAAAAFF,0x0000AA];
+				waveRange = AimedWaveRange = 75;
+				waveFreq = AimedWaveFreq = 10;
+			case Wavetype.GREEN:
+				colorsetup = [0xAAFFAA,0x00AA00];
+				waveRange = AimedWaveRange = 100;
+				waveFreq = AimedWaveFreq = 8;
+		}
+		tick = waveFreq * 10;
 		Gmatrix.createGradientBox(waveRange * 2, waveRange * 2, 0, -waveRange, -waveRange);
-		graphics.beginGradientFill(GradientType.RADIAL,[0x0000FF,0xAAAAFF],[0,0.5],[0,255],Gmatrix);
+		graphics.beginGradientFill(GradientType.RADIAL,colorsetup,[0,0.5],[0,255],Gmatrix);
 		graphics.drawCircle(0, 0, waveRange);
 		graphics.endFill;
 		addEventListener(Event.ENTER_FRAME, update);
@@ -50,8 +57,6 @@ class SoundWave extends Entity
 	}
 	
 	public function update(e:Event) {
-		var echo1: Int;
-		var echo2: Int;
 		tick++;
 		scaleX = scaleY = tick / (waveFreq * 10);
 		if (tick >= waveFreq*10) {
@@ -90,4 +95,9 @@ class SoundWave extends Entity
 			tick = 0;
 		}
 	}
+}
+enum Wavetype {
+	RED;
+	BLUE;
+	GREEN;
 }
