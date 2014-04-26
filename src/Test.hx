@@ -9,6 +9,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
 import openfl.Assets;
+import SoundWave;
 
 /**
  * ...
@@ -58,7 +59,7 @@ class Test extends Sprite {
 		
 		var m:SoundWave;
 		for (i in 0...8) {
-			m = new SoundWave("ok", 50, 10, 0, 0);
+			m = new SoundWave(Wavetype.BLUE);
 			m.mapPos.x = Std.random(400);
 			m.mapPos.y = Std.random(400);
 			addChild(m);

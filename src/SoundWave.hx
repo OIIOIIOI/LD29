@@ -19,11 +19,13 @@ class SoundWave extends Entity
 	public var freqMod = 1;
 	private var tick: Int;
 	private var waveType:Wavetype;
+	private var displayed:Bool;
 	
 	
 	public function new(type:Wavetype) 
 	{
 		super();
+		displayed = false;
 		waveType = type;
 		setWave();
 	}
@@ -51,12 +53,16 @@ class SoundWave extends Entity
 		graphics.drawCircle(0, 0, waveRange);
 		graphics.endFill;
 		addEventListener(Event.ENTER_FRAME, update);
+		addEventListener(Event.ADDED_TO_STAGE, function(e:Event) { displayed = true; } );
 	}
 	private function clearWave(){
 		graphics.clear();
 	}
 	
 	public function update(e:Event) {
+		if (!displayed) {
+			return;
+		}
 		tick++;
 		scaleX = scaleY = tick / (waveFreq * 10);
 		if (tick >= waveFreq*10) {
