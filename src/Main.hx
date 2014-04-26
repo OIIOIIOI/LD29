@@ -16,14 +16,10 @@ class Main extends Sprite {
 	public static function main () {
 		Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;
 		Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
-		Lib.current.addChild(new Test());
+		
+		var l = new Level();
+		l.load("img/level_demo.png");
+		Lib.current.addChild(l.render);
 	}
 	
-	var testwave:SoundWave;
-	
-	public function new () {
-		super();
-		testwave = new SoundWave(Wavetype.RED);
-		addChild(testwave);
-	}
 }
