@@ -20,7 +20,6 @@ class Level {
 	
 	public var levelData(default, null):BitmapData;
 	public var renderData(default, null):BitmapData;
-	//public var render:Bitmap;
 	
 	public function new () {
 		if (TILES == null)	TILES = Assets.getBitmapData("img/tiles.png");
@@ -30,8 +29,11 @@ class Level {
 		levelData = Assets.getBitmapData(path);
 		renderData = new BitmapData(levelData.width * GRID_SIZE, levelData.height * GRID_SIZE, false, 0xFF33281F);
 		renderLevel();
-		//render = new Bitmap(renderData);
-		//render.scaleX = render.scaleY = SCALE;
+	}
+	
+	public function isSolid (x:Float, y:Float) :Bool {
+		
+		return false;
 	}
 	
 	function renderLevel () {

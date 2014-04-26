@@ -60,7 +60,7 @@ class Test extends Sprite {
 		
 		OFFSET_X = OFFSET_Y = -400;
 		
-		rot = 3 * Math.PI / 2;//Useful?
+		rot = 3 * Math.PI / 2;
 		
 		//
 		
