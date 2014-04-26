@@ -27,12 +27,14 @@ class Test extends Sprite {
 	
 	var mapData:BitmapData;
 	
-	var player:Sprite;
+	var player:Entity;
+	var halo:Entity;
 	
 	var mat:Matrix;
-	var markMat:Matrix;
-	var marks:List<Sprite>;
+	var marks:List<Entity>;
 	var markPoint:Point;
+	
+	var rot:Float;
 	
 	public function new () {
 		super();
@@ -48,34 +50,33 @@ class Test extends Sprite {
 		
 		OFFSET_X = OFFSET_Y = -400;
 		
-		player = new Sprite();
-		player.graphics.beginFill(0xFF0000, 0.8);
-		player.graphics.drawCircle(0, 0, 10);
-		player.graphics.endFill();
-		player.x = canvasData.width / 2;
-		player.y = canvasData.height / 2;
-		addChild(player);
+		rot = 3 * Math.PI / 2;//Useful?
+		
+		//
 		
 		marks = new List();
 		
-		var m:Sprite;
+		var m:Entity;
 		for (i in 0...8) {
-			m = new Sprite();
-			m.graphics.beginFill(0x00FF00, 0.4);
-			m.graphics.drawCircle(0, 0, 20);
-			m.graphics.endFill();
-			//m.x = Std.random(800) + 200;
-			//m.y = Std.random(800) + 200;
-			m.x = i * 100 + OFFSET_X;
-			m.y = i * 100 + OFFSET_Y;
+			m = new Entity(Std.random(8) * 40, Std.random(8) * 40);
 			addChild(m);
 			marks.push(m);
 		}
 		
+		player = new Entity(200, 200, 0xFF0000, 0.8, 10);
+		marks.push(player);
+		
+		halo = new Entity(player.x, player.y, 0xFFFFFF, 0.2, 40);
+		marks.push(halo);
+		
+		addChild(halo);
+		addChild(player);
+		
+		//
+		
 		mat = new Matrix();
 		mat.scale(SCALE, SCALE);
 		mat.translate(OFFSET_X, OFFSET_Y);
-		markMat = new Matrix();
 		markPoint = new Point();
 		canvasData.draw(mapData, mat, null, null, canvasData.rect);
 		
@@ -85,29 +86,50 @@ class Test extends Sprite {
 	}
 	
 	function update (e:Event) {
+		
+		var startP = mat.transformPoint(new Point());
+		
 		// Rotate and translate world
 		mat.translate(-player.x, -player.y);
 		var dy:Int = 0;
 		var dr:Float = 0;
-		if (KeyboardMan.INST.isDown(Keyboard.UP))		dy = 1;
-		if (KeyboardMan.INST.isDown(Keyboard.DOWN))		dy = -1;
-		if (KeyboardMan.INST.isDown(Keyboard.LEFT))		dr = 1.5;
-		if (KeyboardMan.INST.isDown(Keyboard.RIGHT))	dr = -1.5;
-		mat.translate(0, dy * 3);
-		mat.rotate(dr * Math.PI / 180);
+		if (KeyboardMan.INST.isDown(Keyboard.UP)) {
+			dy = 1;
+		}
+		if (KeyboardMan.INST.isDown(Keyboard.DOWN)) {
+			dy = -1;
+		}
+		if (KeyboardMan.INST.isDown(Keyboard.LEFT)) {
+			dr = 1.5;
+		}
+		if (KeyboardMan.INST.isDown(Keyboard.RIGHT)) {
+			dr = -1.5;
+		}
+		var dist = dy * 3;
+		var angle = dr * Math.PI / 180;
+		
+		mat.translate(0, dist);
+		mat.rotate(angle);
 		mat.translate(player.x, player.y);
+		
+		// Position player and halo
+		rot += angle;
+		
+		var tx = dist / SCALE * Math.cos(rot);
+		var ty = dist / SCALE * Math.sin(rot);
+		player.resetPos(player.mapPos.x - tx, player.mapPos.y + ty);
+		halo.resetPos(player.mapPos.x, player.mapPos.y);
+		
+		mapData.setPixel(Std.int(player.mapPos.x), Std.int(player.mapPos.y), 0xFFFFFF);
+		
 		// Draw world
 		canvasData.draw(mapData, mat, null, null, canvasData.rect);
+		
 		// Reposition entities
 		for (m in marks) {
-			markPoint.x = m.x;
-			markPoint.y = m.y;
-			markMat.identity();
-			markMat.translate( -player.x, -player.y);
-			markMat.translate(0, dy * 3);
-			markMat.rotate(dr * Math.PI / 180);
-			markMat.translate(player.x, player.y);
-			markPoint = markMat.transformPoint(markPoint);
+			markPoint.x = m.mapPos.x;
+			markPoint.y = m.mapPos.y;
+			markPoint = mat.transformPoint(markPoint);
 			m.x = markPoint.x;
 			m.y = markPoint.y;
 		}
