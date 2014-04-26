@@ -17,9 +17,7 @@ class Main extends Sprite {
 		Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;
 		Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
 		
-		var l = new Level();
-		l.load("img/level_demo.png");
-		Lib.current.addChild(l.render);
+		Lib.current.addChild(new Test());
 	}
 	
 }

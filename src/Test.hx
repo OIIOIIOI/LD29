@@ -28,7 +28,7 @@ class Test extends Sprite {
 	var canvas:Bitmap;
 	var canvasData:BitmapData;
 	
-	var mapData:BitmapData;
+	var level:Level;
 	
 	var player:Entity;
 	var halo:Entity;
@@ -47,7 +47,9 @@ class Test extends Sprite {
 		
 		INST = this;
 		
-		mapData = Assets.getBitmapData("img/map2.png");
+		
+		level = new Level();
+		level.load("img/level_demo.png");
 		
 		canvasData = new BitmapData(400, 400, false, 0xFF333333);
 		
@@ -58,7 +60,7 @@ class Test extends Sprite {
 		
 		OFFSET_X = OFFSET_Y = -400;
 		
-		rot = 3 * Math.PI / 2;//Useful?
+		rot = 3 * Math.PI / 2;
 		
 		//
 		
@@ -93,7 +95,7 @@ class Test extends Sprite {
 		mat.scale(SCALE, SCALE);
 		mat.translate(OFFSET_X, OFFSET_Y);
 		markPoint = new Point();
-		canvasData.draw(mapData, mat, null, null, canvasData.rect);
+		canvasData.draw(level.renderData, mat, null, null, canvasData.rect);
 		
 		new KeyboardMan();
 		
@@ -132,10 +134,8 @@ class Test extends Sprite {
 		player.mapPos.x = halo.mapPos.x = radar.mapPos.x = player.mapPos.x - tx;
 		player.mapPos.y = halo.mapPos.y = radar.mapPos.y = player.mapPos.y + ty;
 		
-		//mapData.setPixel(Std.int(player.mapPos.x), Std.int(player.mapPos.y), 0xFFFFFF);
-		
 		// Draw world
-		canvasData.draw(mapData, mat, null, null, canvasData.rect);
+		canvasData.draw(level.renderData, mat, null, null, canvasData.rect);
 		
 		// Place beacon
 		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
