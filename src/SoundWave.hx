@@ -4,7 +4,6 @@ import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Matrix;
-import js.html.Entity;
 
 /**
  * ...
