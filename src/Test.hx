@@ -21,7 +21,7 @@ class Test extends Sprite {
 	
 	public static var INST:Test;
 	
-	static var SCALE:Int = 3;
+	public static var SCALE:Int = 3;
 	
 	static var OFFSET_X:Float;//Spawn offset
 	static var OFFSET_Y:Float;
@@ -48,7 +48,6 @@ class Test extends Sprite {
 		
 		INST = this;
 		
-		
 		level = new Level();
 		level.load("img/level_demo.png");
 		
@@ -59,6 +58,11 @@ class Test extends Sprite {
 		canvas.x = 0;
 		canvas.y = 0;
 		addChild(canvas);
+		
+		var b = new Bitmap(level.collData);
+		b.scaleX = b.scaleY = 8;
+		b.x = 400;
+		addChild(b);
 		
 		OFFSET_X = OFFSET_Y = -400;
 		
@@ -78,7 +82,7 @@ class Test extends Sprite {
 			marks.add(m);
 		}
 		
-		player = new Entity(200, 200, 0xFF0000, 0.8, 10, true);
+		player = new Entity(200, 200, 0xFF0000, 0.8, 15, true);
 		marks.add(player);
 		
 		halo = new Entity(player.x, player.y, 0xFFFFFF, 0.2, 40, true);
@@ -125,18 +129,21 @@ class Test extends Sprite {
 		var dist = dy;
 		var angle = dr * Math.PI / 180;
 		
-		// Position player and halo
+		// Move player
 		rot += angle;
+		// Actual movement
 		var tx = dist / SCALE * Math.cos(rot);
 		var ty = dist / SCALE * Math.sin(rot);
-		if (level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty)) {
-			//trace("collision " + Std.random(1000000));
-		}
-		player.mapPos.x = halo.mapPos.x = radar.mapPos.x = player.mapPos.x - tx;
-		player.mapPos.y = halo.mapPos.y = radar.mapPos.y = player.mapPos.y + ty;
 		
-		// Draw world
-		mat.translate(0, dist);
+		// If no collision
+		if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty, 5)) {
+			// Move player and co
+			player.mapPos.x = halo.mapPos.x = radar.mapPos.x = player.mapPos.x - tx;
+			player.mapPos.y = halo.mapPos.y = radar.mapPos.y = player.mapPos.y + ty;
+			// Apply translation
+			mat.translate(0, dist);
+		}
+		// Rotate and draw world anyway
 		mat.rotate(angle);
 		mat.translate(player.x, player.y);
 		canvasData.draw(level.renderData, mat, null, null, canvasData.rect);

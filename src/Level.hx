@@ -13,26 +13,42 @@ import openfl.Assets;
 
 class Level {
 	
-	public static var SCALE:Int = 3;
-	
 	static var GRID_SIZE:Int = 16;
 	static var TILES:BitmapData;
 	
 	public var levelData(default, null):BitmapData;
 	public var renderData(default, null):BitmapData;
 	
+	public var collData:BitmapData;
+	
 	public function new () {
-		if (TILES == null)	TILES = Assets.getBitmapData("img/tiles.png");
+		//if (TILES == null)	TILES = Assets.getBitmapData("img/tiles.png");
+		if (TILES == null)	TILES = Assets.getBitmapData("img/tiles_base.png");
 	}
 	
 	public function load (path:String) {
 		levelData = Assets.getBitmapData(path);
+		collData = levelData.clone();
 		renderData = new BitmapData(levelData.width * GRID_SIZE, levelData.height * GRID_SIZE, false, 0xFF33281F);
 		renderLevel();
 	}
 	
-	public function isSolid (x:Float, y:Float) :Bool {
-		
+	public function isSolid (x:Float, y:Float, radius:Int = 0) :Bool {
+		var xx = Std.int(x / GRID_SIZE);
+		var yy = Std.int(y / GRID_SIZE);
+		if (radius == 0) {
+			if (levelData.getPixel(xx, yy) == 0x000000) {
+				collData.setPixel(xx, yy, 0xFF0000);
+				return true;
+			}
+		} else {
+			for (i in 0...6) {
+				var angle = i * 2 * Math.PI / 6;
+				var tx = radius / Test.SCALE * Math.cos(angle);
+				var ty = radius / Test.SCALE * Math.sin(angle);
+				if (isSolid(x + tx, y + ty))	return true;
+			}
+		}
 		return false;
 	}
 	
