@@ -4,12 +4,13 @@ import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Matrix;
+import js.html.Entity;
 
 /**
  * ...
  * @author ...
  */
-class SoundWave extends Sprite
+class SoundWave extends Entity
 {
 	private var waveType: String;
 	private var waveRange: Int;
