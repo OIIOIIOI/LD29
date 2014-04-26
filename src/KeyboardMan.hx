@@ -13,7 +13,7 @@ class KeyboardMan {
 	
 	public static var INST:KeyboardMan;
 	
-	var keys:Map<Int, Bool>;
+	var keys:Map<Int, KeyState>;
 	
 	public function new () {
 		INST = this;
@@ -25,24 +25,51 @@ class KeyboardMan {
 	
 	function registerKeys () {
 		if (keys != null)	return;
-		keys = new Map<Int, Bool>();
-		keys.set(Keyboard.UP, false);
-		keys.set(Keyboard.RIGHT, false);
-		keys.set(Keyboard.DOWN, false);
-		keys.set(Keyboard.LEFT, false);
+		keys = new Map<Int, KeyState>();
+		keys.set(Keyboard.UP,		{isDown:false, justPressed:false, justReleased:false});
+		keys.set(Keyboard.RIGHT,	{isDown:false, justPressed:false, justReleased:false});
+		keys.set(Keyboard.DOWN,		{isDown:false, justPressed:false, justReleased:false});
+		keys.set(Keyboard.LEFT,		{isDown:false, justPressed:false, justReleased:false});
+		keys.set(Keyboard.SPACE,	{isDown:false, justPressed:false, justReleased:false});
 	}
 	
 	function keyDownHandler (e:KeyboardEvent) {
-		if (keys.exists(e.keyCode))	keys.set(e.keyCode, true);
+		if (keys.exists(e.keyCode)) {
+			var ks = keys.get(e.keyCode);
+			if (!ks.isDown)	ks.justPressed = true;
+			ks.isDown = true;
+			keys.set(e.keyCode, ks);
+		}
 	}
 	
 	function keyUpHandler (e:KeyboardEvent) {
-		if (keys.exists(e.keyCode))	keys.set(e.keyCode, false);
+		if (keys.exists(e.keyCode)) {
+			var ks = keys.get(e.keyCode);
+			if (ks.isDown)	ks.justReleased = true;
+			ks.isDown = false;
+			keys.set(e.keyCode, ks);
+		}
 	}
 	
-	public function isDown (k:Int) {
-		if (!keys.exists(k))	return false;
+	public function update () {
+		var ks:KeyState;
+		for (k in keys.keys()) {
+			ks = keys.get(k);
+			if (ks.justPressed)		ks.justPressed = false;
+			if (ks.justReleased)	ks.justReleased = false;
+			keys.set(k, ks);
+		}
+	}
+	
+	public function getState (k:Int) :KeyState {
+		if (!keys.exists(k))	return null;
 		return keys.get(k);
 	}
 	
+}
+
+typedef KeyState = {
+	isDown:Bool,
+	justPressed:Bool,
+	justReleased:Bool
 }
