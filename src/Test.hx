@@ -17,45 +17,60 @@ import openfl.Assets;
 
 class Test extends Sprite {
 	
+	static var SCALE:Int = 3;
+	
 	var canvas:Bitmap;
 	var canvasData:BitmapData;
 	
 	var mapData:BitmapData;
 	
 	var player:Sprite;
-	var mark:Sprite;
 	
 	var mat:Matrix;
+	var markMat:Matrix;
+	var marks:List<Sprite>;
+	var markPoint:Point;
 	
 	public function new () {
 		super();
 		
-		mapData = Assets.getBitmapData("img/map.png");
+		mapData = Assets.getBitmapData("img/map2.png");
 		
 		canvasData = new BitmapData(400, 400, false, 0xFF333333);
 		
 		canvas = new Bitmap(canvasData);
 		canvas.x = 0;
 		canvas.y = 0;
+		//canvas.scaleX = canvas.scaleY = 6;
 		addChild(canvas);
 		
 		player = new Sprite();
-		player.graphics.beginFill(0xFF0000, 0.2);
+		player.graphics.beginFill(0xFF0000, 0.8);
 		player.graphics.drawCircle(0, 0, 10);
 		player.graphics.endFill();
 		player.x = 200;
 		player.y = 200;
 		addChild(player);
 		
-		mark = new Sprite();
-		mark.graphics.beginFill(0x00FF00, 0.8);
-		mark.graphics.drawCircle(0, 0, 20);
-		mark.graphics.endFill();
-		mark.x = 0;
-		mark.y = 0;
-		addChild(mark);
+		marks = new List();
+		
+		var m:Sprite;
+		for (i in 0...8) {
+			m = new Sprite();
+			m.graphics.beginFill(0x00FF00, 0.8);
+			m.graphics.drawCircle(0, 0, 20);
+			m.graphics.endFill();
+			m.x = Std.random(800) + 400;
+			m.y = Std.random(800) + 400;
+			addChild(m);
+			marks.push(m);
+		}
 		
 		mat = new Matrix();
+		mat.scale(SCALE, SCALE);
+		markMat = new Matrix();
+		markMat.scale(SCALE, SCALE);
+		markPoint = new Point();
 		canvasData.draw(mapData, mat, null, null, new Rectangle(0, 0, 400, 400));
 		
 		new KeyboardMan();
@@ -75,10 +90,10 @@ class Test extends Sprite {
 			dy = -1;
 		}
 		if (KeyboardMan.INST.isDown(Keyboard.LEFT)) {
-			dr = 1;
+			dr = 2;
 		}
 		if (KeyboardMan.INST.isDown(Keyboard.RIGHT)) {
-			dr = -1;
+			dr = -2;
 		}
 		mat.translate(0, dy * 3);
 		mat.rotate(dr * Math.PI / 180);
@@ -86,7 +101,18 @@ class Test extends Sprite {
 		// Draw world
 		canvasData.draw(mapData, mat, null, null, new Rectangle(0, 0, 400, 400));
 		// Reposition entities
-		
+		for (m in marks) {
+			markPoint.x = m.x;
+			markPoint.y = m.y;
+			markMat.identity();
+			markMat.translate( -200, -200);
+			markMat.translate(0, dy * 3);
+			markMat.rotate(dr * Math.PI / 180);
+			markMat.translate(200, 200);
+			markPoint = markMat.transformPoint(markPoint);
+			m.x = markPoint.x;
+			m.y = markPoint.y;
+		}
 	}
 	
 }
