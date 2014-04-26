@@ -2,7 +2,8 @@ package ;
 
 import flash.display.Bitmap;
 import flash.display.BitmapData;
-import flash.display.PixelSnapping;
+//import flash.display.BlendMode;
+//import flash.display.PixelSnapping;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Matrix;
@@ -26,43 +27,53 @@ class Test extends Sprite {
 	static var OFFSET_X:Float;//Spawn offset
 	static var OFFSET_Y:Float;
 	
+	var container:Sprite;
+	
 	var canvas:Bitmap;
 	var canvasData:BitmapData;
 	
 	var level:Level;
 	
 	var player:Entity;
-	var halo:Entity;
 	var radar:Radar;
 	
 	var mat:Matrix;
 	var marks:List<Entity>;
 	var markPoint:Point;
 	
+	//var light:Sprite;
+	var lightMask:Sprite;
+	
 	public var beacons(default, null):List<Beacon>;
 	
 	var rot:Float;
+	
+	var tick:Float;
 	
 	public function new () {
 		super();
 		
 		INST = this;
 		
+		tick = 0;
+		
+		container = new Sprite();
+		addChild(container);
+		
 		level = new Level();
 		level.load("img/level_demo.png");
 		
 		canvasData = new BitmapData(400, 400, false, 0xFF333333);
 		
-		//canvas = new Bitmap(canvasData, PixelSnapping.NEVER, true);
 		canvas = new Bitmap(canvasData);
 		canvas.x = 0;
 		canvas.y = 0;
-		addChild(canvas);
+		container.addChild(canvas);
 		
-		var b = new Bitmap(level.collData);
+		/*var b = new Bitmap(level.collData);
 		b.scaleX = b.scaleY = 8;
 		b.x = 400;
-		addChild(b);
+		addChild(b);*/
 		
 		OFFSET_X = OFFSET_Y = -400;
 		
@@ -78,24 +89,30 @@ class Test extends Sprite {
 			m = new SoundWave(Wavetype.BLUE);
 			m.mapPos.x = Std.random(400);
 			m.mapPos.y = Std.random(400);
-			addChild(m);
+			container.addChild(m);
 			marks.add(m);
 		}
 		
 		player = new Entity(200, 200, 0xFF0000, 0.8, 15, true);
 		marks.add(player);
 		
-		halo = new Entity(player.x, player.y, 0xFFFFFF, 0.2, 40, true);
-		marks.add(halo);
-		
 		radar = new Radar(player.x, player.y);
 		marks.add(radar);
 		
-		addChild(halo);
-		addChild(player);
-		addChild(radar);
+		container.addChild(player);
+		container.addChild(radar);
 		
 		//
+		
+		//light = new Light();
+		//light.blendMode = BlendMode.OVERLAY;
+		//container.addChild(light);
+		
+		lightMask = new Sprite();
+		lightMask.graphics.beginFill(0x00FF00, 0.9);
+		lightMask.graphics.drawCircle(canvasData.width / 2, canvasData.height / 2, canvasData.width / 2);
+		lightMask.graphics.endFill();
+		container.mask = lightMask;
 		
 		mat = new Matrix();
 		mat.scale(SCALE, SCALE);
@@ -113,18 +130,10 @@ class Test extends Sprite {
 		mat.translate(-player.x, -player.y);
 		var dy:Int = 0;
 		var dr:Float = 0;
-		if (KeyboardMan.INST.getState(Keyboard.UP).isDown) {
-			dy = 2;
-		}
-		if (KeyboardMan.INST.getState(Keyboard.DOWN).isDown) {
-			dy = -2;
-		}
-		if (KeyboardMan.INST.getState(Keyboard.LEFT).isDown) {
-			dr = 3;
-		}
-		if (KeyboardMan.INST.getState(Keyboard.RIGHT).isDown) {
-			dr = -3;
-		}
+		if (KeyboardMan.INST.getState(Keyboard.UP).isDown)		dy = 2;
+		if (KeyboardMan.INST.getState(Keyboard.DOWN).isDown)	dy = -2;
+		if (KeyboardMan.INST.getState(Keyboard.LEFT).isDown)	dr = 3;
+		if (KeyboardMan.INST.getState(Keyboard.RIGHT).isDown)	dr = -3;
 		// Values
 		var dist = dy;
 		var angle = dr * Math.PI / 180;
@@ -138,8 +147,8 @@ class Test extends Sprite {
 		// If no collision
 		if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty, 3)) {
 			// Move player and co
-			player.mapPos.x = halo.mapPos.x = radar.mapPos.x = player.mapPos.x - tx;
-			player.mapPos.y = halo.mapPos.y = radar.mapPos.y = player.mapPos.y + ty;
+			player.mapPos.x = radar.mapPos.x = player.mapPos.x - tx;
+			player.mapPos.y = radar.mapPos.y = player.mapPos.y + ty;
 			// Apply translation
 			mat.translate(0, dist);
 		}
@@ -152,8 +161,9 @@ class Test extends Sprite {
 		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
 			var b = new Beacon(player.mapPos.x, player.mapPos.y);
 			beacons.add(b);
-			addChild(b);
-			addChild(player);
+			container.addChild(b);
+			container.addChild(player);
+			//container.addChild(light);
 		}
 		
 		// Radar
@@ -177,6 +187,21 @@ class Test extends Sprite {
 		
 		// Keyboard Manager
 		KeyboardMan.INST.update();
+		
+		updateMask();
+	}
+	
+	function updateMask () {
+		tick += 0.02;
+		var r = canvasData.width / 2 - tick;
+		if (r <= 70) {
+			r = 70;
+			return;
+		}
+		lightMask.graphics.clear();
+		lightMask.graphics.beginFill(0x00FF00);
+		lightMask.graphics.drawCircle(canvasData.width / 2, canvasData.height / 2, canvasData.width / 2 - tick);
+		lightMask.graphics.endFill();
 	}
 	
 }

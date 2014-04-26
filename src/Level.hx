@@ -19,16 +19,16 @@ class Level {
 	public var levelData(default, null):BitmapData;
 	public var renderData(default, null):BitmapData;
 	
-	public var collData:BitmapData;
+	//public var collData:BitmapData;
 	
 	public function new () {
-		if (TILES == null)	TILES = Assets.getBitmapData("img/tiles.png");
-		//if (TILES == null)	TILES = Assets.getBitmapData("img/tiles_base.png");
+		//if (TILES == null)	TILES = Assets.getBitmapData("img/tiles.png");
+		if (TILES == null)	TILES = Assets.getBitmapData("img/tiles_base.png");
 	}
 	
 	public function load (path:String) {
 		levelData = Assets.getBitmapData(path);
-		collData = levelData.clone();
+		//collData = levelData.clone();
 		renderData = new BitmapData(levelData.width * GRID_SIZE, levelData.height * GRID_SIZE, false, 0xFF33281F);
 		renderLevel();
 	}
@@ -38,7 +38,7 @@ class Level {
 		var yy = Std.int(y / GRID_SIZE);
 		if (radius == 0) {
 			if (levelData.getPixel(xx, yy) == 0x000000) {
-				collData.setPixel(xx, yy, 0xFF0000);
+				//collData.setPixel(xx, yy, 0xFF0000);
 				return true;
 			}
 		} else {
