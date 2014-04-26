@@ -58,15 +58,15 @@ class Test extends Sprite {
 		
 		var m:Entity;
 		for (i in 0...8) {
-			m = new Entity(Std.random(8) * 40, Std.random(8) * 40);
+			m = new Entity(Std.random(8) * 40, Std.random(8) * 40, 0x00FF00, 0.5, 15, true);
 			addChild(m);
 			marks.push(m);
 		}
 		
-		player = new Entity(200, 200, 0xFF0000, 0.8, 10);
+		player = new Entity(200, 200, 0xFF0000, 0.8, 10, true);
 		marks.push(player);
 		
-		halo = new Entity(player.x, player.y, 0xFFFFFF, 0.2, 40);
+		halo = new Entity(player.x, player.y, 0xFFFFFF, 0.2, 40, true);
 		marks.push(halo);
 		
 		addChild(halo);
