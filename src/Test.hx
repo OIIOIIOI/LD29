@@ -106,18 +106,18 @@ class Test extends Sprite {
 		var dy:Int = 0;
 		var dr:Float = 0;
 		if (KeyboardMan.INST.getState(Keyboard.UP).isDown) {
-			dy = 1;
+			dy = 2;
 		}
 		if (KeyboardMan.INST.getState(Keyboard.DOWN).isDown) {
-			dy = -1;
+			dy = -2;
 		}
 		if (KeyboardMan.INST.getState(Keyboard.LEFT).isDown) {
-			dr = 1.5;
+			dr = 3;
 		}
 		if (KeyboardMan.INST.getState(Keyboard.RIGHT).isDown) {
-			dr = -1.5;
+			dr = -3;
 		}
-		var dist = dy * 3;
+		var dist = dy;
 		var angle = dr * Math.PI / 180;
 		
 		mat.translate(0, dist);
@@ -145,16 +145,8 @@ class Test extends Sprite {
 			addChild(player);
 		}
 		
+		// Radar
 		radar.update();
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		// Reposition entities
 		for (m in marks) {
@@ -172,11 +164,8 @@ class Test extends Sprite {
 			m.y = markPoint.y;
 		}
 		
-		
-		
-		
+		// Keyboard Manager
 		KeyboardMan.INST.update();
-		
 	}
 	
 }
