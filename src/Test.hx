@@ -54,7 +54,8 @@ class Test extends Sprite {
 		
 		canvasData = new BitmapData(400, 400, false, 0xFF333333);
 		
-		canvas = new Bitmap(canvasData, PixelSnapping.NEVER, true);
+		//canvas = new Bitmap(canvasData, PixelSnapping.NEVER, true);
+		canvas = new Bitmap(canvasData);
 		canvas.x = 0;
 		canvas.y = 0;
 		addChild(canvas);
@@ -120,22 +121,24 @@ class Test extends Sprite {
 		if (KeyboardMan.INST.getState(Keyboard.RIGHT).isDown) {
 			dr = -3;
 		}
+		// Values
 		var dist = dy;
 		var angle = dr * Math.PI / 180;
 		
-		mat.translate(0, dist);
-		mat.rotate(angle);
-		mat.translate(player.x, player.y);
-		
 		// Position player and halo
 		rot += angle;
-		
 		var tx = dist / SCALE * Math.cos(rot);
 		var ty = dist / SCALE * Math.sin(rot);
+		if (level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty)) {
+			//trace("collision " + Std.random(1000000));
+		}
 		player.mapPos.x = halo.mapPos.x = radar.mapPos.x = player.mapPos.x - tx;
 		player.mapPos.y = halo.mapPos.y = radar.mapPos.y = player.mapPos.y + ty;
 		
 		// Draw world
+		mat.translate(0, dist);
+		mat.rotate(angle);
+		mat.translate(player.x, player.y);
 		canvasData.draw(level.renderData, mat, null, null, canvasData.rect);
 		
 		// Place beacon
