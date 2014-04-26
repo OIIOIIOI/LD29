@@ -1,6 +1,8 @@
 package;
 
 import flash.display.Sprite;
+import flash.events.Event;
+import flash.events.MouseEvent;
 import flash.Lib;
 
 /**
@@ -16,9 +18,17 @@ class Main extends Sprite {
 		Lib.current.addChild(new Main());
 	}
 	
+	var testwave:SoundWave;
+	
 	public function new () {
 		super();
-		
+		testwave = new SoundWave("prout", 50, 10, 100, 100);
+		addChild(testwave);
+		addChild(new TestBtn(0xFFFFFF,300,300,changerange));
 	}
 	
+	function changerange(e:MouseEvent) {
+		testwave.AimedWaveFreq = 1;
+		testwave.AimedWaveRange = 100;
+	};
 }
