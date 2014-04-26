@@ -56,9 +56,11 @@ class Test extends Sprite {
 		
 		marks = new List();
 		
-		var m:Entity;
+		var m:SoundWave;
 		for (i in 0...8) {
-			m = new Entity(Std.random(8) * 40, Std.random(8) * 40, 0x00FF00, 0.5, 15, true);
+			m = new SoundWave("ok", 50, 10, 0, 0);
+			m.mapPos.x = Std.random(400);
+			m.mapPos.y = Std.random(400);
 			addChild(m);
 			marks.push(m);
 		}
@@ -117,10 +119,10 @@ class Test extends Sprite {
 		
 		var tx = dist / SCALE * Math.cos(rot);
 		var ty = dist / SCALE * Math.sin(rot);
-		player.resetPos(player.mapPos.x - tx, player.mapPos.y + ty);
-		halo.resetPos(player.mapPos.x, player.mapPos.y);
+		player.mapPos.x = halo.mapPos.x = player.mapPos.x - tx;
+		player.mapPos.y = halo.mapPos.y = player.mapPos.y + ty;
 		
-		mapData.setPixel(Std.int(player.mapPos.x), Std.int(player.mapPos.y), 0xFFFFFF);
+		//mapData.setPixel(Std.int(player.mapPos.x), Std.int(player.mapPos.y), 0xFFFFFF);
 		
 		// Draw world
 		canvasData.draw(mapData, mat, null, null, canvasData.rect);

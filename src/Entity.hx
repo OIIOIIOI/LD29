@@ -9,7 +9,7 @@ import flash.geom.Point;
  */
 class Entity extends Sprite {
 	
-	public var mapPos(default, null):Point;
+	public var mapPos:Point;
 	
 	public function new (mapX:Float = 0, mapY:Float = 0, color:UInt = 0xFFFF00, alpha:Float = 0.5, radius:Int = 15, debug:Bool = false) {
 		super();
@@ -24,11 +24,6 @@ class Entity extends Sprite {
 			graphics.moveTo(0, 0);
 			graphics.lineTo(0, -radius);
 		}
-	}
-	
-	public function resetPos (mapX:Float, mapY:Float) {
-		mapPos.x = mapX;
-		mapPos.y = mapY;
 	}
 	
 }
