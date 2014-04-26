@@ -13,14 +13,14 @@ import openfl.Assets;
 
 class Level {
 	
-	public static var SCALE:Int = 2;
+	public static var SCALE:Int = 3;
 	
 	static var GRID_SIZE:Int = 16;
 	static var TILES:BitmapData;
 	
-	var levelData:BitmapData;
-	var renderData:BitmapData;
-	public var render:Bitmap;
+	public var levelData(default, null):BitmapData;
+	public var renderData(default, null):BitmapData;
+	//public var render:Bitmap;
 	
 	public function new () {
 		if (TILES == null)	TILES = Assets.getBitmapData("img/tiles.png");
@@ -30,8 +30,8 @@ class Level {
 		levelData = Assets.getBitmapData(path);
 		renderData = new BitmapData(levelData.width * GRID_SIZE, levelData.height * GRID_SIZE, false, 0xFF33281F);
 		renderLevel();
-		render = new Bitmap(renderData);
-		render.scaleX = render.scaleY = SCALE;
+		//render = new Bitmap(renderData);
+		//render.scaleX = render.scaleY = SCALE;
 	}
 	
 	function renderLevel () {
