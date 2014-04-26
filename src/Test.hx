@@ -136,7 +136,7 @@ class Test extends Sprite {
 		var ty = dist / SCALE * Math.sin(rot);
 		
 		// If no collision
-		if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty, 5)) {
+		if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty, 3)) {
 			// Move player and co
 			player.mapPos.x = halo.mapPos.x = radar.mapPos.x = player.mapPos.x - tx;
 			player.mapPos.y = halo.mapPos.y = radar.mapPos.y = player.mapPos.y + ty;
