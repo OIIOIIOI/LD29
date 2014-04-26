@@ -13,7 +13,7 @@ import openfl.Assets;
 
 class Level {
 	
-	public static var SCALE:Int = 1;
+	public static var SCALE:Int = 2;
 	
 	static var GRID_SIZE:Int = 16;
 	static var TILES:BitmapData;
@@ -28,7 +28,7 @@ class Level {
 	
 	public function load (path:String) {
 		levelData = Assets.getBitmapData(path);
-		renderData = new BitmapData((levelData.width + 12) * GRID_SIZE, (levelData.height + 12) * GRID_SIZE, false, 0xFFCC00CC);
+		renderData = new BitmapData(levelData.width * GRID_SIZE, levelData.height * GRID_SIZE, false, 0xFF33281F);
 		renderLevel();
 		render = new Bitmap(renderData);
 		render.scaleX = render.scaleY = SCALE;
@@ -39,13 +39,22 @@ class Level {
 		var p = new Point();
 		for (y in 0...levelData.height) {
 			for (x in 0...levelData.width) {
-				if (levelData.getPixel(x, y) == 0xFFFFFF)	r.x = 0;
-				else										r.x = 4 * GRID_SIZE;
-				p.x = (x + 6) * GRID_SIZE;
-				p.y = (y + 6) * GRID_SIZE;
+				if (levelData.getPixel(x, y) == 0xFFFFFF)	r.x = 16 * GRID_SIZE;
+				else										r.x = getValue(x, y) * GRID_SIZE;
+				p.x = x * GRID_SIZE;
+				p.y = y * GRID_SIZE;
 				renderData.copyPixels(TILES, r, p);
 			}
 		}
+	}
+	
+	function getValue (x:Int, y:Int) :Int {
+		var n:Int = 0;
+		if (levelData.getPixel(x, y - 1) == 0x000000)	n += 1;
+		if (levelData.getPixel(x + 1, y) == 0x000000)	n += 2;
+		if (levelData.getPixel(x, y + 1) == 0x000000)	n += 4;
+		if (levelData.getPixel(x - 1, y) == 0x000000)	n += 8;
+		return n;
 	}
 	
 }
