@@ -18,7 +18,7 @@ class Main extends Sprite {
 	
 	public function new () {
 		super();
-		var e = new Entity();
-		addChild(e.sprite);
+		
 	}
+	
 }
