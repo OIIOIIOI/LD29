@@ -2,6 +2,7 @@ package ;
 
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.display.PixelSnapping;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Matrix;
@@ -53,7 +54,7 @@ class Test extends Sprite {
 		
 		canvasData = new BitmapData(400, 400, false, 0xFF333333);
 		
-		canvas = new Bitmap(canvasData);
+		canvas = new Bitmap(canvasData, PixelSnapping.NEVER, true);
 		canvas.x = 0;
 		canvas.y = 0;
 		addChild(canvas);
