@@ -13,7 +13,7 @@ import openfl.Assets;
 
 class Level {
 	
-	public static var SCALE:Int = 3;
+	public static var SCALE:Int = 1;
 	
 	static var GRID_SIZE:Int = 16;
 	static var TILES:BitmapData;
@@ -41,8 +41,8 @@ class Level {
 			for (x in 0...levelData.width) {
 				if (levelData.getPixel(x, y) == 0xFFFFFF)	r.x = 0;
 				else										r.x = 4 * GRID_SIZE;
-				p.x = x * GRID_SIZE;
-				p.y = y * GRID_SIZE;
+				p.x = (x + 6) * GRID_SIZE;
+				p.y = (y + 6) * GRID_SIZE;
 				renderData.copyPixels(TILES, r, p);
 			}
 		}
