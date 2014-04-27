@@ -54,14 +54,48 @@ class Level {
 	
 	function renderLevel () {
 		var r = new Rectangle(0, 0, GRID_SIZE, GRID_SIZE);
+		var r2 = new Rectangle(0, 0, GRID_SIZE / 2, GRID_SIZE / 2);
 		var p = new Point();
+		var v:Int = 0;
 		for (y in 0...levelData.height) {
 			for (x in 0...levelData.width) {
-				if (levelData.getPixel(x, y) == 0xFFFFFF)	r.x = 16 * GRID_SIZE;
-				else										r.x = getValue(x, y) * GRID_SIZE;
+				if (levelData.getPixel(x, y) == 0xFFFFFF)	v = 17;
+				else										v = getValue(x, y);
+				r.x = v * GRID_SIZE;
 				p.x = x * GRID_SIZE;
 				p.y = y * GRID_SIZE;
 				renderData.copyPixels(TILES, r, p);
+				//
+				if (v == 15) {
+					if (levelData.getPixel(x - 1, y - 1) == 0xFFFFFF) {
+						r2.x = 16 * GRID_SIZE;
+						r2.y = 0;
+						p.x = x * GRID_SIZE;
+						p.y = y * GRID_SIZE;
+						renderData.copyPixels(TILES, r2, p);
+					}
+					if (levelData.getPixel(x + 1, y - 1) == 0xFFFFFF) {
+						r2.x = 16.5 * GRID_SIZE;
+						r2.y = 0;
+						p.x = (x + 0.5) * GRID_SIZE;
+						p.y = y * GRID_SIZE;
+						renderData.copyPixels(TILES, r2, p);
+					}
+					if (levelData.getPixel(x - 1, y + 1) == 0xFFFFFF) {
+						r2.x = 16 * GRID_SIZE;
+						r2.y = 0.5 * GRID_SIZE;
+						p.x = x * GRID_SIZE;
+						p.y = (y + 0.5) * GRID_SIZE;
+						renderData.copyPixels(TILES, r2, p);
+					}
+					if (levelData.getPixel(x + 1, y + 1) == 0xFFFFFF) {
+						r2.x = 16.5 * GRID_SIZE;
+						r2.y = 0.5 * GRID_SIZE;
+						p.x = (x + 0.5) * GRID_SIZE;
+						p.y = (y + 0.5) * GRID_SIZE;
+						renderData.copyPixels(TILES, r2, p);
+					}
+				}
 			}
 		}
 	}
