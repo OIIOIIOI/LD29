@@ -1,5 +1,6 @@
 package screens;
 
+import BitmapTile;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.Sprite;
@@ -100,7 +101,7 @@ class PlayScreen extends Screen {
 		addChild(light);
 		
 		// Menu
-		menu = new IGMenu();
+		menu = new IGMenu(menuHandler);
 		addChild(menu);
 	}
 	
@@ -174,11 +175,11 @@ class PlayScreen extends Screen {
 		
 		// Place beacon
 		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
-			/*if (!menu.active) {
+			if (!menu.active) {
 				menu.open();
 				KeyboardMan.INST.cancelJustPressed(Keyboard.SPACE);
-			}*/
-			var b:Beacon;
+			}
+			/*var b:Beacon;
 			// Check if beacon in the vicinity and remove it
 			var removed:Bool = false;
 			for (b in Manager.INST.beacons) {
@@ -199,13 +200,46 @@ class PlayScreen extends Screen {
 				Manager.INST.beacons.add(b);
 				container.addChild(b);
 				container.addChild(player);
-			}
+			}*/
 		}
 		
 		// Update manager
 		Manager.INST.update();
 		
 		menu.update();
+	}
+	
+	function menuHandler (t:TileType) {
+		switch (t) {
+			case TileType.PlaceBeaconButton, TileType.PickUpBeaconButton:
+				var b:Beacon;
+				// Check if beacon in the vicinity and remove it
+				var removed:Bool = false;
+				for (b in Manager.INST.beacons) {
+					var dx = player.x - b.x;
+					var dy = player.y - b.y;
+					var distB = Math.sqrt(dx * dx + dy * dy);
+					if (distB < 50) {
+						container.removeChild(b);
+						Manager.INST.beacons.remove(b);
+						if (radar.contains(b.arrow))	radar.removeChild(b.arrow);
+						removed = true;
+						break;
+					}
+				}
+				if (!removed) {
+					// Create new one
+					b = new Beacon(player.mapPos.x, player.mapPos.y);
+					Manager.INST.beacons.add(b);
+					container.addChild(b);
+					container.addChild(player);
+				}
+			case TileType.ViewMapButton:
+				trace("view map");
+			case TileType.DigUpButton:
+				trace("dig up");
+			default:
+		}
 	}
 	
 	override public function destroy () {

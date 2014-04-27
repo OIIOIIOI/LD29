@@ -30,12 +30,12 @@ class KeyboardMan {
 	function registerKeys () {
 		if (keys != null)	return;
 		keys = new Map<Int, KeyState>();
-		keys.set(Keyboard.UP,		{isDown:false, justPressed:false, justReleased:false});
-		keys.set(Keyboard.RIGHT,	{isDown:false, justPressed:false, justReleased:false});
-		keys.set(Keyboard.DOWN,		{isDown:false, justPressed:false, justReleased:false});
-		keys.set(Keyboard.LEFT,		{isDown:false, justPressed:false, justReleased:false});
-		keys.set(Keyboard.SPACE,	{isDown:false, justPressed:false, justReleased:false});
-		//keys.set(Keyboard.ENTER,	{isDown:false, justPressed:false, justReleased:false});
+		keys.set(Keyboard.UP,		{ isDown:false, justPressed:false, justReleased:false } );
+		keys.set(Keyboard.RIGHT,	{ isDown:false, justPressed:false, justReleased:false } );
+		keys.set(Keyboard.DOWN,		{ isDown:false, justPressed:false, justReleased:false } );
+		keys.set(Keyboard.LEFT,		{ isDown:false, justPressed:false, justReleased:false } );
+		keys.set(Keyboard.SPACE,	{ isDown:false, justPressed:false, justReleased:false } );
+		//keys.set(Keyboard.ENTER,	{ isDown:false, justPressed:false, justReleased:false } );
 	}
 	
 	function keyDownHandler (e:KeyboardEvent) {
@@ -69,6 +69,16 @@ class KeyboardMan {
 	public function getState (k:Int) :KeyState {
 		if (!keys.exists(k))	return null;
 		return keys.get(k);
+	}
+	
+	public function resetState (?k:Int) {
+		if (k != null && keys.exists(k)) {
+			keys.set(k, { isDown:false, justPressed:false, justReleased:false } );
+		} else if (k == null) {
+			for (k in keys.keys()) {
+				keys.set(k, { isDown:false, justPressed:false, justReleased:false } );
+			}
+		}
 	}
 	
 	public function cancelJustPressed (k:Int) {
