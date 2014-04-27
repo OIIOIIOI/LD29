@@ -34,7 +34,7 @@ class IntroScreen extends Screen {
 			f++;
 			bg.bitmapData = Assets.getBitmapData("img/screen_intro_" + f + ".jpg");
 		} else {
-			Game.INST.changeScreen(ScreenName.Play);
+			Game.INST.changeScreen(ScreenName.End);
 		}
 	}
 	
@@ -42,8 +42,10 @@ class IntroScreen extends Screen {
 		super.destroy();
 		
 		removeChild(bg);
-		bg.bitmapData.dispose();
-		bg.bitmapData = null;
+		if (bg.bitmapData != null) {
+			bg.bitmapData.dispose();
+			bg.bitmapData = null;
+		}
 		bg = null;
 		
 		button.destroy();

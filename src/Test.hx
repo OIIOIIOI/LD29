@@ -24,14 +24,12 @@ class Test extends Sprite {
 	
 	public static var INST:Test;
 	
-	public static var SCALE:Int = 3;
 	public static var SCREEN_SIZE:Int = 510;
 	
-	static var OFFSET_X:Float;//Spawn offset
-	static var OFFSET_Y:Float;
+	var OFFSET_X:Float;//Spawn offset
+	var OFFSET_Y:Float;
 	
 	var container:Sprite;
-	
 	var canvas:Bitmap;
 	var canvasData:BitmapData;
 	
@@ -80,8 +78,8 @@ class Test extends Sprite {
 		b.x = 400;
 		addChild(b);*/
 		
-		OFFSET_X = -level.spawn.x * SCALE + SCREEN_SIZE / 2;
-		OFFSET_Y = -level.spawn.y * SCALE + SCREEN_SIZE / 2;
+		OFFSET_X = -level.spawn.x * Manager.SCALE + SCREEN_SIZE / 2;
+		OFFSET_Y = -level.spawn.y * Manager.SCALE + SCREEN_SIZE / 2;
 		
 		rot = 3 * Math.PI / 2;
 		
@@ -122,7 +120,7 @@ class Test extends Sprite {
 		container.mask = lightMask;
 		
 		mat = new Matrix();
-		mat.scale(SCALE, SCALE);
+		mat.scale(Manager.SCALE, Manager.SCALE);
 		mat.translate(OFFSET_X, OFFSET_Y);
 		markPoint = new Point();
 		canvasData.draw(level.renderData, mat, null, null, canvasData.rect);
@@ -151,8 +149,8 @@ class Test extends Sprite {
 		}
 		// If movement
 		if (dy != 0) {
-			var tx = dy / SCALE * Math.cos(rot);
-			var ty = dy / SCALE * Math.sin(rot);
+			var tx = dy / Manager.SCALE * Math.cos(rot);
+			var ty = dy / Manager.SCALE * Math.sin(rot);
 			// If no collision
 			//if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty, 3)) {
 			if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty)) {
@@ -166,14 +164,14 @@ class Test extends Sprite {
 			/* else {
 				var mod:Float = 0;
 				var aa = 30 * Math.PI / 180;
-				var ttx = 15 / SCALE * Math.cos(aa);
-				var tty = 15 / SCALE * Math.sin(aa);
+				var ttx = 15 / Manager.SCALE * Math.cos(aa);
+				var tty = 15 / Manager.SCALE * Math.sin(aa);
 				if (!level.isSolid(player.mapPos.x + ttx, player.mapPos.y + tty)) {
 					mod = -0.05;
 				} else {
 					aa = 150 * Math.PI / 180;
-					ttx = 15 / SCALE * Math.cos(aa);
-					tty = 15 / SCALE * Math.sin(aa);
+					ttx = 15 / Manager.SCALE * Math.cos(aa);
+					tty = 15 / Manager.SCALE * Math.sin(aa);
 					if (!level.isSolid(player.mapPos.x + ttx, player.mapPos.y + tty)) {
 						mod = 0.05;
 					}

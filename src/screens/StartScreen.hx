@@ -33,8 +33,10 @@ class StartScreen extends Screen {
 		super.destroy();
 		
 		removeChild(bg);
-		bg.bitmapData.dispose();
-		bg.bitmapData = null;
+		if (bg.bitmapData != null) {
+			bg.bitmapData.dispose();
+			bg.bitmapData = null;
+		}
 		bg = null;
 		
 		button.destroy();

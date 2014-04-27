@@ -48,8 +48,8 @@ class Level {
 		} else {
 			for (i in 0...6) {
 				var angle = i * 2 * Math.PI / 6;
-				var tx = radius / Test.SCALE * Math.cos(angle);
-				var ty = radius / Test.SCALE * Math.sin(angle);
+				var tx = radius / Manager.SCALE * Math.cos(angle);
+				var ty = radius / Manager.SCALE * Math.sin(angle);
 				if (isSolid(x + tx, y + ty))	return true;
 			}
 		}
