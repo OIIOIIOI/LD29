@@ -37,7 +37,6 @@ class Spot {
 		this.x = x;
 		this.y = y;
 		if (type == null)	throw new Error("Unknown spot type");
-		trace("created spot " + type);
 	}
 	
 }

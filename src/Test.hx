@@ -2,6 +2,7 @@ package ;
 
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.display.BlendMode;
 import flash.errors.Error;
 //import flash.display.BlendMode;
 //import flash.display.PixelSnapping;
@@ -36,14 +37,14 @@ class Test extends Sprite {
 	
 	var level:Level;
 	
-	var player:Entity;
+	var player:Player;
 	var radar:Radar;
 	
 	var mat:Matrix;
 	var marks:List<Entity>;
 	var markPoint:Point;
 	
-	//var light:Sprite;
+	var light:Sprite;
 	var lightMask:Sprite;
 	
 	public var beacons(default, null):List<Beacon>;
@@ -98,7 +99,8 @@ class Test extends Sprite {
 		}
 		
 		// Player
-		player = new Entity(level.spawn.x, level.spawn.y, 0xFF0000, 0.8, 15, true);
+		//player = new Entity(level.spawn.x, level.spawn.y, 0xFF0000, 0.8, 15, true);
+		player = new Player(level.spawn.x, level.spawn.y);
 		marks.add(player);
 		
 		radar = new Radar(player.x, player.y);
@@ -132,54 +134,67 @@ class Test extends Sprite {
 	
 	function update (e:Event) {
 		// Rotate and translate world
-		mat.translate(-player.x, -player.y);
 		var dy:Int = 0;
 		var dr:Float = 0;
 		if (KeyboardMan.INST.getState(Keyboard.UP).isDown)		dy = 2;
 		if (KeyboardMan.INST.getState(Keyboard.DOWN).isDown)	dy = -2;
-		if (KeyboardMan.INST.getState(Keyboard.LEFT).isDown)	dr = 3;
-		if (KeyboardMan.INST.getState(Keyboard.RIGHT).isDown)	dr = -3;
-		// Values
-		var dist = dy;
-		var angle = dr * Math.PI / 180;
+		if (KeyboardMan.INST.getState(Keyboard.LEFT).isDown)	dr = 3 * Math.PI / 180;
+		if (KeyboardMan.INST.getState(Keyboard.RIGHT).isDown)	dr = -3 * Math.PI / 180;
 		
-		// Move player
-		rot += angle;
-		// Actual movement
-		var tx = dist / SCALE * Math.cos(rot);
-		var ty = dist / SCALE * Math.sin(rot);
-		
-		// If no collision
-		//if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty, 3)) {
-		if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty)) {
-			// Move player and co
-			player.mapPos.x = radar.mapPos.x = player.mapPos.x - tx;
-			player.mapPos.y = radar.mapPos.y = player.mapPos.y + ty;
-			// Apply translation
-			mat.translate(0, dist);
-		} else {
-			/*var mod:Float = 0;
-			var aa = 30 * Math.PI / 180;
-			var ttx = 15 / SCALE * Math.cos(aa);
-			var tty = 15 / SCALE * Math.sin(aa);
-			if (!level.isSolid(player.mapPos.x + ttx, player.mapPos.y + tty)) {
-				mod = -0.05;
-			} else {
-				aa = 150 * Math.PI / 180;
-				ttx = 15 / SCALE * Math.cos(aa);
-				tty = 15 / SCALE * Math.sin(aa);
-				if (!level.isSolid(player.mapPos.x + ttx, player.mapPos.y + tty)) {
-					mod = 0.05;
-				}
+		// If rotation or movement
+		if (dr != 0 || dy != 0) {
+			mat.translate(-player.x, -player.y);
+		}
+		// If rotation
+		if (dr != 0) {
+			rot += dr;
+		}
+		// If movement
+		if (dy != 0) {
+			var tx = dy / SCALE * Math.cos(rot);
+			var ty = dy / SCALE * Math.sin(rot);
+			// If no collision
+			//if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty, 3)) {
+			if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty)) {
+				// Move player and co
+				player.mapPos.x = radar.mapPos.x = player.mapPos.x - tx;
+				player.mapPos.y = radar.mapPos.y = player.mapPos.y + ty;
+				player.moving = true;
+				// Apply translation
+				mat.translate(0, dy);
 			}
-			rot += mod;
-			angle += mod;*/
+			/* else {
+				var mod:Float = 0;
+				var aa = 30 * Math.PI / 180;
+				var ttx = 15 / SCALE * Math.cos(aa);
+				var tty = 15 / SCALE * Math.sin(aa);
+				if (!level.isSolid(player.mapPos.x + ttx, player.mapPos.y + tty)) {
+					mod = -0.05;
+				} else {
+					aa = 150 * Math.PI / 180;
+					ttx = 15 / SCALE * Math.cos(aa);
+					tty = 15 / SCALE * Math.sin(aa);
+					if (!level.isSolid(player.mapPos.x + ttx, player.mapPos.y + tty)) {
+						mod = 0.05;
+					}
+				}
+				rot += mod;
+				dr += mod;
+			}*/
+			player.moving = true;
+		} else {
+			player.moving = false;
+		}
+		if (dr != 0) {
+			mat.rotate(dr);
+		}
+		if (dr != 0 || dy != 0) {
+			mat.translate(player.x, player.y);
+			canvasData.draw(level.renderData, mat, null, null, canvasData.rect);
 		}
 		
-		// Rotate and draw world anyway
-		mat.rotate(angle);
-		mat.translate(player.x, player.y);
-		canvasData.draw(level.renderData, mat, null, null, canvasData.rect);
+		// Animated entities
+		player.update();
 		
 		// Place beacon
 		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
