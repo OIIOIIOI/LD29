@@ -19,11 +19,12 @@ class Level {
 	public var levelData(default, null):BitmapData;
 	public var renderData(default, null):BitmapData;
 	
+	public var spawn:Point;
+	
 	//public var collData:BitmapData;
 	
 	public function new () {
 		if (TILES == null)	TILES = Assets.getBitmapData("img/tiles.png");
-		//if (TILES == null)	TILES = Assets.getBitmapData("img/tiles_base.png");
 	}
 	
 	public function load (path:String) {
@@ -59,8 +60,23 @@ class Level {
 		var v:Int = 0;
 		for (y in 0...levelData.height) {
 			for (x in 0...levelData.width) {
-				if (levelData.getPixel(x, y) == 0xFFFFFF)	v = 17;
-				else										v = getValue(x, y);
+				v = 17;// Default to walkable tile
+				switch (levelData.getPixel(x, y)) {
+					// Metadatas
+					case 0x00FF00:
+						spawn = new Point((x + 0.5) * GRID_SIZE, (y + 0.5) * GRID_SIZE);
+						trace("spawn");
+					case 0xFF0000:
+						trace("goal");
+					case 0x0000FF, 0x3333FF, 0x6666FF, 0x9999FF, 0xCCCCFF:
+						trace("spot");
+					// Regular terrain
+					case 0xFFFFFF:
+						v = 17;// Ground - Select random variants here
+					default:
+						v = getValue(x, y);// Wall
+				}
+				// Copy pixels
 				r.x = v * GRID_SIZE;
 				p.x = x * GRID_SIZE;
 				p.y = y * GRID_SIZE;

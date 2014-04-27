@@ -3,13 +3,13 @@
 	<!-- NMML reference: https://gist.github.com/1763850 -->
 	
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<meta title="LD29" package="LD29" version="1.0.0" company="01101101" />
+	<meta title="LD29" package="com.m.LD29" version="1.0.0" company="01101101" />
 	
 	<!-- output -->
 	<app main="Main" file="LD29" path="bin" />
 	
 	<window background="#000000" fps="60" />
-	<window width="800" height="500" unless="mobile" />
+	<window width="800" height="600" unless="mobile" />
 	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
 	
 	<!-- classpath, haxe libs -->

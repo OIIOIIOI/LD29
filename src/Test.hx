@@ -2,6 +2,7 @@ package ;
 
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.errors.Error;
 //import flash.display.BlendMode;
 //import flash.display.PixelSnapping;
 import flash.display.Sprite;
@@ -23,6 +24,7 @@ class Test extends Sprite {
 	public static var INST:Test;
 	
 	public static var SCALE:Int = 3;
+	public static var SCREEN_SIZE:Int = 510;
 	
 	static var OFFSET_X:Float;//Spawn offset
 	static var OFFSET_Y:Float;
@@ -63,7 +65,9 @@ class Test extends Sprite {
 		level = new Level();
 		level.load("img/level_demo.png");
 		
-		canvasData = new BitmapData(400, 400, false, 0xFF333333);
+		if (level.spawn == null)	throw new Error('NO SPAWN FOUND');
+		
+		canvasData = new BitmapData(SCREEN_SIZE, SCREEN_SIZE, false, 0xFF333333);
 		
 		canvas = new Bitmap(canvasData);
 		canvas.x = 0;
@@ -75,7 +79,8 @@ class Test extends Sprite {
 		b.x = 400;
 		addChild(b);*/
 		
-		OFFSET_X = OFFSET_Y = -400;
+		OFFSET_X = -level.spawn.x * SCALE + SCREEN_SIZE / 2;
+		OFFSET_Y = -level.spawn.y * SCALE + SCREEN_SIZE / 2;
 		
 		rot = 3 * Math.PI / 2;
 		
@@ -93,7 +98,8 @@ class Test extends Sprite {
 			marks.add(m);
 		}
 		
-		player = new Entity(200, 200, 0xFF0000, 0.8, 15, true);
+		// Player
+		player = new Entity(level.spawn.x, level.spawn.y, 0xFF0000, 0.8, 15, true);
 		marks.add(player);
 		
 		radar = new Radar(player.x, player.y);
@@ -110,7 +116,7 @@ class Test extends Sprite {
 		
 		lightMask = new Sprite();
 		lightMask.graphics.beginFill(0x00FF00, 0.9);
-		lightMask.graphics.drawCircle(canvasData.width / 2, canvasData.height / 2, canvasData.width / 2);
+		lightMask.graphics.drawCircle(SCREEN_SIZE / 2, SCREEN_SIZE / 2, SCREEN_SIZE / 2);
 		lightMask.graphics.endFill();
 		container.mask = lightMask;
 		
@@ -152,7 +158,7 @@ class Test extends Sprite {
 			// Apply translation
 			mat.translate(0, dist);
 		} else {
-			var mod:Float = 0;
+			/*var mod:Float = 0;
 			var aa = 30 * Math.PI / 180;
 			var ttx = 15 / SCALE * Math.cos(aa);
 			var tty = 15 / SCALE * Math.sin(aa);
@@ -167,7 +173,7 @@ class Test extends Sprite {
 				}
 			}
 			rot += mod;
-			angle += mod;
+			angle += mod;*/
 		}
 		
 		// Rotate and draw world anyway
@@ -226,7 +232,7 @@ class Test extends Sprite {
 	}
 	
 	function updateMask () {
-		tick += 0.02;
+		tick += 0.1;
 		var r = canvasData.width / 2 - tick;
 		if (r <= 70) {
 			r = 70;
@@ -234,7 +240,7 @@ class Test extends Sprite {
 		}
 		lightMask.graphics.clear();
 		lightMask.graphics.beginFill(0x00FF00);
-		lightMask.graphics.drawCircle(canvasData.width / 2, canvasData.height / 2, canvasData.width / 2 - tick);
+		lightMask.graphics.drawCircle(SCREEN_SIZE / 2, SCREEN_SIZE / 2, SCREEN_SIZE / 2 - tick);
 		lightMask.graphics.endFill();
 	}
 	
