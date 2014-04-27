@@ -11,11 +11,10 @@ class Screen extends Sprite {
 	
 	public function new () {
 		super();
-		trace("created " + this);
 	}
 	
 	public function destroy () {
-		trace("destroyed " + this);
+		
 	}
 	
 }

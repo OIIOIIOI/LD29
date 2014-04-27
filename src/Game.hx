@@ -14,9 +14,12 @@ import screens.StartScreen;
 
 class Game extends Sprite {
 	
+	public static var INST:Game;
+	
 	var screen:Screen;
 	
 	public function new () {
+		INST = this;
 		super();
 		changeScreen(ScreenName.Start);
 	}
