@@ -179,28 +179,6 @@ class PlayScreen extends Screen {
 				menu.open();
 				KeyboardMan.INST.cancelJustPressed(Keyboard.SPACE);
 			}
-			/*var b:Beacon;
-			// Check if beacon in the vicinity and remove it
-			var removed:Bool = false;
-			for (b in Manager.INST.beacons) {
-				var dx = player.x - b.x;
-				var dy = player.y - b.y;
-				var distB = Math.sqrt(dx * dx + dy * dy);
-				if (distB < 50) {
-					container.removeChild(b);
-					Manager.INST.beacons.remove(b);
-					if (radar.contains(b.arrow))	radar.removeChild(b.arrow);
-					removed = true;
-					break;
-				}
-			}
-			if (!removed) {
-				// Create new one
-				b = new Beacon(player.mapPos.x, player.mapPos.y);
-				Manager.INST.beacons.add(b);
-				container.addChild(b);
-				container.addChild(player);
-			}*/
 		}
 		
 		// Update manager
@@ -211,7 +189,7 @@ class PlayScreen extends Screen {
 	
 	function menuHandler (t:TileType) {
 		switch (t) {
-			case TileType.PlaceBeaconButton, TileType.PickUpBeaconButton:
+			case TileType.BeaconButton:
 				var b:Beacon;
 				// Check if beacon in the vicinity and remove it
 				var removed:Bool = false;
@@ -237,8 +215,27 @@ class PlayScreen extends Screen {
 			case TileType.ViewMapButton:
 				trace("view map");
 			case TileType.DigUpButton:
-				trace("dig up");
+				digUp();
 			default:
+		}
+	}
+	
+	function digUp () {
+		player.mapPos.x = (Std.int(player.mapPos.x / Level.GRID_SIZE) + 0.5) * Level.GRID_SIZE;
+		player.mapPos.y = (Std.int(player.mapPos.y / Level.GRID_SIZE) + 0.5) * Level.GRID_SIZE;
+		Manager.TAP.x = player.mapPos.x;
+		Manager.TAP.y = player.mapPos.y;
+		Manager.TAP = mat.transformPoint(Manager.TAP);
+		player.x = Manager.TAP.x;
+		player.y = Manager.TAP.y;
+		//
+		var p = level.distanceToGoal(player.mapPos.x, player.mapPos.y);
+		if (p.x == 0 && p.y == 0) {
+			trace("AMAZING! PERFECT EXIT! " + p);
+		} else if (p.x <= 2 && p.y <= 2) {
+			trace("YOU MADE IT! " + p);
+		} else {
+			trace("YOU ARE TOTALLY LOST... " + p);
 		}
 	}
 	

@@ -18,11 +18,10 @@ class BitmapTile extends Bitmap {
 		super();
 		this.type = type;
 		var rect = switch (type) {
-			case PlaceBeaconButton:		new Rectangle(128, 16, 16, 16);
-			case PickUpBeaconButton:	new Rectangle(144, 16, 16, 16);
-			case ViewMapButton:			new Rectangle(160, 16, 16, 16);
-			case DigUpButton:			new Rectangle(176, 16, 16, 16);
-			case CloseMenuButton:		new Rectangle(192, 16, 16, 16);
+			case BeaconButton:		new Rectangle(128, 16, 16, 16);
+			case ViewMapButton:		new Rectangle(144, 16, 16, 16);
+			case DigUpButton:		new Rectangle(160, 16, 16, 16);
+			case CloseMenuButton:	new Rectangle(176, 16, 16, 16);
 		}
 		bitmapData = new BitmapData(Std.int(rect.width), Std.int(rect.height), true, 0x00FF00FF);
 		Manager.TAP.setTo(0, 0);
@@ -30,25 +29,23 @@ class BitmapTile extends Bitmap {
 		scaleX = scaleY = 3;
 	}
 	
-	public function switchType (type:TileType) {
+	/*public function switchType (type:TileType) {
 		this.type = type;
 		var rect = switch (type) {
-			case PlaceBeaconButton:		new Rectangle(128, 16, 16, 16);
-			case PickUpBeaconButton:	new Rectangle(144, 16, 16, 16);
-			case ViewMapButton:			new Rectangle(160, 16, 16, 16);
-			case DigUpButton:			new Rectangle(176, 16, 16, 16);
-			case CloseMenuButton:		new Rectangle(192, 16, 16, 16);
+			case BeaconButton:		new Rectangle(128, 16, 16, 16);
+			case ViewMapButton:		new Rectangle(144, 16, 16, 16);
+			case DigUpButton:		new Rectangle(160, 16, 16, 16);
+			case CloseMenuButton:	new Rectangle(176, 16, 16, 16);
 		}
 		bitmapData.fillRect(bitmapData.rect, 0x00FF00FF);
 		Manager.TAP.setTo(0, 0);
 		bitmapData.copyPixels(Game.TILES, rect, Manager.TAP);
-	}
+	}*/
 	
 }
 
 enum TileType {
-	PlaceBeaconButton;
-	PickUpBeaconButton;
+	BeaconButton;
 	ViewMapButton;
 	DigUpButton;
 	CloseMenuButton;

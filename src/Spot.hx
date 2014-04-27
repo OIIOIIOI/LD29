@@ -12,7 +12,12 @@ class Spot {
 	public var y(default, null):Int;
 	public var entity(default, null):Entity;
 	
+	public var cellX(default, null):Int;
+	public var cellY(default, null):Int;
+	
 	public function new (color:UInt, x:Int, y:Int) {
+		cellX = x;
+		cellY = y;
 		type = switch (color) {
 			case 0xCCCCFF:
 				SpotType.Water;
@@ -29,13 +34,13 @@ class Spot {
 			default:
 				null;
 		}
+		this.x = Std.int((x + 0.5) * Level.GRID_SIZE);
+		this.y = Std.int((y + 0.5) * Level.GRID_SIZE);
 		if (type != null && type != SpotType.Goal) {
 			entity = new SoundWave(type);
-			entity.mapPos.x = x;
-			entity.mapPos.y = y;
+			entity.mapPos.x = this.x;
+			entity.mapPos.y = this.y;
 		}
-		this.x = x;
-		this.y = y;
 		if (type == null)	throw new Error("Unknown spot type");
 	}
 	

@@ -37,7 +37,7 @@ class IGMenu extends Sprite {
 		
 		var space = 36;
 		
-		leftButton = new BitmapTile(TileType.PlaceBeaconButton);
+		leftButton = new BitmapTile(TileType.BeaconButton);
 		leftButton.x = -leftButton.width - space;
 		leftButton.y = -leftButton.height / 2;
 		container.addChild(leftButton);
@@ -76,17 +76,14 @@ class IGMenu extends Sprite {
 				open(false);
 			}
 			else if (KeyboardMan.INST.getState(Keyboard.LEFT).justPressed) {
-				trace("beacon");
 				handler(leftButton.type);
 				open(false);
 			}
 			else if (KeyboardMan.INST.getState(Keyboard.UP).justPressed) {
-				trace("dig up");
 				handler(upButton.type);
 				open(false);
 			}
 			else if (KeyboardMan.INST.getState(Keyboard.RIGHT).justPressed) {
-				trace("map");
 				handler(rightButton.type);
 				open(false);
 			}

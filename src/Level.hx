@@ -13,7 +13,7 @@ import openfl.Assets;
 
 class Level {
 	
-	static var GRID_SIZE:Int = 16;
+	public static var GRID_SIZE:Int = 16;
 	
 	public var levelData(default, null):BitmapData;
 	public var renderData(default, null):BitmapData;
@@ -69,9 +69,9 @@ class Level {
 					case 0x00FF00:
 						spawn = new Point((x + 0.5) * GRID_SIZE, (y + 0.5) * GRID_SIZE);
 					case 0xFF0000:
-						goal = new Spot(col, Std.int((x + 0.5) * GRID_SIZE), Std.int((y + 0.5) * GRID_SIZE));
+						goal = new Spot(col, x, y);
 					case 0x0000FF, 0x3333FF, 0x6666FF, 0x9999FF, 0xCCCCFF:
-						spots.add(new Spot(col, Std.int((x + 0.5) * GRID_SIZE), Std.int((y + 0.5) * GRID_SIZE)));
+						spots.add(new Spot(col, x, y));
 					// Regular terrain
 					case 0xFFFFFF:
 						if (Std.random(8) == 0)	v = 18 + Std.random(3);
@@ -125,6 +125,14 @@ class Level {
 		if (levelData.getPixel(x, y + 1) == 0x000000)	n += 4;
 		if (levelData.getPixel(x - 1, y) == 0x000000)	n += 8;
 		return n;
+	}
+	
+	public function distanceToGoal (x:Float, y:Float) :Point {
+		var xx = Std.int(x / GRID_SIZE);
+		var yy = Std.int(y / GRID_SIZE);
+		var dx = Math.abs(xx - goal.cellX);
+		var dy = Math.abs(yy - goal.cellY);
+		return new Point(dx, dy);
 	}
 	
 }
