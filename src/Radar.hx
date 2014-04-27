@@ -18,14 +18,20 @@ class Radar extends Entity {
 	
 	public function update () {
 		var angle:Float;
+		var dist:Float;
 		for (b in Test.INST.beacons) {
-			if (!contains(b.arrow))	addChild(b.arrow);
-			
-			angle = Math.atan2(y - b.y, x - b.x);// * 180 / Math.PI;
-			//TODO distance and scale
+			var dx = x - b.x;
+			var dy = y - b.y;
+			angle = Math.atan2(dy, dx);// * 180 / Math.PI;
+			dist = Math.sqrt(dx * dx + dy * dy);
+			if (dist < 50) {
+				if (contains(b.arrow))	removeChild(b.arrow);
+			} else {
+				if (!contains(b.arrow))	addChild(b.arrow);
+			}
 			
 			var m = new Matrix();
-			m.translate(-30, 0);
+			m.translate(-20, 0);
 			m.rotate(angle);
 			b.arrow.transform.matrix = m;
 		}

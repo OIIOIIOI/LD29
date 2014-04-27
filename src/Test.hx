@@ -159,11 +159,27 @@ class Test extends Sprite {
 		
 		// Place beacon
 		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
-			var b = new Beacon(player.mapPos.x, player.mapPos.y);
-			beacons.add(b);
-			container.addChild(b);
-			container.addChild(player);
-			//container.addChild(light);
+			var b:Beacon;
+			// Check if beacon in the vicinity and remove it
+			var removed:Bool = false;
+			for (b in beacons) {
+				var dx = radar.x - b.x;
+				var dy = radar.y - b.y;
+				var distB = Math.sqrt(dx * dx + dy * dy);
+				if (distB < 50) {
+					container.removeChild(b);
+					beacons.remove(b);
+					removed = true;
+					break;
+				}
+			}
+			if (!removed) {
+				// Create new one
+				b = new Beacon(player.mapPos.x, player.mapPos.y);
+				beacons.add(b);
+				container.addChild(b);
+				container.addChild(player);
+			}
 		}
 		
 		// Radar
