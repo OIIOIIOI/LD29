@@ -1,5 +1,4 @@
 package screens;
-import flash.display.BitmapData;
 import flash.display.Sprite;
 import openfl.Assets;
 
