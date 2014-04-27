@@ -22,8 +22,8 @@ class Level {
 	//public var collData:BitmapData;
 	
 	public function new () {
-		//if (TILES == null)	TILES = Assets.getBitmapData("img/tiles.png");
-		if (TILES == null)	TILES = Assets.getBitmapData("img/tiles_base.png");
+		if (TILES == null)	TILES = Assets.getBitmapData("img/tiles.png");
+		//if (TILES == null)	TILES = Assets.getBitmapData("img/tiles_base.png");
 	}
 	
 	public function load (path:String) {
