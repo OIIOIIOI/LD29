@@ -178,6 +178,7 @@ class PlayScreen extends Screen {
 			Manager.TAP = mat.transformPoint(Manager.TAP);
 			b.x = Manager.TAP.x;
 			b.y = Manager.TAP.y;
+			b.update();
 		}
 		
 		// Radar
