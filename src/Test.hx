@@ -151,7 +151,25 @@ class Test extends Sprite {
 			player.mapPos.y = radar.mapPos.y = player.mapPos.y + ty;
 			// Apply translation
 			mat.translate(0, dist);
+		} else {
+			var mod:Float = 0;
+			var aa = 30 * Math.PI / 180;
+			var ttx = 15 / SCALE * Math.cos(aa);
+			var tty = 15 / SCALE * Math.sin(aa);
+			if (!level.isSolid(player.mapPos.x + ttx, player.mapPos.y + tty)) {
+				mod = -0.05;
+			} else {
+				aa = 150 * Math.PI / 180;
+				ttx = 15 / SCALE * Math.cos(aa);
+				tty = 15 / SCALE * Math.sin(aa);
+				if (!level.isSolid(player.mapPos.x + ttx, player.mapPos.y + tty)) {
+					mod = 0.05;
+				}
+			}
+			rot += mod;
+			angle += mod;
 		}
+		
 		// Rotate and draw world anyway
 		mat.rotate(angle);
 		mat.translate(player.x, player.y);
