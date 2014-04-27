@@ -25,12 +25,14 @@ class PlayScreen extends Screen {
 	var container:Sprite;
 	var canvas:Bitmap;
 	var canvasData:BitmapData;
-	var lightMask:Sprite;
+	var squareMask:Sprite;
 	var light:Light;
 	// Entities
 	var player:Player;
 	var radar:Radar;
 	var marks:List<Entity>;
+	// Menu
+	var menu:IGMenu;
 	
 	var rot:Float;
 	var mat:Matrix;
@@ -82,29 +84,37 @@ class PlayScreen extends Screen {
 		container.addChild(radar);
 		marks.add(radar);
 		
-		lightMask = new Sprite();
-		lightMask.graphics.beginFill(0x00FF00, 0.9);
-		//lightMask.graphics.drawCircle(Manager.SCREEN_SIZE / 2, Manager.SCREEN_SIZE / 2, Manager.SCREEN_SIZE / 2);
-		lightMask.graphics.drawRect(0, 0, Manager.SCREEN_SIZE, Manager.SCREEN_SIZE);
-		lightMask.graphics.endFill();
-		lightMask.x = container.x;
-		lightMask.y = container.y;
-		container.mask = lightMask;
+		squareMask = new Sprite();
+		squareMask.graphics.beginFill(0x00FF00, 0.9);
+		//squareMask.graphics.drawCircle(Manager.SCREEN_SIZE / 2, Manager.SCREEN_SIZE / 2, Manager.SCREEN_SIZE / 2);
+		squareMask.graphics.drawRect(0, 0, Manager.SCREEN_SIZE, Manager.SCREEN_SIZE);
+		squareMask.graphics.endFill();
+		squareMask.x = container.x;
+		squareMask.y = container.y;
+		container.mask = squareMask;
 		
+		// Light
 		light = new Light();
 		light.x = container.x;
 		light.y = container.y;
 		addChild(light);
+		
+		// Menu
+		menu = new IGMenu();
+		addChild(menu);
 	}
 	
 	override public function update () {
 		// Rotate and translate world
 		var dy:Int = 0;
 		var dr:Float = 0;
-		if (KeyboardMan.INST.getState(Keyboard.UP).isDown)		dy = 2;
-		if (KeyboardMan.INST.getState(Keyboard.DOWN).isDown)	dy = -2;
-		if (KeyboardMan.INST.getState(Keyboard.LEFT).isDown)	dr = 3 * Math.PI / 180;
-		if (KeyboardMan.INST.getState(Keyboard.RIGHT).isDown)	dr = -3 * Math.PI / 180;
+		
+		if (!menu.active) {
+			if (KeyboardMan.INST.getState(Keyboard.UP).isDown)		dy = 2;
+			if (KeyboardMan.INST.getState(Keyboard.DOWN).isDown)	dy = -2;
+			if (KeyboardMan.INST.getState(Keyboard.LEFT).isDown)	dr = 3 * Math.PI / 180;
+			if (KeyboardMan.INST.getState(Keyboard.RIGHT).isDown)	dr = -3 * Math.PI / 180;
+		}
 		
 		// If rotation or movement
 		if (dr != 0 || dy != 0) {
@@ -164,6 +174,10 @@ class PlayScreen extends Screen {
 		
 		// Place beacon
 		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
+			/*if (!menu.active) {
+				menu.open();
+				KeyboardMan.INST.cancelJustPressed(Keyboard.SPACE);
+			}*/
 			var b:Beacon;
 			// Check if beacon in the vicinity and remove it
 			var removed:Bool = false;
@@ -190,6 +204,8 @@ class PlayScreen extends Screen {
 		
 		// Update manager
 		Manager.INST.update();
+		
+		menu.update();
 	}
 	
 	override public function destroy () {

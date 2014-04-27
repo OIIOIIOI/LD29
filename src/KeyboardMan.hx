@@ -71,6 +71,13 @@ class KeyboardMan {
 		return keys.get(k);
 	}
 	
+	public function cancelJustPressed (k:Int) {
+		if (!keys.exists(k))	return;
+		var ks = keys.get(k);
+		ks.justPressed = false;
+		keys.set(k, ks);
+	}
+	
 }
 
 typedef KeyState = {

@@ -43,7 +43,7 @@ class Test extends Sprite {
 	var markPoint:Point;
 	
 	var light:Sprite;
-	var lightMask:Sprite;
+	var squareMask:Sprite;
 	
 	public var beacons(default, null):List<Beacon>;
 	
@@ -113,11 +113,11 @@ class Test extends Sprite {
 		//light.blendMode = BlendMode.OVERLAY;
 		//container.addChild(light);
 		
-		lightMask = new Sprite();
-		lightMask.graphics.beginFill(0x00FF00, 0.9);
-		lightMask.graphics.drawCircle(SCREEN_SIZE / 2, SCREEN_SIZE / 2, SCREEN_SIZE / 2);
-		lightMask.graphics.endFill();
-		container.mask = lightMask;
+		squareMask = new Sprite();
+		squareMask.graphics.beginFill(0x00FF00, 0.9);
+		squareMask.graphics.drawCircle(SCREEN_SIZE / 2, SCREEN_SIZE / 2, SCREEN_SIZE / 2);
+		squareMask.graphics.endFill();
+		container.mask = squareMask;
 		
 		mat = new Matrix();
 		mat.scale(Manager.SCALE, Manager.SCALE);
@@ -251,10 +251,10 @@ class Test extends Sprite {
 			r = 70;
 			return;
 		}
-		lightMask.graphics.clear();
-		lightMask.graphics.beginFill(0x00FF00);
-		lightMask.graphics.drawCircle(SCREEN_SIZE / 2, SCREEN_SIZE / 2, SCREEN_SIZE / 2 - tick);
-		lightMask.graphics.endFill();
+		squareMask.graphics.clear();
+		squareMask.graphics.beginFill(0x00FF00);
+		squareMask.graphics.drawCircle(SCREEN_SIZE / 2, SCREEN_SIZE / 2, SCREEN_SIZE / 2 - tick);
+		squareMask.graphics.endFill();
 	}
 	
 }

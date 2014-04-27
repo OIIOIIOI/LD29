@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>LD29</title>
+		
+		<script src="js/swfobject.js"></script>
+		<script>
+			var flashvars = {};
+			var params = {
+				menu: "false",
+				scale: "noScale",
+				allowFullscreen: "true",
+				allowScriptAccess: "always",
+				bgcolor: "",
+				wmode: "direct"
+			};
+			var attributes = {
+				id:"LD29"
+			};
+			swfobject.embedSWF(
+				"LD29.swf",
+				"altContent", "800px", "600px", "11.3.0",
+				"expressInstall.swf",
+				flashvars, params, attributes);
+		</script>
+	</head>
+	<body>
+		<div id="altContent">Loading...</div>
+		<p>In menu: SPACE = Start/Skip</p>
+		<p>In game: SPACE = Drop a beacon/Grab a beacon (if close enough to one)</p>
+	</body>
+</html>
