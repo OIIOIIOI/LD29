@@ -2,6 +2,7 @@ package screens;
 
 import flash.display.Bitmap;
 import flash.Lib;
+import flash.ui.Keyboard;
 import openfl.Assets;
 import screens.Screen;
 
@@ -25,6 +26,12 @@ class IntroScreen extends Screen {
 		
 		button = new Button(next, 0xFF00FF, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
 		addChild(button);
+	}
+	
+	override public function update () {
+		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
+			next();
+		}
 	}
 	
 	function next () {

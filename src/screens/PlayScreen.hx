@@ -188,9 +188,8 @@ class PlayScreen extends Screen {
 			}
 		}
 		
-		// Update managers
+		// Update manager
 		Manager.INST.update();
-		KeyboardMan.INST.update();
 	}
 	
 	override public function destroy () {

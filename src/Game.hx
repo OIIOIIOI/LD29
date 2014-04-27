@@ -27,6 +27,9 @@ class Game extends Sprite {
 		INST = this;
 		TILES = Assets.getBitmapData("img/tiles.png");
 		
+		// Init keyboard manager
+		KeyboardMan.init();
+		
 		changeScreen(ScreenName.Start);
 		
 		addEventListener(Event.ENTER_FRAME, update);
@@ -50,6 +53,7 @@ class Game extends Sprite {
 	
 	function update (e:Event) {
 		screen.update();
+		KeyboardMan.INST.update();
 	}
 	
 }
