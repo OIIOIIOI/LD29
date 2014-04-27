@@ -44,7 +44,7 @@ class RadarArrow extends Sprite {
 	public function new (color:UInt) {
 		super();
 		
-		graphics.lineStyle(1, 0xFFFFFF);
+		graphics.lineStyle(1, 0x000000);
 		graphics.beginFill(color, 0.8);
 		graphics.moveTo(-20, 0);
 		graphics.lineTo(0, 7);
