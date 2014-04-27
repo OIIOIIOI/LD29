@@ -13,9 +13,9 @@ class Screen extends Sprite {
 		super();
 	}
 	
-	public function destroy () {
-		
-	}
+	public function update () { }
+	
+	public function destroy () { }
 	
 }
 

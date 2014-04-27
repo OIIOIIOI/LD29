@@ -17,8 +17,8 @@ class Main extends Sprite {
 		Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;
 		Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
 		
-		//Lib.current.addChild(new Game());
-		Lib.current.addChild(new Test());
+		Lib.current.addChild(new Game());
+		//Lib.current.addChild(new Test());
 	}
 	
 }

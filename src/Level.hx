@@ -14,7 +14,6 @@ import openfl.Assets;
 class Level {
 	
 	static var GRID_SIZE:Int = 16;
-	static var TILES:BitmapData;
 	
 	public var levelData(default, null):BitmapData;
 	public var renderData(default, null):BitmapData;
@@ -26,7 +25,6 @@ class Level {
 	//public var collData:BitmapData;
 	
 	public function new () {
-		if (TILES == null)	TILES = Assets.getBitmapData("img/tiles.png");
 		spots = new List<Spot>();
 	}
 	
@@ -84,7 +82,7 @@ class Level {
 				r.x = v * GRID_SIZE;
 				p.x = x * GRID_SIZE;
 				p.y = y * GRID_SIZE;
-				renderData.copyPixels(TILES, r, p);
+				renderData.copyPixels(Game.TILES, r, p);
 				//
 				if (v == 15) {
 					if (levelData.getPixel(x - 1, y - 1) == 0xFFFFFF) {
@@ -92,28 +90,28 @@ class Level {
 						r2.y = 0;
 						p.x = x * GRID_SIZE;
 						p.y = y * GRID_SIZE;
-						renderData.copyPixels(TILES, r2, p);
+						renderData.copyPixels(Game.TILES, r2, p);
 					}
 					if (levelData.getPixel(x + 1, y - 1) == 0xFFFFFF) {
 						r2.x = 16.5 * GRID_SIZE;
 						r2.y = 0;
 						p.x = (x + 0.5) * GRID_SIZE;
 						p.y = y * GRID_SIZE;
-						renderData.copyPixels(TILES, r2, p);
+						renderData.copyPixels(Game.TILES, r2, p);
 					}
 					if (levelData.getPixel(x - 1, y + 1) == 0xFFFFFF) {
 						r2.x = 16 * GRID_SIZE;
 						r2.y = 0.5 * GRID_SIZE;
 						p.x = x * GRID_SIZE;
 						p.y = (y + 0.5) * GRID_SIZE;
-						renderData.copyPixels(TILES, r2, p);
+						renderData.copyPixels(Game.TILES, r2, p);
 					}
 					if (levelData.getPixel(x + 1, y + 1) == 0xFFFFFF) {
 						r2.x = 16.5 * GRID_SIZE;
 						r2.y = 0.5 * GRID_SIZE;
 						p.x = (x + 0.5) * GRID_SIZE;
 						p.y = (y + 0.5) * GRID_SIZE;
-						renderData.copyPixels(TILES, r2, p);
+						renderData.copyPixels(Game.TILES, r2, p);
 					}
 				}
 			}

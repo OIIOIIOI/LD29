@@ -37,9 +37,9 @@ class Test extends Sprite {
 	
 	var player:Player;
 	var radar:Radar;
+	var marks:List<Entity>;
 	
 	var mat:Matrix;
-	var marks:List<Entity>;
 	var markPoint:Point;
 	
 	var light:Sprite;

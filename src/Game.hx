@@ -1,6 +1,9 @@
 package ;
 
+import flash.display.BitmapData;
 import flash.display.Sprite;
+import flash.events.Event;
+import openfl.Assets;
 import screens.EndScreen;
 import screens.IntroScreen;
 import screens.PlayScreen;
@@ -15,13 +18,18 @@ import screens.StartScreen;
 class Game extends Sprite {
 	
 	public static var INST:Game;
+	public static var TILES:BitmapData;
 	
 	var screen:Screen;
 	
 	public function new () {
-		INST = this;
 		super();
+		INST = this;
+		TILES = Assets.getBitmapData("img/tiles.png");
+		
 		changeScreen(ScreenName.Start);
+		
+		addEventListener(Event.ENTER_FRAME, update);
 	}
 	
 	public function changeScreen (name:ScreenName) {
@@ -38,6 +46,10 @@ class Game extends Sprite {
 			case ScreenName.End: new EndScreen();
 		}
 		addChild(screen);
+	}
+	
+	function update (e:Event) {
+		screen.update();
 	}
 	
 }

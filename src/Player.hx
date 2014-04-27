@@ -27,8 +27,8 @@ class Player extends AnimEntity {
 		addChild(shadow);
 		
 		frames = new Array();
-		frames.push( { rect:new Rectangle(0, 0, 14, 11), duration:15 } );
-		frames.push( { rect:new Rectangle(0, 11, 14, 11), duration:15 } );
+		frames.push( { rect:new Rectangle(0, 32, 14, 11), duration:15 } );
+		frames.push( { rect:new Rectangle(14, 32, 14, 11), duration:15 } );
 		
 		curFrame = 0;
 		

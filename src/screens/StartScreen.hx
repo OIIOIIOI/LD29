@@ -1,6 +1,7 @@
 package screens;
 
 import flash.display.Bitmap;
+import flash.Lib;
 import openfl.Assets;
 import screens.Screen;
 
@@ -20,8 +21,7 @@ class StartScreen extends Screen {
 		bg = new Bitmap(Assets.getBitmapData("img/screen_title.jpg"));
 		addChild(bg);
 		
-		button = new Button(launchIntro, 0xFFFFFF);
-		button.x = button.y = 20;
+		button = new Button(launchIntro, 0xFF00FF, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
 		addChild(button);
 	}
 	

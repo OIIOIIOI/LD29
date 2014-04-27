@@ -23,8 +23,7 @@ class IntroScreen extends Screen {
 		bg = new Bitmap(Assets.getBitmapData("img/screen_intro_" + f + ".jpg"));
 		addChild(bg);
 		
-		button = new Button(next, 0xFF00FF, 0.1, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
-		button.x = button.y = 0;
+		button = new Button(next, 0xFF00FF, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
 		addChild(button);
 	}
 	
@@ -34,7 +33,7 @@ class IntroScreen extends Screen {
 			f++;
 			bg.bitmapData = Assets.getBitmapData("img/screen_intro_" + f + ".jpg");
 		} else {
-			Game.INST.changeScreen(ScreenName.End);
+			Game.INST.changeScreen(ScreenName.Play);
 		}
 	}
 	

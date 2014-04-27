@@ -15,9 +15,11 @@ class KeyboardMan {
 	
 	var keys:Map<Int, KeyState>;
 	
+	public static function init () {
+		INST = new KeyboardMan();
+	}
+	
 	public function new () {
-		INST = this;
-		
 		registerKeys();
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
@@ -31,6 +33,7 @@ class KeyboardMan {
 		keys.set(Keyboard.DOWN,		{isDown:false, justPressed:false, justReleased:false});
 		keys.set(Keyboard.LEFT,		{isDown:false, justPressed:false, justReleased:false});
 		keys.set(Keyboard.SPACE,	{isDown:false, justPressed:false, justReleased:false});
+		//keys.set(Keyboard.ENTER,	{isDown:false, justPressed:false, justReleased:false});
 	}
 	
 	function keyDownHandler (e:KeyboardEvent) {

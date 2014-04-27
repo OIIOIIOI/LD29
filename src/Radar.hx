@@ -13,17 +13,17 @@ class Radar extends Entity {
 	
 	public function new (mapX:Float = 0, mapY:Float = 0) {
 		super(mapX, mapY);
-		
 	}
 	
 	public function update () {
 		var angle:Float;
 		var dist:Float;
-		for (b in Test.INST.beacons) {
+		for (b in Manager.INST.beacons) {
 			var dx = x - b.x;
 			var dy = y - b.y;
 			angle = Math.atan2(dy, dx);// * 180 / Math.PI;
 			dist = Math.sqrt(dx * dx + dy * dy);
+			// Hide arrow if close
 			if (dist < 50) {
 				if (contains(b.arrow))	removeChild(b.arrow);
 			} else {

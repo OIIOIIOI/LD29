@@ -13,7 +13,6 @@ import openfl.Assets;
 
 class AnimEntity extends Entity {
 	
-	public static var SPRITES:BitmapData;
 	static var P:Point = new Point();
 	
 	var frames:Array<Frame>;
@@ -25,7 +24,6 @@ class AnimEntity extends Entity {
 	var tick:Int;
 	
 	public function new (mapX:Float = 0, mapY:Float = 0) {
-		if (SPRITES == null)	SPRITES = Assets.getBitmapData("img/sprites.png");
 		super(mapX, mapY);
 	}
 	
@@ -49,7 +47,7 @@ class AnimEntity extends Entity {
 		} else {
 			bmpData.fillRect(bmpData.rect, 0x00000000);
 		}
-		bmpData.copyPixels(SPRITES, f.rect, P);
+		bmpData.copyPixels(Game.TILES, f.rect, P);
 		tick = frames[curFrame].duration;
 	}
 	

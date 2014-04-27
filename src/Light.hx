@@ -2,6 +2,7 @@ package ;
 
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.display.BlendMode;
 import flash.display.Shape;
 import flash.display.Sprite;
 import flash.filters.BlurFilter;
@@ -14,35 +15,46 @@ import flash.geom.Point;
 
 class Light extends Sprite {
 	
+	var scale:Int = 5;
+	
+	var shape:Shape;
 	var bmpData:BitmapData;
 	var bmp:Bitmap;
 	
 	public function new () {
 		super();
 		
-		var c:Shape = new Shape();
-		c.graphics.beginFill(0x000011);
-		c.graphics.drawRect(0, 0, 100, 100);
-		c.graphics.endFill();
-		c.graphics.beginFill(0xFFFFFF);
-		c.graphics.drawCircle(50, 50, 20);
-		c.graphics.endFill();
+		scale = 5;
 		
-		bmpData = new BitmapData(100, 100, true, 0x00000000);
-		bmpData.draw(c);
-		bmpData.applyFilter(bmpData, bmpData.rect, new Point(), new BlurFilter(30, 30));
+		shape = new Shape();
+		bmpData = new BitmapData(Math.ceil(Manager.SCREEN_SIZE / scale), Math.ceil(Manager.SCREEN_SIZE / scale), true, 0xFF000000);
 		
-		c.graphics.clear();
-		c.graphics.beginFill(0xFFFFFF);
-		c.graphics.drawCircle(50, 50, 20);
-		c.graphics.endFill();
-		bmpData.draw(c);
-		bmpData.applyFilter(bmpData, bmpData.rect, new Point(), new BlurFilter(30, 30));
+		reset();
 		
 		bmp = new Bitmap(bmpData);
-		bmp.scaleX = bmp.scaleY = 4;
+		bmp.blendMode = BlendMode.MULTIPLY;
+		bmp.scaleX = bmp.scaleY = scale;
 		
 		addChild(bmp);
+	}
+	
+	public function reset () {
+		//var size:Float = (4 + Std.random(7)) / 10;
+		var size:Float = 0.9;
+		
+		shape.graphics.clear();
+		shape.graphics.beginFill(0xB36298);//0xB36298//0x663456
+		shape.graphics.drawCircle(Manager.SCREEN_SIZE / 2 / scale, Manager.SCREEN_SIZE / 2 / scale, Manager.SCREEN_SIZE / 2 / scale * size);
+		shape.graphics.endFill();
+		shape.graphics.beginFill(0xFFEFBF);//0xFFEFBF//0xFBE08F
+		shape.graphics.drawCircle(Manager.SCREEN_SIZE / 2 / scale, Manager.SCREEN_SIZE / 2 / scale, Manager.SCREEN_SIZE / 2 / scale * size / 2);
+		shape.graphics.endFill();
+		
+		bmpData.fillRect(bmpData.rect, 0xFF000000);
+		bmpData.draw(shape);
+		Manager.TAP.setTo(0, 0);
+		//bmpData.applyFilter(bmpData, bmpData.rect, Manager.TAP, new BlurFilter(10 * size, 10 * size));
+		bmpData.applyFilter(bmpData, bmpData.rect, Manager.TAP, new BlurFilter(5, 5));
 	}
 	
 }
