@@ -1,5 +1,6 @@
 package ;
 
+import flash.errors.Error;
 import flash.events.KeyboardEvent;
 import flash.Lib;
 import flash.ui.Keyboard;
@@ -16,6 +17,7 @@ class KeyboardMan {
 	var keys:Map<Int, KeyState>;
 	
 	public static function init () {
+		if (INST != null)	throw new Error("KeyboardMan already instanciated");
 		INST = new KeyboardMan();
 	}
 	

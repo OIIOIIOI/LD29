@@ -6,6 +6,7 @@ import flash.display.Sprite;
 import flash.errors.Error;
 import flash.events.Event;
 import flash.geom.Matrix;
+import flash.Lib;
 import flash.ui.Keyboard;
 
 /**
@@ -39,8 +40,6 @@ class PlayScreen extends Screen {
 		
 		// Init gloal manager
 		Manager.init();
-		// Init keyboard manager
-		KeyboardMan.init();
 		
 		// Load level
 		level = new Level();
@@ -51,6 +50,8 @@ class PlayScreen extends Screen {
 		
 		// Init display
 		container = new Sprite();
+		container.x = (Lib.current.stage.stageWidth - Manager.SCREEN_SIZE) / 2;
+		container.y = (Lib.current.stage.stageHeight - Manager.SCREEN_SIZE) / 2;
 		addChild(container);
 		canvasData = new BitmapData(Manager.SCREEN_SIZE, Manager.SCREEN_SIZE, false, 0xFF0080FF);
 		canvas = new Bitmap(canvasData);
@@ -86,6 +87,8 @@ class PlayScreen extends Screen {
 		//lightMask.graphics.drawCircle(Manager.SCREEN_SIZE / 2, Manager.SCREEN_SIZE / 2, Manager.SCREEN_SIZE / 2);
 		lightMask.graphics.drawRect(0, 0, Manager.SCREEN_SIZE, Manager.SCREEN_SIZE);
 		lightMask.graphics.endFill();
+		lightMask.x = container.x;
+		lightMask.y = container.y;
 		container.mask = lightMask;
 		
 		light = new Light();
@@ -139,31 +142,6 @@ class PlayScreen extends Screen {
 		// Animated entities
 		player.update();
 		
-		// Place beacon
-		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
-			var b:Beacon;
-			// Check if beacon in the vicinity and remove it
-			var removed:Bool = false;
-			for (b in Manager.INST.beacons) {
-				var dx = radar.x - b.x;
-				var dy = radar.y - b.y;
-				var distB = Math.sqrt(dx * dx + dy * dy);
-				if (distB < 50) {
-					container.removeChild(b);
-					Manager.INST.beacons.remove(b);
-					removed = true;
-					break;
-				}
-			}
-			if (!removed) {
-				// Create new one
-				b = new Beacon(player.mapPos.x, player.mapPos.y);
-				Manager.INST.beacons.add(b);
-				container.addChild(b);
-				container.addChild(player);
-			}
-		}
-		
 		// Reposition entities
 		for (m in marks) {
 			Manager.TAP.x = m.mapPos.x;
@@ -183,6 +161,32 @@ class PlayScreen extends Screen {
 		
 		// Radar
 		radar.update();
+		
+		// Place beacon
+		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
+			var b:Beacon;
+			// Check if beacon in the vicinity and remove it
+			var removed:Bool = false;
+			for (b in Manager.INST.beacons) {
+				var dx = player.x - b.x;
+				var dy = player.y - b.y;
+				var distB = Math.sqrt(dx * dx + dy * dy);
+				if (distB < 50) {
+					container.removeChild(b);
+					Manager.INST.beacons.remove(b);
+					if (radar.contains(b.arrow))	radar.removeChild(b.arrow);
+					removed = true;
+					break;
+				}
+			}
+			if (!removed) {
+				// Create new one
+				b = new Beacon(player.mapPos.x, player.mapPos.y);
+				Manager.INST.beacons.add(b);
+				container.addChild(b);
+				container.addChild(player);
+			}
+		}
 		
 		// Update managers
 		Manager.INST.update();
