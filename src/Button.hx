@@ -14,7 +14,7 @@ class Button extends Sprite {
 	
 	public var action:Void->Void;
 	
-	public function new (action:Void->Void, ?color:UInt) {
+	public function new (action:Void->Void, ?color:UInt, alpha:Float = 1, w:Int = 50, h:Int = 50) {
 		super();
 		
 		if (action != null) {
@@ -23,8 +23,8 @@ class Button extends Sprite {
 		}
 		
 		if (color != null) {
-			graphics.beginFill(color, 1);
-			graphics.drawRect(0, 0, 50, 50);
+			graphics.beginFill(color, alpha);
+			graphics.drawRect(0, 0, w, h);
 			graphics.endFill;
 		}
 		
@@ -33,6 +33,11 @@ class Button extends Sprite {
 	
 	function clickHandler (e:MouseEvent) {
 		action();
+	}
+	
+	public function destroy () {
+		removeEventListener(MouseEvent.CLICK, clickHandler);
+		action = null;
 	}
 	
 }
