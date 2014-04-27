@@ -20,11 +20,14 @@ class Level {
 	public var renderData(default, null):BitmapData;
 	
 	public var spawn:Point;
+	public var goal:Spot;
+	public var spots:List<Spot>;
 	
 	//public var collData:BitmapData;
 	
 	public function new () {
 		if (TILES == null)	TILES = Assets.getBitmapData("img/tiles.png");
+		spots = new List<Spot>();
 	}
 	
 	public function load (path:String) {
@@ -58,21 +61,22 @@ class Level {
 		var r2 = new Rectangle(0, 0, GRID_SIZE / 2, GRID_SIZE / 2);
 		var p = new Point();
 		var v:Int = 0;
+		var col:UInt;
 		for (y in 0...levelData.height) {
 			for (x in 0...levelData.width) {
 				v = 17;// Default to walkable tile
-				switch (levelData.getPixel(x, y)) {
+				col = levelData.getPixel(x, y);
+				switch (col) {
 					// Metadatas
 					case 0x00FF00:
 						spawn = new Point((x + 0.5) * GRID_SIZE, (y + 0.5) * GRID_SIZE);
-						trace("spawn");
 					case 0xFF0000:
-						trace("goal");
+						goal = new Spot(col, Std.int((x + 0.5) * GRID_SIZE), Std.int((y + 0.5) * GRID_SIZE));
 					case 0x0000FF, 0x3333FF, 0x6666FF, 0x9999FF, 0xCCCCFF:
-						trace("spot");
+						spots.add(new Spot(col, Std.int((x + 0.5) * GRID_SIZE), Std.int((y + 0.5) * GRID_SIZE)));
 					// Regular terrain
 					case 0xFFFFFF:
-						v = 17;// Ground - Select random variants here
+						if (Std.random(8) == 0)	v = 18 + Std.random(3);
 					default:
 						v = getValue(x, y);// Wall
 				}

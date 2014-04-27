@@ -1,9 +1,12 @@
 package ;
+
 import flash.display.GradientType;
 import flash.display.Shape;
 import flash.display.Sprite;
+import flash.errors.Error;
 import flash.events.Event;
 import flash.geom.Matrix;
+import Spot;
 
 /**
  * ...
@@ -18,11 +21,10 @@ class SoundWave extends Entity
 	public var AimedWaveFreq: Int;
 	public var freqMod = 1;
 	private var tick: Int;
-	private var waveType:Wavetype;
+	private var waveType:SpotType;
 	private var displayed:Bool;
 	
-	
-	public function new(type:Wavetype) 
+	public function new(type:SpotType) 
 	{
 		super();
 		displayed = false;
@@ -34,18 +36,28 @@ class SoundWave extends Entity
 		var Gmatrix:Matrix = new Matrix();
 		var colorsetup: Array<UInt>;
 		switch(waveType) {
-			case Wavetype.RED:
+			case SpotType.Train:
 				colorsetup = [0xFFAAAA,0xAA0000];
 				waveRange = AimedWaveRange = 50;
 				waveFreq = AimedWaveFreq = 12;
-			case Wavetype.BLUE:
+			case SpotType.Water:
 				colorsetup = [0xAAAAFF,0x0000AA];
 				waveRange = AimedWaveRange = 75;
 				waveFreq = AimedWaveFreq = 10;
-			case Wavetype.GREEN:
+			case SpotType.Church:
 				colorsetup = [0xAAFFAA,0x00AA00];
 				waveRange = AimedWaveRange = 100;
 				waveFreq = AimedWaveFreq = 8;
+			case SpotType.Factory:
+				colorsetup = [0xAAFFAA,0x00AA00];
+				waveRange = AimedWaveRange = 100;
+				waveFreq = AimedWaveFreq = 8;
+			case SpotType.Sheep:
+				colorsetup = [0xAAFFAA,0x00AA00];
+				waveRange = AimedWaveRange = 100;
+				waveFreq = AimedWaveFreq = 8;
+			default:
+				throw new Error("Invalid SpotType");
 		}
 		tick = waveFreq * 10;
 		Gmatrix.createGradientBox(waveRange * 2, waveRange * 2, 0, -waveRange, -waveRange);
@@ -101,9 +113,4 @@ class SoundWave extends Entity
 			tick = 0;
 		}
 	}
-}
-enum Wavetype {
-	RED;
-	BLUE;
-	GREEN;
 }

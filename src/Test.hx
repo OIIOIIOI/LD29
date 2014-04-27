@@ -12,7 +12,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
 import openfl.Assets;
-import SoundWave;
+import Spot;
 
 /**
  * ...
@@ -89,13 +89,12 @@ class Test extends Sprite {
 		marks = new List();
 		beacons = new List();
 		
-		var m:SoundWave;
-		for (i in 0...8) {
-			m = new SoundWave(Wavetype.BLUE);
-			m.mapPos.x = Std.random(400);
-			m.mapPos.y = Std.random(400);
-			container.addChild(m);
-			marks.add(m);
+		// Display spots soundwaves
+		for (s in level.spots) {
+			if (s.entity != null) {
+				container.addChild(s.entity);
+				marks.add(s.entity);
+			}
 		}
 		
 		// Player
@@ -151,7 +150,8 @@ class Test extends Sprite {
 		var ty = dist / SCALE * Math.sin(rot);
 		
 		// If no collision
-		if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty, 3)) {
+		//if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty, 3)) {
+		if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty)) {
 			// Move player and co
 			player.mapPos.x = radar.mapPos.x = player.mapPos.x - tx;
 			player.mapPos.y = radar.mapPos.y = player.mapPos.y + ty;
@@ -232,7 +232,7 @@ class Test extends Sprite {
 	}
 	
 	function updateMask () {
-		tick += 0.1;
+		tick += 0.01;
 		var r = canvasData.width / 2 - tick;
 		if (r <= 70) {
 			r = 70;
