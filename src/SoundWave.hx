@@ -43,10 +43,10 @@ class SoundWave extends Entity
 			case SpotType.Train:
 				colorsetup = [0xA99280, 0xA99280];
 				pulseLife = 25;
-				pulseNumber = 2;
-				pulseInterval = 5;
-				cycleDuration = 60;
-				waveRange = 100;
+				pulseNumber = 4;
+				pulseInterval = 10;
+				cycleDuration = 200;
+				waveRange = 200;
 				pulseSize = 0.2;
 				centerSymbol = new BitmapTile(IconTrain, Game.TILES, 2);
 				centerSymbol.x = -centerSymbol.width / 2;
@@ -54,10 +54,10 @@ class SoundWave extends Entity
 				addChild(centerSymbol);
 			case SpotType.Water:
 				colorsetup = [0x008BFF,0x008BFF];
-				pulseLife = 25;
+				pulseLife = 75;
 				pulseNumber = 1;
 				cycleDuration = 100;
-				waveRange = 25;
+				waveRange = 50;
 				pulseSize = 0.3;
 				centerSymbol = new BitmapTile(IconWater, Game.TILES, 2);
 				centerSymbol.x = -centerSymbol.width / 2;
@@ -65,22 +65,23 @@ class SoundWave extends Entity
 				addChild(centerSymbol);
 			case SpotType.Church:
 				colorsetup = [0xCB9A6E,0xCB9A6E];
-				pulseLife = 50;
-				pulseNumber = 1;
+				pulseLife = 40;
+				pulseNumber = 5;
+				pulseInterval = 2;
 				cycleDuration = 100;
-				waveRange = 50;
-				pulseSize = 0.8;
+				waveRange = 450;
+				pulseSize = 0.3;
 				centerSymbol = new BitmapTile(IconChurch, Game.TILES, 2);
 				centerSymbol.x = -centerSymbol.width / 2;
 				centerSymbol.y = -centerSymbol.height / 2;
 				addChild(centerSymbol);
 			case SpotType.Sawmill:
 				colorsetup = [0x767676,0x767676];
-				pulseLife = 50;
+				pulseLife = 25;
 				pulseNumber = 4;
-				pulseInterval = 5;
-				cycleDuration = 120;
-				waveRange = 50;
+				pulseInterval = 25;
+				cycleDuration = 150;
+				waveRange = 150;
 				pulseSize = 0.5;
 				centerSymbol = new BitmapTile(IconSawmill, Game.TILES, 2);
 				centerSymbol.x = -centerSymbol.width / 2;
@@ -88,11 +89,10 @@ class SoundWave extends Entity
 				addChild(centerSymbol);
 			case SpotType.Sheep:
 				colorsetup = [0xE7E5E5,0xE7E5E5];
-				pulseLife = 50;
-				pulseNumber = 2;
-				pulseInterval = 10;
-				cycleDuration = 110;
-				waveRange = 50;
+				pulseLife = 125;
+				pulseNumber = 1;
+				cycleDuration = 600;
+				waveRange = 100;
 				pulseSize = 0.4;
 				centerSymbol = new BitmapTile(IconSheep, Game.TILES, 2);
 				centerSymbol.x = -centerSymbol.width / 2;

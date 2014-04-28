@@ -46,7 +46,7 @@ class PlayScreen extends Screen {
 		
 		// Load level
 		level = new Level();
-		level.load("img/level_demo.png");
+		level.load("img/map1.png");
 		if (level.spawn == null)	throw new Error('NO SPAWN FOUND');
 		OFFSET_X = -level.spawn.x * Manager.SCALE + Manager.SCREEN_SIZE / 2;
 		OFFSET_Y = -level.spawn.y * Manager.SCALE + Manager.SCREEN_SIZE / 2;
