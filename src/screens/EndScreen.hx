@@ -30,13 +30,13 @@ class EndScreen extends Screen {
 		addChild(bg);
 		
 		// Title
-		titleText = new Text(58, true, Manager.COl_ORANGE, 600, !Manager.INST.win);
+		titleText = new Text(58, true, Manager.COl_GREY, 600, !Manager.INST.win);
 		if (Manager.INST.win) {
 			SoundMan.play(Track.WinTrack, false);
 			if (Manager.INST.perfect)	titleText.text = "PERFECT!";
 			else						titleText.text = "WELL DONE!";
-			titleText.x = 20;
-			titleText.y = 230;
+			titleText.x = 40;
+			titleText.y = 300;
 		} else {
 			SoundMan.play(Track.LoseTrack, false);
 			titleText.text = "GAME OVER";
@@ -46,7 +46,7 @@ class EndScreen extends Screen {
 		addChild(titleText);
 		
 		// Caption
-		captionText = new Text(28, false, Manager.COl_GREY, 600, !Manager.INST.win);
+		captionText = new Text(28, true, Manager.COl_LIGHT_GREY, 600, !Manager.INST.win);
 		if (Manager.INST.win) {
 			if (Manager.INST.perfect)	captionText.text = "You were right on the spot";
 			else						captionText.text = "You surfaced near the treasure";
