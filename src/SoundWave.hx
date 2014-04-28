@@ -58,7 +58,7 @@ class SoundWave extends Entity
 			case SpotType.Church:	140;
 			default:				0;
 		}
-		sndTransform = new SoundTransform();
+		sndTransform = new SoundTransform(0);
 		
 		displayed = false;
 		waveType = type;
@@ -72,7 +72,6 @@ class SoundWave extends Entity
 	}
 	
 	public function updateSnd (vol:Float) {
-		if (vol > 0)	trace(name + " - " + waveType + ": " + vol);
 		sndTransform.volume = vol;
 		if (sndChannel != null) sndChannel.soundTransform = sndTransform;
 	}
@@ -142,8 +141,8 @@ class SoundWave extends Entity
 				throw new Error("Invalid SpotType");
 		}
 		pulseList = new List();
+		playSnd();
 		addEventListener(Event.ADDED_TO_STAGE, function(e:Event) { displayed = true;} );
-		addEventListener(Event.ENTER_FRAME, update);
 	}
 	
 	private function drawPulse(p:Particle, range:Int, ringSize:Float) {
@@ -161,7 +160,8 @@ class SoundWave extends Entity
 		p.scaleYMod = Math.pow(1/p.scaleX, 1/p.totalLife);*/
 	}
 	
-	public function update(e:Event) {
+	override public function update() {
+		super.update();
 		cycleProgress++;
 		if (!displayed) {
 			return;

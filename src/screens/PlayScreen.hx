@@ -154,9 +154,6 @@ class PlayScreen extends Screen {
 			canvasData.draw(level.renderData, mat, null, null, canvasData.rect);
 		}
 		
-		// Animated entities
-		player.update();
-		
 		// Reposition entities
 		for (m in marks) {
 			Manager.TAP.x = m.mapPos.x;
@@ -164,6 +161,7 @@ class PlayScreen extends Screen {
 			Manager.TAP = mat.transformPoint(Manager.TAP);
 			m.x = Manager.TAP.x;
 			m.y = Manager.TAP.y;
+			m.update();
 		}
 		for (b in Manager.INST.beacons) {
 			Manager.TAP.x = b.mapPos.x;
@@ -173,9 +171,6 @@ class PlayScreen extends Screen {
 			b.y = Manager.TAP.y;
 			b.update();
 		}
-		
-		// Radar
-		radar.update();
 		
 		// Place beacon
 		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {

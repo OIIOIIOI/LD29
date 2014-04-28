@@ -15,7 +15,8 @@ class Radar extends Entity {
 		super(mapX, mapY);
 	}
 	
-	public function update () {
+	override public function update () {
+		super.update();
 		var angle:Float;
 		var dist:Float;
 		for (b in Manager.INST.beacons) {

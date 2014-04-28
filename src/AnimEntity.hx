@@ -27,7 +27,8 @@ class AnimEntity extends Entity {
 		super(mapX, mapY);
 	}
 	
-	public function update () {
+	override public function update () {
+		super.update();
 		if (frames == null || frames.length <= 1 || tick <= 0)	return;
 		tick--;
 		if (tick == 0) {

@@ -26,4 +26,8 @@ class Entity extends Sprite {
 		}
 	}
 	
+	public function update () {
+		//trace(name + " update");
+	}
+	
 }
