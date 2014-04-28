@@ -53,7 +53,7 @@ class SoundWave extends Entity
 		sndRange = switch (type) {
 			case SpotType.Water:	20;
 			case SpotType.Train:	55;
-			case SpotType.Sawmill:	50;
+			case SpotType.Sawmill:	45;
 			case SpotType.Sheep:	37;
 			case SpotType.Church:	140;
 			default:				0;
