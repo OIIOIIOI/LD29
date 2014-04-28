@@ -5,7 +5,7 @@ import flash.geom.Point;
 import flash.text.Font;
 import openfl.Assets;
 import screens.Screen;
-import screens.TreasureMap;
+import TreasureMap;
 
 /**
  * ...
@@ -27,7 +27,7 @@ class Manager {
 	public static var COl_ORANGE:UInt = 0xC71800;
 	public static var COl_GREY:UInt = 0x59573C;
 	
-	static var SIZE_DELAY:Int = 100;// Delay between light size reductions
+	static var SIZE_DELAY:Int = 180;// Delay between light size reductions
 	
 	public var map:TreasureMap;
 	public var beacons(default, null):List<Beacon>;

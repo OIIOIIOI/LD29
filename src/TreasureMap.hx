@@ -1,4 +1,4 @@
-package screens;
+package ;
 
 import BitmapTile;
 import flash.display.Bitmap;
@@ -60,7 +60,8 @@ class TreasureMap extends Sprite {
 		maxX = goal.cellX;
 		minY = goal.cellY;
 		maxY = goal.cellY;
-		for (i in difficulty...(difficulty + 4)) {
+		//for (i in difficulty...(difficulty + 4)) {
+		for (i in 0...spots.length) {
 			// Min/max
 			minX = Std.int(Math.min(minX, spots[i].cellX));
 			maxX = Std.int(Math.max(maxX, spots[i].cellX));
@@ -75,7 +76,8 @@ class TreasureMap extends Sprite {
 		// TODO: should be possible to detect if exit is off the map by reverting maxX, maxY and checking against them
 		//
 		var spotItem:BitmapTile;
-		for (i in difficulty...(difficulty + 4)) {
+		//for (i in difficulty...(difficulty + 4)) {
+		for (i in 0...spots.length) {
 			// Display spot
 			spotItem = switch (spots[i].type) {
 				case SpotType.Church:	new BitmapTile(TileType.MapChurch, ITEMS);

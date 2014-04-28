@@ -5,7 +5,7 @@ import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import openfl.Assets;
-import screens.TreasureMap;
+import TreasureMap;
 
 /**
  * ...
