@@ -23,7 +23,7 @@ class Game extends Sprite {
 	public static var TILES:BitmapData;
 	
 	var screen:Screen;
-	var cross:Shape;
+	//var cross:Shape;
 	
 	public function new () {
 		super();
@@ -36,13 +36,13 @@ class Game extends Sprite {
 		// Init gloal manager
 		Manager.init();
 		
-		cross = new Shape();
-		cross.graphics.beginFill(0xFFFFFF, 0.2);
-		cross.graphics.drawRect(Lib.current.stage.stageWidth / 2 - 2, 0, 4, Lib.current.stage.stageHeight);
-		cross.graphics.drawRect(0, Lib.current.stage.stageHeight / 2 - 2, Lib.current.stage.stageWidth, 4);
-		cross.graphics.endFill();
+		//cross = new Shape();
+		//cross.graphics.beginFill(0xFFFFFF, 0.2);
+		//cross.graphics.drawRect(Lib.current.stage.stageWidth / 2 - 2, 0, 4, Lib.current.stage.stageHeight);
+		//cross.graphics.drawRect(0, Lib.current.stage.stageHeight / 2 - 2, Lib.current.stage.stageWidth, 4);
+		//cross.graphics.endFill();
 		
-		changeScreen(ScreenName.Play);
+		changeScreen(ScreenName.Start);
 		
 		addEventListener(Event.ENTER_FRAME, update);
 	}
@@ -61,7 +61,7 @@ class Game extends Sprite {
 			case ScreenName.End: new EndScreen();
 		}
 		addChild(screen);
-		addChild(cross);
+		//addChild(cross);
 		// Reset focus
 		Lib.current.stage.focus = null;
 	}
