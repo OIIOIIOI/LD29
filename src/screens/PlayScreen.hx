@@ -89,7 +89,6 @@ class PlayScreen extends Screen {
 		
 		squareMask = new Sprite();
 		squareMask.graphics.beginFill(0x00FF00, 0.9);
-		//squareMask.graphics.drawCircle(Manager.SCREEN_SIZE / 2, Manager.SCREEN_SIZE / 2, Manager.SCREEN_SIZE / 2);
 		squareMask.graphics.drawRect(0, 0, Manager.SCREEN_SIZE, Manager.SCREEN_SIZE);
 		squareMask.graphics.endFill();
 		squareMask.x = container.x;
@@ -105,11 +104,15 @@ class PlayScreen extends Screen {
 		// Menu
 		menu = new IGMenu(menuHandler);
 		addChild(menu);
+		
+		/*var coll = new Bitmap(level.collData);
+		coll.scaleX = coll.scaleY = 5;
+		addChild(coll);*/
 	}
 	
 	override public function update () {
 		// Rotate and translate world
-		var dy:Int = 0;
+		var dy:Float = 0;
 		var dr:Float = 0;
 		
 		if (!menu.active && !level.map.active) {
@@ -121,7 +124,7 @@ class PlayScreen extends Screen {
 		
 		// If rotation or movement
 		if (dr != 0 || dy != 0) {
-			mat.translate(-player.x, -player.y);
+			mat.translate( -player.x, -player.y);
 		}
 		// If rotation
 		if (dr != 0) {
@@ -131,12 +134,18 @@ class PlayScreen extends Screen {
 		if (dy != 0) {
 			var tx = dy / Manager.SCALE * Math.cos(rot);
 			var ty = dy / Manager.SCALE * Math.sin(rot);
-			// If no collision
-			if (!level.isSolid(player.mapPos.x - tx, player.mapPos.y + ty)) {
+			
+			if (level.isSolid(player.mapPos.x - tx, player.mapPos.y))	tx = 0;
+			if (level.isSolid(player.mapPos.x, player.mapPos.y + ty))	ty = 0;
+			
+			if (tx != 0 || ty != 0) {
 				// Move player and co
 				player.mapPos.x = radar.mapPos.x = player.mapPos.x - tx;
 				player.mapPos.y = radar.mapPos.y = player.mapPos.y + ty;
 				player.moving = true;
+				// Apply corrections
+				//if (dy < 0)		dy = -Math.sqrt(tx * tx + ty * ty) * Manager.SCALE;
+				//else			dy = Math.sqrt(tx * tx + ty * ty) * Manager.SCALE;
 				// Apply translation
 				mat.translate(0, dy);
 				// Update sounds
@@ -171,6 +180,11 @@ class PlayScreen extends Screen {
 			b.y = Manager.TAP.y;
 			b.update();
 		}
+		
+		// Fix collision offset
+		var diffX = Manager.SS_HALF - player.x;
+		var diffY = Manager.SS_HALF - player.y;
+		mat.translate(diffX, diffY);
 		
 		// Place beacon
 		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
