@@ -9,6 +9,7 @@
 body{
 	margin: 0px;
 	background-image: url('./images/bg.png');
+	font-family: 'Amatic SC', 'cursive';
 }
 
 /*Alignement par le dessus par défaut pour les div en mode inline et inline-block*/
@@ -50,23 +51,23 @@ a:focus{
 	height: 900px;
 	width: 900px;
 	margin: 0 auto;
-	padding-top: 10px;
+	padding-top: 20px;
 	background-color: #dbc89e;
 	box-shadow: 0px 0px 25px 0px #000000;
 }
 #header{
 	position: relative;
-	height: 80px;
+	height: 120px;
 	width: 100%;
 	padding-left: 40px;
-	background-color: #36280B;
-	line-height: 80px;
-	font-family: 'Amatic SC', 'cursive';
+	background-image: url('./images/headerBg.png');
+	line-height: 120px;
+	font-size: 30px;
 	color: white;
-	box-shadow: 
+	box-shadow: 0px 0px 25px -5px #000000 inset;
 }
 #header span{
-	font-size: 50px;
+	font-size: 80px;
 	text-shadow: 5px 5px 3px #222222;
 }
 
@@ -79,5 +80,19 @@ a:focus{
 	width: 552px;
 	height: 465px;
 	background-image: url('./images/tutoBrief.png');
+}
+#playBtn{
+	position: relative;
+	width: 150px;
+	height: 80px;
+	margin: 0 auto;
+	background-color: #54361b;
+	line-height: 80px;
+	font-size: 50px;
+	text-align: center;
+	color: white;
+	text-shadow: 5px 5px 3px #222222;
+	box-shadow: 5px 5px 10px -5px #000000;
+	cursor: pointer;
 }
 

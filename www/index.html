@@ -11,6 +11,9 @@
 			var game = $.flash.create({swf: '../bin/flash/bin/LD29.swf',height: 600,width: 800});
 			$(document).ready(function(){
 				$('#altContent').html(game);
+				$('#playBtn').click(function(){
+					$('#gameOverlay').css("visibility","visible");
+				});
 			})
 		</script>
 	</head>
@@ -24,8 +27,7 @@
 			</div>
 			<div id="Aide"></div>
 			<div id="tutoIllu"></div>
-			<p>In menu: SPACE = Start/Skip</p>
-			<p>In game: SPACE = Drop a beacon/Grab a beacon (if close enough to one)</p>
+			<div id="playBtn">Let's go!</div>
 		</div>
 	</body>
 </html>
