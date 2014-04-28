@@ -31,6 +31,10 @@ class BitmapTile extends Bitmap {
 			case MapFactory:		new Rectangle(184, 0, 23, 50);
 			//
 			case IconWater:			new Rectangle(1, 17, 8, 14);
+			case IconChurch:		new Rectangle(11, 17, 13, 13);
+			case IconFactory:		new Rectangle(26, 17, 14, 14);
+			case IconSheep:			new Rectangle(42, 17, 13, 14);
+			case IconTrain:			new Rectangle(57, 17, 18, 12);
 		}
 		bitmapData = new BitmapData(Std.int(rect.width), Std.int(rect.height), true, 0x00FF00FF);
 		Manager.TAP.setTo(0, 0);
@@ -54,6 +58,10 @@ enum TileType {
 	MapFactory;
 	//
 	IconWater;
+	IconChurch;
+	IconFactory;
+	IconSheep;
+	IconTrain;
 }
 
 
