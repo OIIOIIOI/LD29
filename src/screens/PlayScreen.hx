@@ -9,7 +9,9 @@ import flash.events.Event;
 import flash.geom.Matrix;
 import flash.Lib;
 import flash.ui.Keyboard;
-import screens.Screen.ScreenName;
+import haxe.Timer;
+import Player;
+import screens.Screen;
 
 /**
  * ...
@@ -232,18 +234,27 @@ class PlayScreen extends Screen {
 		player.x = Manager.TAP.x;
 		player.y = Manager.TAP.y;
 		//
+		player.setAnim(PlayerAnim.Dig);
+		Timer.delay(digUpEnded, 3000);
+	}
+	
+	function digUpEnded () {
 		var p = level.distanceToGoal(player.mapPos.x, player.mapPos.y);
 		level.map.showPlayer(level.distanceToGoal(player.mapPos.x, player.mapPos.y, false));
+		var anim = PlayerAnim.Lose;
 		if (p.x == 0 && p.y == 0) {
-			//trace("AMAZING! PERFECT EXIT! " + p);
 			Manager.INST.win = true;
 			Manager.INST.perfect = true;
+			anim = PlayerAnim.Win;
 		} else if (p.x <= 2 && p.y <= 2) {
-			//trace("YOU MADE IT! " + p);
 			Manager.INST.win = true;
-		} else {
-			//trace("YOU ARE TOTALLY LOST... " + p);
+			anim = PlayerAnim.Win;
 		}
+		//
+		player.setAnim(anim);
+		Timer.delay(digReactionEnded, 2000);
+	}
+	function digReactionEnded () {
 		Manager.INST.map = level.map;
 		Game.INST.changeScreen(ScreenName.End);
 	}

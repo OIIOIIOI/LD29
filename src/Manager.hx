@@ -57,9 +57,9 @@ class Manager {
 	
 	public function update () {
 		tick++;
-		if (tick % SIZE_DELAY == 0 && lightSize > 0.4) {
-			lightSize -= 0.01;
-		}
+		//if (tick % SIZE_DELAY == 0 && lightSize > 0.4) {
+			//lightSize -= 0.01;
+		//}
 	}
 	
 	public function destroy () {

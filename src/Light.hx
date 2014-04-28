@@ -44,8 +44,11 @@ class Light extends Sprite {
 		if (size != Manager.INST.lightSize) {
 			size = Manager.INST.lightSize;
 			reset();
-			
 		}
+	}
+	
+	public function surface () {
+		
 	}
 	
 	public function reset () {
