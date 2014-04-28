@@ -40,10 +40,26 @@ a:focus{
 	text-align: center;
 	background-color: rgba(0,0,0,0.5);
 	visibility: hidden;
+	color: white;
+	text-decoration: underline;
+	font-size: 25px;
+	text-shadow: 3px 3px 3px #552200;
+}
+#exit{
+	position: relative;
+	margin: 0 auto;
+	cursor: pointer;
+	background-color: #54361b;
+	height: 40px;
+	line-height: 40px;
+	width: 130px;
+	box-shadow: 5px 5px 10px -5px #000000;
 }
 #altContent{
 	position: relative;
 	margin: 0 auto;
+	box-shadow: 5px 5px 10px -5px #000000;
+	margin-bottom: 20px;
 }
 #content{
 	position: relative;
@@ -60,6 +76,7 @@ a:focus{
 	height: 120px;
 	width: 100%;
 	padding-left: 40px;
+	margin-bottom: 40px;
 	background-image: url('./images/headerBg.png');
 	line-height: 120px;
 	font-size: 30px;
@@ -72,17 +89,27 @@ a:focus{
 }
 
 #Aide{
-
+	position: relative;
+	top: px;
+	left: 160px;
+	font-size: 70px;
+	line-height: 75px;
+	color: #54361b;
+}
+#Aide{
+	width: 3em;
 }
 #tutoIllu{
 	position: relative;
 	left: -85px;
+	top: -220px;
 	width: 552px;
 	height: 465px;
 	background-image: url('./images/tutoBrief.png');
 }
 #playBtn{
 	position: relative;
+	top: -200px;
 	width: 150px;
 	height: 80px;
 	margin: 0 auto;
@@ -95,4 +122,23 @@ a:focus{
 	box-shadow: 5px 5px 10px -5px #000000;
 	cursor: pointer;
 }
-
+#rateBtn{
+	position: relative;
+	width: 80px;
+	height: 40px;
+	top: -180px;
+	margin: 0 auto;
+	background-color: #54361b;
+	line-height: 40px;
+	font-size: 25px;
+	text-align: center;
+	color: white;
+	text-shadow: 5px 5px 3px #222222;
+	box-shadow: 5px 5px 10px -5px #000000;
+	cursor: pointer;
+	transition: 0.5 ease;
+}
+#playBtn:hover, #rateBtn:hover{
+	background-color: #9E8169;
+	transition: background-color 0.5 ease;
+}
