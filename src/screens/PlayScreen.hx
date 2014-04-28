@@ -9,6 +9,7 @@ import flash.events.Event;
 import flash.geom.Matrix;
 import flash.Lib;
 import flash.ui.Keyboard;
+import screens.Screen.ScreenName;
 
 /**
  * ...
@@ -41,8 +42,7 @@ class PlayScreen extends Screen {
 	public function new () {
 		super();
 		
-		// Init gloal manager
-		Manager.init();
+		Manager.INST.reset();
 		
 		// Load level
 		level = new Level();
@@ -233,10 +233,13 @@ class PlayScreen extends Screen {
 		var p = level.distanceToGoal(player.mapPos.x, player.mapPos.y);
 		if (p.x == 0 && p.y == 0) {
 			trace("AMAZING! PERFECT EXIT! " + p);
+			Game.INST.changeScreen(ScreenName.Win);
 		} else if (p.x <= 2 && p.y <= 2) {
 			trace("YOU MADE IT! " + p);
+			Game.INST.changeScreen(ScreenName.Win);
 		} else {
 			trace("YOU ARE TOTALLY LOST... " + p);
+			Game.INST.changeScreen(ScreenName.Lose);
 		}
 	}
 	
@@ -253,7 +256,6 @@ class PlayScreen extends Screen {
 	
 	override public function destroy () {
 		super.destroy();
-		Manager.INST.destroy();
 	}
 	
 }

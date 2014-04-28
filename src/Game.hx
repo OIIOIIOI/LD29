@@ -30,6 +30,9 @@ class Game extends Sprite {
 		// Init keyboard manager
 		KeyboardMan.init();
 		
+		// Init gloal manager
+		Manager.init();
+		
 		changeScreen(ScreenName.Start);
 		
 		addEventListener(Event.ENTER_FRAME, update);
@@ -46,7 +49,8 @@ class Game extends Sprite {
 			case ScreenName.Start: new StartScreen();
 			case ScreenName.Intro: new IntroScreen();
 			case ScreenName.Play: new PlayScreen();
-			case ScreenName.End: new EndScreen();
+			case ScreenName.Win: new EndScreen(true);
+			case ScreenName.Lose: new EndScreen();
 		}
 		addChild(screen);
 	}

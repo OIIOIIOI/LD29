@@ -45,6 +45,8 @@ class EndScreen extends Screen {
 		button.destroy();
 		removeChild(button);
 		button = null;
+		
+		Manager.INST.destroy();
 	}
 	
 }

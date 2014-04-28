@@ -1,5 +1,6 @@
 package ;
 
+import flash.errors.Error;
 import flash.geom.Point;
 import screens.Screen;
 
@@ -20,10 +21,15 @@ class Manager {
 	public var tick(default, null):Int;
 	
 	public static function init () {
+		if (INST != null)	throw new Error("Manager already instanciated");
 		INST = new Manager();
 	}
 	
 	public function new () {
+		
+	}
+	
+	public function reset () {
 		beacons = new List<Beacon>();
 		tick = 0;
 	}
@@ -33,8 +39,6 @@ class Manager {
 	}
 	
 	public function destroy () {
-		INST = null;
-		
 		beacons = null;
 	}
 	
