@@ -7,20 +7,23 @@
 		<script src="js/jquery-1.10.2.js"></script>
 		<script src="js/jquery-ui-1.10.4.custom.js"></script>
 		<script src="js/jquery.swfobject.1-1-1.min.js"></script>
+		<script>
+			var game = $.flash.create({swf: '../bin/flash/bin/LD29.swf',height: 600,width: 800});
+			$(document).ready(function(){
+				$('#altContent').html(game);
+			})
+		</script>
 	</head>
-	<body onload="">
+	<body>
+		<div id="gameOverlay">
+			<div id="altContent">Loading...</div>
+		</div>
 		<div id="content">
 			<div id="mobileheader">
 				<h1>BILLY BIGDIGGER</h1>
 			</div>
-			<script>
-				$(document).ready(
-					function() {
-						$('#altContent').flash('LD29.swf');
-					};
-				);
-			</script>
-			<div id="altContent">Loading...</div>
+			<div id="Aide"></div>
+			<div id="tutoIllu"></div>
 			<p>In menu: SPACE = Start/Skip</p>
 			<p>In game: SPACE = Drop a beacon/Grab a beacon (if close enough to one)</p>
 		</div>
