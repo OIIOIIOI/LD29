@@ -13,21 +13,32 @@
 				$('#altContent').html(game);
 				$('#playBtn').click(function(){
 					$('#gameOverlay').css("visibility","visible");
+					$('#altContent').css({"height":"600px","width":"800px"});
+					$('#altContent').focus();
 				});
+				$('#exit').click(function(){
+					$('#gameOverlay').css("visibility","hidden");
+				})
 			})
 		</script>
 	</head>
 	<body>
 		<div id="gameOverlay">
 			<div id="altContent">Loading...</div>
+			<div id="exit">BACK to WEBPAGE</div>
 		</div>
 		<div id="content">
 			<div id="header">
-				<span>BILLY BIGDIGGER</span> - a Ludum Dare 29 entry
+				<span>BILLY &nbsp;BIGDIGGER</span> &nbsp;-&nbsp; a Ludum Dare 29 entry
 			</div>
-			<div id="Aide"></div>
+			<div id="Aide">
+				<div>HOW</div>
+				<div>&nbsp;&nbsp;&nbsp;&nbsp;TO</div>
+				<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PLAY!</div>
+			</div>
 			<div id="tutoIllu"></div>
 			<div id="playBtn">Let's go!</div>
+			<div id="rateBtn">Rate us!</div>
 		</div>
 	</body>
 </html>
