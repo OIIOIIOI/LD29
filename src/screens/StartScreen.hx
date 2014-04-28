@@ -26,17 +26,17 @@ class StartScreen extends Screen {
 		addChild(button);
 		
 		var t = new Text(36, true, Manager.COl_ORANGE, 400);
-		t.text = "click or press SPACE to start";
+		t.text = "click to start";
 		t.x = 400;
 		t.y = 460;
 		addChild(t);
 	}
 	
-	override public function update () {
+	/*override public function update () {
 		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
 			launchIntro();
 		}
-	}
+	}*/
 	
 	function launchIntro () {
 		Game.INST.changeScreen(ScreenName.Intro);

@@ -24,7 +24,7 @@ class IntroScreen extends Screen {
 		super();
 		
 		f = 1;
-		timeLeft = 60;
+		timeLeft = 120;
 		
 		bg = new Bitmap(Assets.getBitmapData("img/screen_intro_1.jpg"));
 		addChild(bg);
@@ -52,7 +52,7 @@ class IntroScreen extends Screen {
 			f++;
 			bg.bitmapData = Assets.getBitmapData("img/screen_intro_" + f + ".jpg");
 			timeLeft = switch (f) {
-				default: 60;
+				default: 120;
 			};
 		} else {
 			Game.INST.changeScreen(ScreenName.Play);
