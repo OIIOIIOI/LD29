@@ -12,13 +12,42 @@
 			$(document).ready(function(){
 				$('#altContent').html(game);
 				$('#playBtn').click(function(){
-					$('#gameOverlay').css("visibility","visible");
+					$('#gameOverlay').css("display","block");
 					$('#altContent').css({"height":"600px","width":"800px"});
 					$('#altContent').focus();
 				});
 				$('#exit').click(function(){
-					$('#gameOverlay').css("visibility","hidden");
+					$('#gameOverlay').css("display","none");
 				})
+				$('.draw').hover(
+					function(event){
+						switch($(this).attr('id')){
+							case 'pic1':
+								$('#slider').clearQueue();
+								$('#slider').animate({left: '-400px'},500,"easeOutCirc");
+							break;
+							case 'pic2':
+								$('#slider').clearQueue();
+								$('#slider').animate({left: '-800px'},500,"easeOutCirc");
+							break;
+							case 'pic3':
+								$('#slider').clearQueue();
+								$('#slider').animate({left: '-1200px'},500,"easeOutCirc");
+							break;
+							case 'pic4':
+								$('#slider').clearQueue();
+								$('#slider').animate({left: '-1600px'},500,"easeOutCirc");
+							break;
+							case 'pic5':
+								$('#slider').clearQueue();
+								$('#slider').animate({left: '-2000px'},500,"easeOutCirc");
+						}
+					},
+					function(){
+						$('#slider').clearQueue();
+						$('#slider').animate({left: '0px'},500,"easeOutCirc");
+					}
+				);
 			})
 		</script>
 	</head>
@@ -31,12 +60,34 @@
 			<div id="header">
 				<span>BILLY &nbsp;BIGDIGGER</span> &nbsp;-&nbsp; a Ludum Dare 29 entry
 			</div>
-			<div id="Aide">
-				<div>HOW</div>
-				<div>&nbsp;&nbsp;&nbsp;&nbsp;TO</div>
-				<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PLAY!</div>
+			<div id="tuto">
+				<div id="Aide">
+					<div>HOW</div>
+					<div>&nbsp;&nbsp;&nbsp;&nbsp;TO</div>
+					<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PLAY!</div>
+				</div>
+				<div id= "bluprint">
+					<div>Let the surface's sounds guide you towards your objective. Learn to recognize the clues on your map.</div>
+				</div>
+				<div id="symbolSlideshow">
+					<div id="slider">
+						<div class="slideShowItem">Hover the bluprint to see what's drawn.</div><!--
+						--><div class="slideShowItem">Church</div><!--
+						--><div class="slideShowItem">Water</div><!--
+						--><div class="slideShowItem">Train</div><!--
+						--><div class="slideShowItem">Sheeps</div><!--
+						--><div class="slideShowItem">Sawmill</div>
+					</div>
+				</div>
+				<div id="tutoIllu"></div>
+				<div id="dessins">
+					<img id="pic1" class="draw" src="./images/pictoChurch.png">
+					<img id="pic2" class="draw" src="./images/pictoWater.png">
+					<img id="pic3" class="draw" src="./images/pictoTrain.png">
+					<img id="pic4" class="draw" src="./images/pictoSheep.png">
+					<img id="pic5" class="draw" src="./images/pictoSawmill.png">
+				</div>
 			</div>
-			<div id="tutoIllu"></div>
 			<div id="playBtn">Let's go!</div>
 			<div id="rateBtn">Rate us!</div>
 		</div>

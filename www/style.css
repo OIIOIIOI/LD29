@@ -38,8 +38,8 @@ a:focus{
 	z-index: 10;
 	padding-top: 50px;
 	text-align: center;
-	background-color: rgba(0,0,0,0.5);
-	visibility: hidden;
+	background-color: rgba(0,0,0,0.8);
+	display: none;
 	color: white;
 	text-decoration: underline;
 	font-size: 25px;
@@ -49,7 +49,7 @@ a:focus{
 	position: relative;
 	margin: 0 auto;
 	cursor: pointer;
-	background-color: #54361b;
+	background-color: #826c59;
 	height: 40px;
 	line-height: 40px;
 	width: 130px;
@@ -81,35 +81,85 @@ a:focus{
 	line-height: 120px;
 	font-size: 30px;
 	color: white;
-	box-shadow: 0px 0px 25px -5px #000000 inset;
+	box-shadow: 0px -25px 25px -25px #000000 inset, 0px 25px 25px -25px #000000 inset;
+}
+#tuto{
+	position: relative;
 }
 #header span{
 	font-size: 80px;
 	text-shadow: 5px 5px 3px #222222;
 }
-
 #Aide{
-	position: relative;
-	top: px;
-	left: 160px;
+	position: absolute;
+	left: 150px;
+	width: 200px;
 	font-size: 70px;
 	line-height: 75px;
 	color: #54361b;
+	font-weight: bold;
 }
-#Aide{
+#Aide div{
 	width: 3em;
 }
-#tutoIllu{
+#bluprint{
+	position: absolute;
+	left: 370px;
+	background-color: #00AAEE;
+	width: 500px;
+	height: 250px;
+	border: white double 6px;
+	outline: #0088CC solid 4px;
+	box-shadow: 0px 0px 45px 5px #003399 inset;
+	padding: 10px;
+	text-align: center;
+	color: white;
+}
+#bluprint div{
+	font-size: 20px;
+	font-weight: bold;
+	text-align: left;
+	padding-bottom: 10px;
+}
+#dessins{
+	position: absolute;
+	top: 75px;
+	left: 410px;
+}
+#symbolSlideshow{
+	position: absolute;
+	top: 280px;
+	left: 420px;
+	width: 400px;
+	height: 120px;
+	box-shadow: -45px 0px 45px -60px #111111 inset , 45px 0px 45px -60px #111111 inset;
+	border-left: #54361b solid 5px;
+	border-right: #54361b solid 5px;
+	overflow: hidden;
+
+}
+#slider{
 	position: relative;
+	width: 2400px;;
+}
+.slideShowItem{
+	position: relative;
+	display: inline-block;
+	height: 120px;
+	width: 400px;
+	font-size: 25px;
+	text-align: center;
+}
+#tutoIllu{
+	position: absolute;
 	left: -85px;
-	top: -220px;
 	width: 552px;
 	height: 465px;
 	background-image: url('./images/tutoBrief.png');
 }
 #playBtn{
 	position: relative;
-	top: -200px;
+	top: 500px;
 	width: 150px;
 	height: 80px;
 	margin: 0 auto;
@@ -121,12 +171,13 @@ a:focus{
 	text-shadow: 5px 5px 3px #222222;
 	box-shadow: 5px 5px 10px -5px #000000;
 	cursor: pointer;
+	transition: 0.5s ease;
 }
 #rateBtn{
 	position: relative;
+	top: 520px;
 	width: 80px;
 	height: 40px;
-	top: -180px;
 	margin: 0 auto;
 	background-color: #54361b;
 	line-height: 40px;
@@ -136,9 +187,9 @@ a:focus{
 	text-shadow: 5px 5px 3px #222222;
 	box-shadow: 5px 5px 10px -5px #000000;
 	cursor: pointer;
-	transition: 0.5 ease;
+	transition: 0.5s ease;
 }
-#playBtn:hover, #rateBtn:hover{
+#playBtn:hover,#rateBtn:hover {
 	background-color: #9E8169;
-	transition: background-color 0.5 ease;
+	transition: 0.5s ease;
 }
