@@ -15,7 +15,7 @@ class Beacon extends AnimEntity {
 	public function new (mapX:Float = 0, mapY:Float = 0) {
 		super(mapX, mapY);
 		
-		arrow = new RadarArrow(0xEEEE00);
+		arrow = new RadarArrow();
 		
 		frames = new Array();
 		frames.push( { rect:new Rectangle(99, 17, 10, 14), duration:60 } );

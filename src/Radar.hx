@@ -42,11 +42,13 @@ class Radar extends Entity {
 
 class RadarArrow extends Sprite {
 	
-	public function new (color:UInt) {
+	static var cols:Array<UInt>;
+	
+	public function new () {
 		super();
 		
 		graphics.lineStyle(1, 0x000000);
-		graphics.beginFill(color, 0.8);
+		graphics.beginFill(getColor(), 1);
 		graphics.moveTo(-20, 0);
 		graphics.lineTo(0, 7);
 		graphics.lineTo(0, -7);
@@ -54,4 +56,25 @@ class RadarArrow extends Sprite {
 		graphics.endFill();
 	}
 	
+	function getColor () :UInt {
+		if (cols == null)	cols = new Array();
+		if (cols.length == 0)	cols = [0x00a0b0, 0xffc915, 0xec2232, 0x5cb421, 0xffffff];
+		return cols.pop();
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
