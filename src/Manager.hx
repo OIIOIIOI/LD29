@@ -26,8 +26,11 @@ class Manager {
 	
 	public static var COl_ORANGE:UInt = 0xC71800;
 	public static var COl_GREY:UInt = 0x59573C;
+	public static var COl_LIGHT_GREY:UInt = 0x97825E;
 	
 	static var SIZE_DELAY:Int = 180;// Delay between light size reductions
+	
+	public static var diff:Int = 1;
 	
 	public var map:TreasureMap;
 	public var beacons(default, null):List<Beacon>;

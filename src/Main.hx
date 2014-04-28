@@ -17,7 +17,7 @@ class Main extends Sprite {
 		
 		// Add game
 		Lib.current.addChild(new Game());
-		Lib.current.addChild(new FPS(0, 0, 0xFFFFFF));
+		//Lib.current.addChild(new FPS(0, 0, 0xFFFFFF));
 	}
 	
 }
