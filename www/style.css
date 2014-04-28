@@ -29,9 +29,6 @@ a:focus{
 	outline:0;
 }
 
-h1{
-	font-family: 'Amatic SC', 'cursive';
-}
 /*-------------------------------------------------------------------------------------------*/
 #gameOverlay{
 	position: fixed;
@@ -53,10 +50,26 @@ h1{
 	height: 900px;
 	width: 900px;
 	margin: 0 auto;
-	padding: 20px;
+	padding-top: 10px;
 	background-color: #dbc89e;
-	box-shadow: 0px 0px 25px 0px #111111;
+	box-shadow: 0px 0px 25px 0px #000000;
 }
+#header{
+	position: relative;
+	height: 80px;
+	width: 100%;
+	padding-left: 40px;
+	background-color: #36280B;
+	line-height: 80px;
+	font-family: 'Amatic SC', 'cursive';
+	color: white;
+	box-shadow: 
+}
+#header span{
+	font-size: 50px;
+	text-shadow: 5px 5px 3px #222222;
+}
+
 #Aide{
 
 }
