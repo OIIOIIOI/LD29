@@ -14,7 +14,7 @@ class Manager {
 	
 	public static var TAP:Point = new Point();
 	public static var SCALE:Int = 3;
-	public static var SCREEN_SIZE:Int = 510;
+	public static var SCREEN_SIZE:Int = 600;
 	
 	public var beacons(default, null):List<Beacon>;
 	public var tick(default, null):Int;

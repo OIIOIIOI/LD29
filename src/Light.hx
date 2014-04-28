@@ -39,8 +39,7 @@ class Light extends Sprite {
 	}
 	
 	public function reset () {
-		//var size:Float = (4 + Std.random(7)) / 10;
-		var size:Float = 0.9;
+		var size:Float = 0.95;
 		
 		shape.graphics.clear();
 		shape.graphics.beginFill(0xB36298);//0xB36298//0x663456

@@ -15,7 +15,10 @@ class Spot {
 	public var cellX(default, null):Int;
 	public var cellY(default, null):Int;
 	
+	public var distToGoal:Float;
+	
 	public function new (color:UInt, x:Int, y:Int) {
+		distToGoal = 0;
 		cellX = x;
 		cellY = y;
 		type = switch (color) {
@@ -42,6 +45,10 @@ class Spot {
 			entity.mapPos.y = this.y;
 		}
 		if (type == null)	throw new Error("Unknown spot type");
+	}
+	
+	public function toString () {
+		return "Spot {distToGoal:" + distToGoal + "}";
 	}
 	
 }

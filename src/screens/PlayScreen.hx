@@ -110,7 +110,7 @@ class PlayScreen extends Screen {
 		var dy:Int = 0;
 		var dr:Float = 0;
 		
-		if (!menu.active) {
+		if (!menu.active && !level.map.active) {
 			if (KeyboardMan.INST.getState(Keyboard.UP).isDown)		dy = 2;
 			if (KeyboardMan.INST.getState(Keyboard.DOWN).isDown)	dy = -2;
 			if (KeyboardMan.INST.getState(Keyboard.LEFT).isDown)	dr = 3 * Math.PI / 180;
@@ -175,7 +175,7 @@ class PlayScreen extends Screen {
 		
 		// Place beacon
 		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
-			if (!menu.active) {
+			if (!menu.active && !level.map.active) {
 				menu.open();
 				KeyboardMan.INST.cancelJustPressed(Keyboard.SPACE);
 			}
@@ -184,7 +184,8 @@ class PlayScreen extends Screen {
 		// Update manager
 		Manager.INST.update();
 		
-		menu.update();
+		if (menu.active)	menu.update();
+		if (level.map.active)	level.map.update();
 	}
 	
 	function menuHandler (t:TileType) {
@@ -213,7 +214,7 @@ class PlayScreen extends Screen {
 					container.addChild(player);
 				}
 			case TileType.ViewMapButton:
-				trace("view map");
+				viewMap();
 			case TileType.DigUpButton:
 				digUp();
 			default:
@@ -239,9 +240,30 @@ class PlayScreen extends Screen {
 		}
 	}
 	
+	function viewMap () {
+		level.map.closedHandler = closeMap;
+		addChild(level.map);
+		level.map.active = true;
+	}
+	
+	function closeMap () {
+		removeChild(level.map);
+		level.map.active = false;
+	}
+	
 	override public function destroy () {
 		super.destroy();
 		Manager.INST.destroy();
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+

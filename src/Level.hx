@@ -5,6 +5,7 @@ import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import openfl.Assets;
+import screens.TreasureMap;
 
 /**
  * ...
@@ -21,6 +22,7 @@ class Level {
 	public var spawn:Point;
 	public var goal:Spot;
 	public var spots:List<Spot>;
+	public var map(default, null):TreasureMap;
 	
 	//public var collData:BitmapData;
 	
@@ -33,6 +35,7 @@ class Level {
 		//collData = levelData.clone();
 		renderData = new BitmapData(levelData.width * GRID_SIZE, levelData.height * GRID_SIZE, false, 0xFF33281F);
 		renderLevel();
+		createMap();
 	}
 	
 	public function isSolid (x:Float, y:Float, radius:Int = 0) :Bool {
@@ -116,6 +119,10 @@ class Level {
 				}
 			}
 		}
+	}
+	
+	function createMap () {
+		map = new TreasureMap(goal, spots);
 	}
 	
 	function getValue (x:Int, y:Int) :Int {

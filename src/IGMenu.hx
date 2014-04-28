@@ -37,22 +37,22 @@ class IGMenu extends Sprite {
 		
 		var space = 36;
 		
-		leftButton = new BitmapTile(TileType.BeaconButton);
+		leftButton = new BitmapTile(TileType.BeaconButton, Game.TILES, 3);
 		leftButton.x = -leftButton.width - space;
 		leftButton.y = -leftButton.height / 2;
 		container.addChild(leftButton);
 		
-		upButton = new BitmapTile(TileType.DigUpButton);
+		upButton = new BitmapTile(TileType.DigUpButton, Game.TILES, 3);
 		upButton.x = -upButton.width / 2;
 		upButton.y = -upButton.height - space;
 		container.addChild(upButton);
 		
-		rightButton = new BitmapTile(TileType.ViewMapButton);
+		rightButton = new BitmapTile(TileType.ViewMapButton, Game.TILES, 3);
 		rightButton.x = space;
 		rightButton.y = -rightButton.height / 2;
 		container.addChild(rightButton);
 		
-		downButton = new BitmapTile(TileType.CloseMenuButton);
+		downButton = new BitmapTile(TileType.CloseMenuButton, Game.TILES, 3);
 		downButton.x = -downButton.width / 2;
 		downButton.y = space;
 		container.addChild(downButton);
