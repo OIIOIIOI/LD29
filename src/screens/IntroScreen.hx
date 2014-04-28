@@ -53,7 +53,7 @@ class IntroScreen extends Screen {
 	
 	override public function update () {
 		if (fade != null) {
-			fade.alpha *= 1.05;
+			fade.alpha += 0.01;
 			fade.alpha = Math.min(fade.alpha, 1);
 		}
 	}
@@ -71,7 +71,7 @@ class IntroScreen extends Screen {
 				case 2: 4150;
 				case 3: 2040;
 				case 4: 3900;
-				default: 8000;
+				default: 4000;
 			}
 			timer = new Timer(delay);
 			timer.run = next;
@@ -79,12 +79,12 @@ class IntroScreen extends Screen {
 		} else if (f == 5) {
 			f++;
 			fade = new Shape();
-			fade.alpha = 0.05;
+			fade.alpha = 0;
 			fade.graphics.beginFill(0x000000);
 			fade.graphics.drawRect(0, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
 			fade.graphics.endFill();
 			addChild(fade);
-			timer = new Timer(1500);
+			timer = new Timer(5500);
 			timer.run = next;
 		} else {
 			skip();
@@ -111,8 +111,8 @@ class IntroScreen extends Screen {
 		
 		if (fade != null) {
 			if (contains(fade))	removeChild(fade);
-			fade = null;
 		}
+		fade = null;
 		
 		button.destroy();
 		removeChild(button);
