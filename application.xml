@@ -20,6 +20,7 @@
 	<icon path="assets/openfl.svg" />
 	<assets path="assets/img" rename="img" exclude="*.psd" />
 	<assets path="assets/fonts" rename="fonts" />
+	<assets path="assets/snd" rename="snd" />
 	
 	<!-- optimize output
 	<haxeflag name="-dce full" /> -->

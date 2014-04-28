@@ -6,6 +6,10 @@ import flash.display.Sprite;
 import flash.errors.Error;
 import flash.events.Event;
 import flash.geom.Matrix;
+import flash.media.Sound;
+import flash.media.SoundChannel;
+import flash.media.SoundTransform;
+import openfl.Assets;
 import Particle;
 import Spot;
 
@@ -30,11 +34,47 @@ class SoundWave extends Entity
 	private var pulseList :List<Particle>;
 	private var centerSymbol: BitmapTile;
 	
+	var snd:Sound;
+	var sndChannel:SoundChannel;
+	public var sndTransform:SoundTransform;
+	public var sndRange(default, null):Int;
+	
 	public function new(type:SpotType){
 		super();
+		
+		snd = switch (type) {
+			case SpotType.Water:	Assets.getSound("snd/water.mp3");
+			case SpotType.Train:	Assets.getSound("snd/train.mp3");
+			case SpotType.Sawmill:	Assets.getSound("snd/sawmill.mp3");
+			case SpotType.Sheep:	Assets.getSound("snd/cows.mp3");
+			case SpotType.Church:	Assets.getSound("snd/church.mp3");
+			default:				null;
+		}
+		sndRange = switch (type) {
+			case SpotType.Water:	20;
+			case SpotType.Train:	55;
+			case SpotType.Sawmill:	50;
+			case SpotType.Sheep:	37;
+			case SpotType.Church:	140;
+			default:				0;
+		}
+		sndTransform = new SoundTransform();
+		
 		displayed = false;
 		waveType = type;
 		startCycle();
+	}
+	
+	function playSnd () {
+		if (sndTransform.volume <= 0)	return;
+		sndChannel = snd.play();
+		sndChannel.soundTransform = sndTransform;
+	}
+	
+	public function updateSnd (vol:Float) {
+		if (vol > 0)	trace(name + " - " + waveType + ": " + vol);
+		sndTransform.volume = vol;
+		if (sndChannel != null) sndChannel.soundTransform = sndTransform;
 	}
 	
 	public function startCycle() {

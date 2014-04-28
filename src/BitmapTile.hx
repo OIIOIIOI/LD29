@@ -22,6 +22,7 @@ class BitmapTile extends Bitmap {
 			case ViewMapButton:		new Rectangle(144, 16, 16, 16);
 			case DigUpButton:		new Rectangle(160, 16, 16, 16);
 			case CloseMenuButton:	new Rectangle(176, 16, 16, 16);
+			case ConfirmMenuButton:	new Rectangle(192, 16, 16, 16);
 			//
 			case MapGoal:			new Rectangle(0, 0, 97, 50);
 			case MapChurch:			new Rectangle(97, 0, 25, 50);
@@ -29,7 +30,7 @@ class BitmapTile extends Bitmap {
 			case MapWater:			new Rectangle(143, 0, 20, 50);
 			case MapTrain:			new Rectangle(163, 0, 21, 50);
 			case MapFactory:		new Rectangle(184, 0, 23, 50);
-			case MapYou:		new Rectangle(207, 0, 23, 50);
+			case MapYou:			new Rectangle(207, 0, 23, 50);
 			//
 			case IconWater:			new Rectangle(1, 17, 8, 14);
 			case IconChurch:		new Rectangle(11, 17, 13, 13);
@@ -50,6 +51,7 @@ enum TileType {
 	ViewMapButton;
 	DigUpButton;
 	CloseMenuButton;
+	ConfirmMenuButton;
 	//
 	MapGoal;
 	MapChurch;

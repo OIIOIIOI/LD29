@@ -10,7 +10,7 @@ class Spot {
 	public var type(default, null):SpotType;
 	public var x(default, null):Int;
 	public var y(default, null):Int;
-	public var entity(default, null):Entity;
+	public var entity(default, null):SoundWave;
 	
 	public var cellX(default, null):Int;
 	public var cellY(default, null):Int;

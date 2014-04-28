@@ -139,6 +139,8 @@ class PlayScreen extends Screen {
 				player.moving = true;
 				// Apply translation
 				mat.translate(0, dy);
+				// Update sounds
+				level.updateSounds(player.mapPos);
 			}
 			player.moving = true;
 		} else {
@@ -217,10 +219,17 @@ class PlayScreen extends Screen {
 					container.addChild(b);
 					container.addChild(player);
 				}
+				menu.open(false);
 			case TileType.ViewMapButton:
+				menu.open(false);
 				viewMap();
 			case TileType.DigUpButton:
+				menu.setState(1);
+			case TileType.ConfirmMenuButton:
+				menu.open(false);
 				digUp();
+			case TileType.CloseMenuButton:
+				menu.open(false);
 			default:
 		}
 	}
@@ -254,6 +263,7 @@ class PlayScreen extends Screen {
 		player.setAnim(anim);
 		Timer.delay(digReactionEnded, 2000);
 	}
+	
 	function digReactionEnded () {
 		Manager.INST.map = level.map;
 		Game.INST.changeScreen(ScreenName.End);

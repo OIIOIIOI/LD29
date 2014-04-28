@@ -47,10 +47,6 @@ class Light extends Sprite {
 		}
 	}
 	
-	public function surface () {
-		
-	}
-	
 	public function reset () {
 		shape.graphics.clear();
 		shape.graphics.beginFill(0xB36298);//0xB36298//0x663456
