@@ -44,8 +44,15 @@ class SoundMan {
 		if (sndChannel != null)	sndChannel.soundTransform = sndTransform;
 	}
 	
+	public static function fatMuffle (v:Bool = true) {
+		if (sndTransform == null)	return;
+		sndTransform.volume = v ? 0.2 : 0.5;
+		if (sndChannel != null)	sndChannel.soundTransform = sndTransform;
+	}
+	
 	public static function stopAll () {
 		SoundMan.muffle(false);
+		SoundMan.fatMuffle(false);
 		if (sndChannel != null) {
 			sndChannel.stop();
 			sndChannel = null;

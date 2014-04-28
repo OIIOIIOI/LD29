@@ -287,19 +287,28 @@ class PlayScreen extends Screen {
 		Game.INST.changeScreen(ScreenName.End);
 	}
 	
+	var mapSound:Sound;
+	
 	function viewMap () {
 		level.map.closedHandler = closeMap;
 		addChild(level.map);
 		level.map.active = true;
+		if (mapSound == null)	mapSound = Assets.getSound("snd/papierzizi.mp3");
+		mapSound.play();
+		SoundMan.fatMuffle();
 	}
 	
 	function closeMap () {
 		removeChild(level.map);
 		level.map.active = false;
+		if (mapSound == null)	mapSound = Assets.getSound("snd/papierzizi.mp3");
+		mapSound.play(400);
+		SoundMan.fatMuffle(false);
 	}
 	
 	override public function destroy () {
 		super.destroy();
+		mapSound = null;
 	}
 	
 }

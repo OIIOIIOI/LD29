@@ -1,6 +1,7 @@
 package screens;
 
 import flash.display.Bitmap;
+import flash.display.Shape;
 import flash.Lib;
 import flash.ui.Keyboard;
 import haxe.Timer;
@@ -21,6 +22,8 @@ class IntroScreen extends Screen {
 	
 	var f:Int;
 	var timer:Timer;
+	
+	var fade:Shape;
 	
 	public function new () {
 		super();
@@ -48,6 +51,13 @@ class IntroScreen extends Screen {
 		timer.run = next;
 	}
 	
+	override public function update () {
+		if (fade != null) {
+			fade.alpha *= 1.05;
+			fade.alpha = Math.min(fade.alpha, 1);
+		}
+	}
+	
 	function next () {
 		timer.stop();
 		timer = null;
@@ -61,11 +71,21 @@ class IntroScreen extends Screen {
 				case 2: 4150;
 				case 3: 2040;
 				case 4: 3900;
-				default: 10000;
+				default: 8000;
 			}
 			timer = new Timer(delay);
 			timer.run = next;
 			//Timer.delay(next, delay);
+		} else if (f == 5) {
+			f++;
+			fade = new Shape();
+			fade.alpha = 0.05;
+			fade.graphics.beginFill(0x000000);
+			fade.graphics.drawRect(0, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
+			fade.graphics.endFill();
+			addChild(fade);
+			timer = new Timer(1500);
+			timer.run = next;
 		} else {
 			skip();
 		}
@@ -88,6 +108,11 @@ class IntroScreen extends Screen {
 			bg.bitmapData = null;
 		}
 		bg = null;
+		
+		if (fade != null) {
+			if (contains(fade))	removeChild(fade);
+			fade = null;
+		}
 		
 		button.destroy();
 		removeChild(button);
