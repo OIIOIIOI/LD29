@@ -27,7 +27,7 @@ class Spot {
 			case 0x9999FF:
 				SpotType.Church;
 			case 0x6666FF:
-				SpotType.Factory;
+				SpotType.Sawmill;
 			case 0x3333FF:
 				SpotType.Train;
 			case 0x0000FF:
@@ -56,7 +56,7 @@ class Spot {
 enum SpotType {
 	Water;
 	Church;
-	Factory;
+	Sawmill;
 	Train;
 	Sheep;
 	Goal;

@@ -18,11 +18,11 @@ class SoundWave extends Entity
 	private var waveType: SpotType;
 	private var waveRange: Int;
 	public var displayed: Bool;
-	private var Gmatrix:Matrix = new Matrix();
+	private var Gmatrix: Matrix = new Matrix();
 	private var colorsetup: Array<UInt>;
 	private var newPulse: Particle;
-	private var pulseLife : Int;
-	private var pulseSize :Float;
+	private var pulseLife: Int;
+	private var pulseSize: Float;
 	private var pulseNumber: Int;
 	private var pulseInterval: Int;
 	private var cycleProgress: Int;
@@ -74,7 +74,7 @@ class SoundWave extends Entity
 				centerSymbol.x = -centerSymbol.width / 2;
 				centerSymbol.y = -centerSymbol.height / 2;
 				addChild(centerSymbol);
-			case SpotType.Factory:
+			case SpotType.Sawmill:
 				colorsetup = [0x767676,0x767676];
 				pulseLife = 50;
 				pulseNumber = 4;
@@ -82,7 +82,7 @@ class SoundWave extends Entity
 				cycleDuration = 120;
 				waveRange = 50;
 				pulseSize = 0.5;
-				centerSymbol = new BitmapTile(IconFactory, Game.TILES, 2);
+				centerSymbol = new BitmapTile(IconSawmill, Game.TILES, 2);
 				centerSymbol.x = -centerSymbol.width / 2;
 				centerSymbol.y = -centerSymbol.height / 2;
 				addChild(centerSymbol);

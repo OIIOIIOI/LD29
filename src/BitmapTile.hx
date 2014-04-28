@@ -32,7 +32,7 @@ class BitmapTile extends Bitmap {
 			//
 			case IconWater:			new Rectangle(1, 17, 8, 14);
 			case IconChurch:		new Rectangle(11, 17, 13, 13);
-			case IconFactory:		new Rectangle(26, 17, 14, 14);
+			case IconSawmill:		new Rectangle(77, 17, 14, 13);
 			case IconSheep:			new Rectangle(42, 17, 13, 14);
 			case IconTrain:			new Rectangle(57, 17, 18, 12);
 		}
@@ -59,7 +59,7 @@ enum TileType {
 	//
 	IconWater;
 	IconChurch;
-	IconFactory;
+	IconSawmill;
 	IconSheep;
 	IconTrain;
 }

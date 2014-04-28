@@ -72,7 +72,7 @@ class TreasureMap extends Sprite {
 			// Display spot
 			spotItem = switch (spots[i].type) {
 				case SpotType.Church:	new BitmapTile(TileType.MapChurch, ITEMS);
-				case SpotType.Factory:	new BitmapTile(TileType.MapFactory, ITEMS);
+				case SpotType.Sawmill:	new BitmapTile(TileType.MapFactory, ITEMS);
 				case SpotType.Water:	new BitmapTile(TileType.MapWater, ITEMS);
 				case SpotType.Sheep:	new BitmapTile(TileType.MapCows, ITEMS);
 				case SpotType.Train:	new BitmapTile(TileType.MapTrain, ITEMS);
