@@ -24,6 +24,12 @@ class StartScreen extends Screen {
 		
 		button = new Button(launchIntro, 0xFF00FF, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
 		addChild(button);
+		
+		var t = new Text(36, true, 400);
+		t.text = "click or press SPACE to start";
+		t.x = 400;
+		t.y = 460;
+		addChild(t);
 	}
 	
 	override public function update () {
