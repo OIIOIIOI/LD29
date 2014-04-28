@@ -29,6 +29,8 @@ class BitmapTile extends Bitmap {
 			case MapWater:			new Rectangle(143, 0, 20, 50);
 			case MapTrain:			new Rectangle(163, 0, 21, 50);
 			case MapFactory:		new Rectangle(184, 0, 23, 50);
+			//
+			case IconWater:			new Rectangle(1, 17, 8, 14);
 		}
 		bitmapData = new BitmapData(Std.int(rect.width), Std.int(rect.height), true, 0x00FF00FF);
 		Manager.TAP.setTo(0, 0);
@@ -50,6 +52,8 @@ enum TileType {
 	MapWater;
 	MapTrain;
 	MapFactory;
+	//
+	IconWater;
 }
 
 
