@@ -13,25 +13,37 @@ import screens.Screen;
 
 class IntroScreen extends Screen {
 	
-	var button:Button;
 	var bg:Bitmap;
+	var button:Button;
+	var text:Text;
+	
 	var f:Int;
+	var timeLeft:Int;
 	
 	public function new () {
 		super();
 		
 		f = 1;
-		bg = new Bitmap(Assets.getBitmapData("img/screen_intro_" + f + ".jpg"));
+		timeLeft = 60;
+		
+		bg = new Bitmap(Assets.getBitmapData("img/screen_intro_1.jpg"));
 		addChild(bg);
 		
-		button = new Button(next, 0xFF00FF, 0, Lib.current.stage.stageWidth, Lib.current.stage.stageHeight);
+		button = new Button(skip, 0xFFFFFF, 0.5, 160, 50);
+		button.x = bg.width - button.width;
+		button.y = bg.height - button.height;
 		addChild(button);
+		
+		text = new Text(32, true, Manager.COl_ORANGE, 160);
+		text.text = "skip intro";
+		text.x = button.x;
+		text.y = button.y;
+		addChild(text);
 	}
 	
 	override public function update () {
-		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
-			next();
-		}
+		if (timeLeft >= 0)	timeLeft--;
+		else				next();
 	}
 	
 	function next () {
@@ -39,9 +51,16 @@ class IntroScreen extends Screen {
 			bg.bitmapData.dispose();
 			f++;
 			bg.bitmapData = Assets.getBitmapData("img/screen_intro_" + f + ".jpg");
+			timeLeft = switch (f) {
+				default: 60;
+			};
 		} else {
 			Game.INST.changeScreen(ScreenName.Play);
 		}
+	}
+	
+	function skip () {
+		Game.INST.changeScreen(ScreenName.Play);
 	}
 	
 	override public function destroy () {
@@ -54,9 +73,9 @@ class IntroScreen extends Screen {
 		}
 		bg = null;
 		
-		button.destroy();
-		removeChild(button);
-		button = null;
+		//button.destroy();
+		//removeChild(button);
+		//button = null;
 	}
 	
 }

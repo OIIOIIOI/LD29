@@ -23,6 +23,8 @@ class Manager {
 	public static var FONT:Font = Assets.getFont("fonts/AmaticSC-Regular.ttf");
 	public static var FONT_BOLD:Font = Assets.getFont("fonts/Amatic-Bold.ttf");
 	
+	public static var COl_ORANGE:UInt = 0xC71800;
+	
 	static var SIZE_DELAY:Int = 100;// Delay between light size reductions
 	
 	public var beacons(default, null):List<Beacon>;

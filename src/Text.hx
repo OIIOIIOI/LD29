@@ -14,11 +14,11 @@ class Text extends TextField {
 	
 	var tf:TextFormat;
 	
-	public function new (size:Int, bold:Bool, w:Int = 800) {
+	public function new (size:Int, bold:Bool, col:UInt = 0, w:Int = 800) {
 		super();
 		
 		var font = (bold) ? Manager.FONT_BOLD : Manager.FONT;
-		tf = new TextFormat(font.fontName, size);
+		tf = new TextFormat(font.fontName, size, col);
 		tf.align = TextFormatAlign.CENTER;
 		
 		defaultTextFormat = tf;
