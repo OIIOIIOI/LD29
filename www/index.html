@@ -1,33 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
+<!doctype html>
+<html>
+	<head lang="en">
 		<meta charset="utf-8">
-		<title>LD29</title>
-		
-		<script src="js/swfobject.js"></script>
-		<script>
-			var flashvars = {};
-			var params = {
-				menu: "false",
-				scale: "noScale",
-				allowFullscreen: "true",
-				allowScriptAccess: "always",
-				bgcolor: "",
-				wmode: "direct"
-			};
-			var attributes = {
-				id:"LD29"
-			};
-			swfobject.embedSWF(
-				"../bin/flash/bin/LD29.swf",
-				"altContent", "800px", "600px", "11.3.0",
-				"expressInstall.swf",
-				flashvars, params, attributes);
-		</script>
+		<title>LD29 - Billy Big Digger</title><link rel="stylesheet" href="style.css">
+		<link href='http://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+		<script src="js/jquery-1.10.2.js"></script>
+		<script src="js/jquery-ui-1.10.4.custom.js"></script>
+		<script src="js/jquery.swfobject.1-1-1.min.js"></script>
 	</head>
-	<body>
-		<div id="altContent">Loading...</div>
-		<p>In menu: SPACE = Start/Skip</p>
-		<p>In game: SPACE = Drop a beacon/Grab a beacon (if close enough to one)</p>
+	<body onload="">
+		<div id="content">
+			<div id="mobileheader">
+				<h1>BILLY BIGDIGGER</h1>
+			</div>
+			<script>
+				$(document).ready(
+					function() {
+						$('#altContent').flash('LD29.swf');
+					};
+				);
+			</script>
+			<div id="altContent">Loading...</div>
+			<p>In menu: SPACE = Start/Skip</p>
+			<p>In game: SPACE = Drop a beacon/Grab a beacon (if close enough to one)</p>
+		</div>
 	</body>
 </html>

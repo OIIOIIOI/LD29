@@ -1,0 +1,45 @@
+﻿/*Inclusion des bordures et du padding dans la hauteur et la largeur des éléments*/
+*, *:before, *:after{
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+/*Suppression des marges par défaut autour du contenu de la page*/
+html, body{
+	margin: 0;
+	padding: 0;
+	height: 100%
+}
+
+/*Alignement par le dessus par défaut pour les div en mode inline et inline-block*/
+div{
+	vertical-align: top;
+}
+
+/* Annulation du style de lien par défaut (à modifier si nécéssaire)*/
+a:visited{
+	text-decoration: none;
+	border: none;
+}
+a{
+	text-decoration: none;
+	border: none;
+}
+a:focus{
+	outline:0;
+}
+
+h1{
+	font-family: 'Amatic SC', 'cursive';
+}
+/*-------------------------------------------------------------------------------------------*/
+
+#content{
+	position: relative;
+	min-height: 100%;
+	height: 100%;
+	width: 900px;
+	margin: 0 auto;
+	background-color: #6a5a48;
+}
