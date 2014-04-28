@@ -66,7 +66,7 @@ class SoundWave extends Entity
 	}
 	
 	function playSnd () {
-		if (sndTransform.volume <= 0)	return;
+		if (snd == null)	return;
 		sndChannel = snd.play();
 		sndChannel.soundTransform = sndTransform;
 	}
@@ -84,7 +84,7 @@ class SoundWave extends Entity
 				pulseLife = 25;
 				pulseNumber = 4;
 				pulseInterval = 10;
-				cycleDuration = 400;
+				cycleDuration = 200;
 				waveRange = 200;
 				pulseSize = 0.2;
 				centerSymbol = new BitmapTile(IconTrain, Game.TILES, 2);
@@ -95,7 +95,7 @@ class SoundWave extends Entity
 				colorsetup = [0x008BFF,0x008BFF];
 				pulseLife = 75;
 				pulseNumber = 1;
-				cycleDuration = 200;
+				cycleDuration = 100;
 				waveRange = 50;
 				pulseSize = 0.3;
 				centerSymbol = new BitmapTile(IconWater, Game.TILES, 2);
@@ -107,7 +107,7 @@ class SoundWave extends Entity
 				pulseLife = 40;
 				pulseNumber = 5;
 				pulseInterval = 2;
-				cycleDuration = 400;
+				cycleDuration = 100;
 				waveRange = 450;
 				pulseSize = 0.3;
 				centerSymbol = new BitmapTile(IconChurch, Game.TILES, 2);
@@ -119,7 +119,7 @@ class SoundWave extends Entity
 				pulseLife = 25;
 				pulseNumber = 4;
 				pulseInterval = 25;
-				cycleDuration = 300;
+				cycleDuration = 150;
 				waveRange = 150;
 				pulseSize = 0.5;
 				centerSymbol = new BitmapTile(IconSawmill, Game.TILES, 2);
