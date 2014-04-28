@@ -3,6 +3,7 @@ package ;
 import flash.display.BitmapData;
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.Lib;
 import openfl.Assets;
 import screens.EndScreen;
 import screens.IntroScreen;
@@ -52,6 +53,8 @@ class Game extends Sprite {
 			case ScreenName.End: new EndScreen();
 		}
 		addChild(screen);
+		// Reset focus
+		Lib.current.stage.focus = null;
 	}
 	
 	function update (e:Event) {

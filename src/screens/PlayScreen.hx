@@ -233,6 +233,7 @@ class PlayScreen extends Screen {
 		player.y = Manager.TAP.y;
 		//
 		var p = level.distanceToGoal(player.mapPos.x, player.mapPos.y);
+		level.map.showPlayer(level.distanceToGoal(player.mapPos.x, player.mapPos.y, false));
 		if (p.x == 0 && p.y == 0) {
 			//trace("AMAZING! PERFECT EXIT! " + p);
 			Manager.INST.win = true;
@@ -243,6 +244,7 @@ class PlayScreen extends Screen {
 		} else {
 			//trace("YOU ARE TOTALLY LOST... " + p);
 		}
+		Manager.INST.map = level.map;
 		Game.INST.changeScreen(ScreenName.End);
 	}
 	

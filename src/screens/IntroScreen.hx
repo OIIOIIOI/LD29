@@ -29,7 +29,7 @@ class IntroScreen extends Screen {
 		bg = new Bitmap(Assets.getBitmapData("img/screen_intro_1.jpg"));
 		addChild(bg);
 		
-		button = new Button(skip, 0xFFFFFF, 0.5, 160, 50);
+		button = new Button(skip, 0xFFFFFF, 0.3, 160, 50);
 		button.x = bg.width - button.width;
 		button.y = bg.height - button.height;
 		addChild(button);

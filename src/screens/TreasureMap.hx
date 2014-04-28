@@ -21,8 +21,14 @@ class TreasureMap extends Sprite {
 	
 	var goal:Spot;
 	var spots:Array<Spot>;
+	var container:Sprite;
 	
 	var difficulty:Int;
+	var minX:Int;
+	var maxX:Int;
+	var minY:Int;
+	var maxY:Int;
+	var space:Int;
 	
 	public var active:Bool;
 	
@@ -47,13 +53,13 @@ class TreasureMap extends Sprite {
 		
 		// Background
 		addChild(new Bitmap(Assets.getBitmapData("img/map_bg.jpg")));//500 wide in the middle, free for use
-		// Goal
-		var container = new Sprite();
+		
 		// Spots
-		var minX:Int = goal.cellX;
-		var maxX:Int = goal.cellX;
-		var minY:Int = goal.cellY;
-		var maxY:Int = goal.cellY;
+		container = new Sprite();
+		minX = goal.cellX;
+		maxX = goal.cellX;
+		minY = goal.cellY;
+		maxY = goal.cellY;
 		for (i in difficulty...(difficulty + 4)) {
 			// Min/max
 			minX = Std.int(Math.min(minX, spots[i].cellX));
@@ -64,8 +70,9 @@ class TreasureMap extends Sprite {
 		//
 		maxX -= minX;
 		maxY -= minY;
-		var div = Std.int(Math.max(maxX, maxY));
-		div = Std.int(440 / div);
+		space = Std.int(Math.max(maxX, maxY));
+		space = Std.int(440 / space);
+		// TODO: should be possible to detect if exit is off the map by reverting maxX, maxY and checking against them
 		//
 		var spotItem:BitmapTile;
 		for (i in difficulty...(difficulty + 4)) {
@@ -79,15 +86,15 @@ class TreasureMap extends Sprite {
 				default: 				null;
 			}
 			if (spotItem != null) {
-				spotItem.x = (spots[i].cellX - minX) * div;
-				spotItem.y = (spots[i].cellY - minY) * div;
+				spotItem.x = (spots[i].cellX - minX) * space - spotItem.width / 2;
+				spotItem.y = (spots[i].cellY - minY) * space - spotItem.height / 2;
 				container.addChild(spotItem);
 			}
 		}
 		//
 		var goalItem = new BitmapTile(TileType.MapGoal, ITEMS);
-		goalItem.x = (goal.cellX - minX) * div;
-		goalItem.y = (goal.cellY - minY) * div;
+		goalItem.x = (goal.cellX - minX) * space - goalItem.width / 2;
+		goalItem.y = (goal.cellY - minY) * space - goalItem.height / 2;
 		container.addChild(goalItem);
 		//
 		container.x = (Lib.current.stage.stageWidth - container.width) / 2;
@@ -117,6 +124,17 @@ class TreasureMap extends Sprite {
 		if (active && closedHandler != null && KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
 			closedHandler();
 		}
+	}
+	
+	public function showPlayer (p:Point) {
+		var item = new BitmapTile(TileType.MapYou, ITEMS);
+		item.x = (goal.cellX + p.x - minX) * space - item.width / 2;
+		item.y = (goal.cellY + p.y - minY) * space - item.height / 2;
+		container.addChild(item);
+	}
+	
+	public function destroy () {
+		// TODO
 	}
 	
 }

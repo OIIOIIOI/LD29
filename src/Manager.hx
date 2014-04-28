@@ -5,6 +5,7 @@ import flash.geom.Point;
 import flash.text.Font;
 import openfl.Assets;
 import screens.Screen;
+import screens.TreasureMap;
 
 /**
  * ...
@@ -24,9 +25,11 @@ class Manager {
 	public static var FONT_BOLD:Font = Assets.getFont("fonts/Amatic-Bold.ttf");
 	
 	public static var COl_ORANGE:UInt = 0xC71800;
+	public static var COl_GREY:UInt = 0x59573C;
 	
 	static var SIZE_DELAY:Int = 100;// Delay between light size reductions
 	
+	public var map:TreasureMap;
 	public var beacons(default, null):List<Beacon>;
 	public var tick(default, null):Int;
 	
@@ -39,7 +42,6 @@ class Manager {
 		if (INST != null)	throw new Error("Manager already instanciated");
 		INST = new Manager();
 		SS_HALF = Std.int(SCREEN_SIZE / 2);
-		//Font.registerFont
 	}
 	
 	public function new () {
@@ -62,6 +64,8 @@ class Manager {
 	
 	public function destroy () {
 		beacons = null;
+		map.destroy();
+		map = null;
 	}
 	
 }

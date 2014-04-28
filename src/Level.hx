@@ -134,11 +134,15 @@ class Level {
 		return n;
 	}
 	
-	public function distanceToGoal (x:Float, y:Float) :Point {
+	public function distanceToGoal (x:Float, y:Float, abs:Bool = true) :Point {
 		var xx = Std.int(x / GRID_SIZE);
 		var yy = Std.int(y / GRID_SIZE);
-		var dx = Math.abs(xx - goal.cellX);
-		var dy = Math.abs(yy - goal.cellY);
+		var dx:Float = xx - goal.cellX;
+		var dy:Float = yy - goal.cellY;
+		if (abs) {
+			dx = Math.abs(dx);
+			dy = Math.abs(dy);
+		}
 		return new Point(dx, dy);
 	}
 	

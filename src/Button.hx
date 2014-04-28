@@ -20,6 +20,7 @@ class Button extends Sprite {
 		if (action != null) {
 			this.action = action;
 			buttonMode = true;
+			addEventListener(MouseEvent.CLICK, clickHandler);
 		}
 		
 		if (color != null) {
@@ -27,8 +28,6 @@ class Button extends Sprite {
 			graphics.drawRect(0, 0, w, h);
 			graphics.endFill;
 		}
-		
-		addEventListener(MouseEvent.CLICK, clickHandler);
 	}
 	
 	function clickHandler (e:MouseEvent) {
