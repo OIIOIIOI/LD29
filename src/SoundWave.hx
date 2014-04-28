@@ -21,7 +21,7 @@ class SoundWave extends Entity
 {
 	private var waveType: SpotType;
 	private var waveRange: Int;
-	public var displayed: Bool;
+	//public var displayed: Bool;
 	private var Gmatrix: Matrix = new Matrix();
 	private var colorsetup: Array<UInt>;
 	private var newPulse: Particle;
@@ -42,26 +42,89 @@ class SoundWave extends Entity
 	public function new(type:SpotType){
 		super();
 		
-		snd = switch (type) {
-			case SpotType.Water:	Assets.getSound("snd/water.mp3");
-			case SpotType.Train:	Assets.getSound("snd/railroad.mp3");
-			case SpotType.Sawmill:	Assets.getSound("snd/sawmill.mp3");
-			case SpotType.Sheep:	Assets.getSound("snd/cows.mp3");
-			case SpotType.Church:	Assets.getSound("snd/church.mp3");
-			default:				null;
-		}
-		sndRange = switch (type) {
-			case SpotType.Water:	20;
-			case SpotType.Train:	55;
-			case SpotType.Sawmill:	45;
-			case SpotType.Sheep:	37;
-			case SpotType.Church:	140;
-			default:				0;
-		}
-		sndTransform = new SoundTransform(0);
-		
-		displayed = false;
 		waveType = type;
+		
+		switch(waveType) {
+			case SpotType.Train:
+				colorsetup = [0xA99280, 0xA99280];
+				pulseLife = 25;
+				pulseNumber = 4;
+				pulseInterval = 10;
+				cycleDuration = 200;
+				waveRange = 200;
+				pulseSize = 0.2;
+				centerSymbol = new BitmapTile(IconTrain, Game.TILES, 2);
+				centerSymbol.x = -centerSymbol.width / 2;
+				centerSymbol.y = -centerSymbol.height / 2;
+				addChild(centerSymbol);
+				snd = Assets.getSound("snd/railroad.mp3");
+				sndRange = 55;
+				
+			case SpotType.Water:
+				colorsetup = [0x008BFF,0x008BFF];
+				pulseLife = 75;
+				pulseNumber = 1;
+				cycleDuration = 100;
+				waveRange = 50;
+				pulseSize = 0.3;
+				centerSymbol = new BitmapTile(IconWater, Game.TILES, 2);
+				centerSymbol.x = -centerSymbol.width / 2;
+				centerSymbol.y = -centerSymbol.height / 2;
+				addChild(centerSymbol);
+				snd = Assets.getSound("snd/water.mp3");
+				sndRange = 20;
+				
+			case SpotType.Church:
+				colorsetup = [0xCB9A6E,0xCB9A6E];
+				pulseLife = 40;
+				pulseNumber = 5;
+				pulseInterval = 2;
+				cycleDuration = 100;
+				waveRange = 450;
+				pulseSize = 0.3;
+				centerSymbol = new BitmapTile(IconChurch, Game.TILES, 2);
+				centerSymbol.x = -centerSymbol.width / 2;
+				centerSymbol.y = -centerSymbol.height / 2;
+				addChild(centerSymbol);
+				snd = Assets.getSound("snd/church.mp3");
+				sndRange = 140;
+				
+			case SpotType.Sawmill:
+				colorsetup = [0x767676,0x767676];
+				pulseLife = 25;
+				pulseNumber = 4;
+				pulseInterval = 25;
+				cycleDuration = 150;
+				waveRange = 150;
+				pulseSize = 0.5;
+				centerSymbol = new BitmapTile(IconSawmill, Game.TILES, 2);
+				centerSymbol.x = -centerSymbol.width / 2;
+				centerSymbol.y = -centerSymbol.height / 2;
+				addChild(centerSymbol);
+				snd = Assets.getSound("snd/sawmill.mp3");
+				sndRange = 45;
+				
+			case SpotType.Sheep:
+				colorsetup = [0xE7E5E5,0xE7E5E5];
+				pulseLife = 125;
+				pulseNumber = 1;
+				cycleDuration = 600;
+				waveRange = 100;
+				pulseSize = 0.4;
+				centerSymbol = new BitmapTile(IconSheep, Game.TILES, 2);
+				centerSymbol.x = -centerSymbol.width / 2;
+				centerSymbol.y = -centerSymbol.height / 2;
+				addChild(centerSymbol);
+				snd = Assets.getSound("snd/cows.mp3");
+				sndRange = 37;
+				
+			default:
+				throw new Error("Invalid SpotType");
+		}
+		
+		pulseList = new List();
+		sndTransform = new SoundTransform(0);
+		//displayed = false;
 		startCycle();
 	}
 	
@@ -78,71 +141,9 @@ class SoundWave extends Entity
 	
 	public function startCycle() {
 		cycleProgress = -1;
-		switch(waveType) {
-			case SpotType.Train:
-				colorsetup = [0xA99280, 0xA99280];
-				pulseLife = 25;
-				pulseNumber = 4;
-				pulseInterval = 10;
-				cycleDuration = 200;
-				waveRange = 200;
-				pulseSize = 0.2;
-				centerSymbol = new BitmapTile(IconTrain, Game.TILES, 2);
-				centerSymbol.x = -centerSymbol.width / 2;
-				centerSymbol.y = -centerSymbol.height / 2;
-				addChild(centerSymbol);
-			case SpotType.Water:
-				colorsetup = [0x008BFF,0x008BFF];
-				pulseLife = 75;
-				pulseNumber = 1;
-				cycleDuration = 100;
-				waveRange = 50;
-				pulseSize = 0.3;
-				centerSymbol = new BitmapTile(IconWater, Game.TILES, 2);
-				centerSymbol.x = -centerSymbol.width / 2;
-				centerSymbol.y = -centerSymbol.height / 2;
-				addChild(centerSymbol);
-			case SpotType.Church:
-				colorsetup = [0xCB9A6E,0xCB9A6E];
-				pulseLife = 40;
-				pulseNumber = 5;
-				pulseInterval = 2;
-				cycleDuration = 100;
-				waveRange = 450;
-				pulseSize = 0.3;
-				centerSymbol = new BitmapTile(IconChurch, Game.TILES, 2);
-				centerSymbol.x = -centerSymbol.width / 2;
-				centerSymbol.y = -centerSymbol.height / 2;
-				addChild(centerSymbol);
-			case SpotType.Sawmill:
-				colorsetup = [0x767676,0x767676];
-				pulseLife = 25;
-				pulseNumber = 4;
-				pulseInterval = 25;
-				cycleDuration = 150;
-				waveRange = 150;
-				pulseSize = 0.5;
-				centerSymbol = new BitmapTile(IconSawmill, Game.TILES, 2);
-				centerSymbol.x = -centerSymbol.width / 2;
-				centerSymbol.y = -centerSymbol.height / 2;
-				addChild(centerSymbol);
-			case SpotType.Sheep:
-				colorsetup = [0xE7E5E5,0xE7E5E5];
-				pulseLife = 125;
-				pulseNumber = 1;
-				cycleDuration = 600;
-				waveRange = 100;
-				pulseSize = 0.4;
-				centerSymbol = new BitmapTile(IconSheep, Game.TILES, 2);
-				centerSymbol.x = -centerSymbol.width / 2;
-				centerSymbol.y = -centerSymbol.height / 2;
-				addChild(centerSymbol);
-			default:
-				throw new Error("Invalid SpotType");
-		}
-		pulseList = new List();
+		pulseList.clear();
 		playSnd();
-		addEventListener(Event.ADDED_TO_STAGE, function(e:Event) { displayed = true;} );
+		//addEventListener(Event.ADDED_TO_STAGE, function(e:Event) { displayed = true;} );
 	}
 	
 	private function drawPulse(p:Particle, range:Int, ringSize:Float) {
@@ -163,9 +164,9 @@ class SoundWave extends Entity
 	override public function update() {
 		super.update();
 		cycleProgress++;
-		if (!displayed) {
-			return;
-		}
+		//if (!displayed) {
+			//return;
+		//}
 		if (cycleProgress > cycleDuration) {
 			for (i in pulseList) {
 				if (contains(i)) {
