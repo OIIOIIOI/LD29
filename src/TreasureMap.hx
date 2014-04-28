@@ -23,12 +23,16 @@ class TreasureMap extends Sprite {
 	var spots:Array<Spot>;
 	var container:Sprite;
 	
+	var goalItem:BitmapTile;
+	
 	var difficulty:Int;
 	var minX:Int;
 	var maxX:Int;
 	var minY:Int;
 	var maxY:Int;
 	var space:Int;
+	
+	var scale:Float;
 	
 	public var active:Bool;
 	
@@ -41,6 +45,7 @@ class TreasureMap extends Sprite {
 		active = false;
 		
 		difficulty = 0;
+		scale = 0.5;
 		
 		this.goal = goal;
 		
@@ -72,7 +77,7 @@ class TreasureMap extends Sprite {
 		maxX -= minX;
 		maxY -= minY;
 		space = Std.int(Math.max(maxX, maxY));
-		space = Std.int(440 / space);
+		space = Std.int(400 / space);
 		// TODO: should be possible to detect if exit is off the map by reverting maxX, maxY and checking against them
 		//
 		var spotItem:BitmapTile;
@@ -80,11 +85,11 @@ class TreasureMap extends Sprite {
 		for (i in 0...spots.length) {
 			// Display spot
 			spotItem = switch (spots[i].type) {
-				case SpotType.Church:	new BitmapTile(TileType.MapChurch, ITEMS);
-				case SpotType.Sawmill:	new BitmapTile(TileType.MapFactory, ITEMS);
-				case SpotType.Water:	new BitmapTile(TileType.MapWater, ITEMS);
-				case SpotType.Sheep:	new BitmapTile(TileType.MapCows, ITEMS);
-				case SpotType.Train:	new BitmapTile(TileType.MapTrain, ITEMS);
+				case SpotType.Church:	new BitmapTile(TileType.MapChurch, ITEMS, scale);
+				case SpotType.Sawmill:	new BitmapTile(TileType.MapFactory, ITEMS, scale);
+				case SpotType.Water:	new BitmapTile(TileType.MapWater, ITEMS, scale);
+				case SpotType.Sheep:	new BitmapTile(TileType.MapCows, ITEMS, scale);
+				case SpotType.Train:	new BitmapTile(TileType.MapTrain, ITEMS, scale);
 				default: 				null;
 			}
 			if (spotItem != null) {
@@ -94,7 +99,7 @@ class TreasureMap extends Sprite {
 			}
 		}
 		//
-		var goalItem = new BitmapTile(TileType.MapGoal, ITEMS);
+		goalItem = new BitmapTile(TileType.MapGoal, ITEMS, scale);
 		goalItem.x = (goal.cellX - minX) * space - goalItem.width / 2;
 		goalItem.y = (goal.cellY - minY) * space - goalItem.height / 2;
 		container.addChild(goalItem);
@@ -129,10 +134,11 @@ class TreasureMap extends Sprite {
 	}
 	
 	public function showPlayer (p:Point) {
-		var item = new BitmapTile(TileType.MapYou, ITEMS);
+		var item = new BitmapTile(TileType.MapYou, ITEMS, scale);
 		item.x = (goal.cellX + p.x - minX) * space - item.width / 2;
 		item.y = (goal.cellY + p.y - minY) * space - item.height / 2;
 		container.addChild(item);
+		goalItem.alpha = 0.5;
 	}
 	
 	public function destroy () {

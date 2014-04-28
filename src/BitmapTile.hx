@@ -14,7 +14,7 @@ class BitmapTile extends Bitmap {
 	
 	public var type(default, null):TileType;
 	
-	public function new (type:TileType, source:BitmapData, scale:Int = 1) {
+	public function new (type:TileType, source:BitmapData, scale:Float = 1.0) {
 		super();
 		this.type = type;
 		var rect = switch (type) {
@@ -24,13 +24,13 @@ class BitmapTile extends Bitmap {
 			case CloseMenuButton:	new Rectangle(176, 16, 16, 16);
 			case ConfirmMenuButton:	new Rectangle(192, 16, 16, 16);
 			//
-			case MapGoal:			new Rectangle(0, 0, 97, 50);
-			case MapChurch:			new Rectangle(97, 0, 25, 50);
-			case MapCows:			new Rectangle(122, 0, 21, 50);
-			case MapWater:			new Rectangle(143, 0, 20, 50);
-			case MapTrain:			new Rectangle(163, 0, 21, 50);
-			case MapFactory:		new Rectangle(184, 0, 23, 50);
-			case MapYou:			new Rectangle(207, 0, 23, 50);
+			case MapChurch:			new Rectangle(0, 0, 141, 148);
+			case MapWater:			new Rectangle(141, 0, 118, 148);
+			case MapTrain:			new Rectangle(259, 0, 152, 148);
+			case MapCows:			new Rectangle(411, 0, 132, 148);
+			case MapFactory:		new Rectangle(543, 31, 158, 99);
+			case MapGoal:			new Rectangle(700, 31, 87, 99);
+			case MapYou:			new Rectangle(787, 14, 94, 115);
 			//
 			case IconWater:			new Rectangle(1, 17, 8, 14);
 			case IconChurch:		new Rectangle(11, 17, 13, 13);

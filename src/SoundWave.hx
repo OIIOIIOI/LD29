@@ -44,7 +44,7 @@ class SoundWave extends Entity
 		
 		snd = switch (type) {
 			case SpotType.Water:	Assets.getSound("snd/water.mp3");
-			case SpotType.Train:	Assets.getSound("snd/train.mp3");
+			case SpotType.Train:	Assets.getSound("snd/railroad.mp3");
 			case SpotType.Sawmill:	Assets.getSound("snd/sawmill.mp3");
 			case SpotType.Sheep:	Assets.getSound("snd/cows.mp3");
 			case SpotType.Church:	Assets.getSound("snd/church.mp3");
