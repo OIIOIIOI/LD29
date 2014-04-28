@@ -23,6 +23,5 @@ enum ScreenName {
 	Start;
 	Intro;
 	Play;
-	Win;
-	Lose;
+	End;
 }

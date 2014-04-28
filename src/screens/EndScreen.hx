@@ -14,14 +14,16 @@ class EndScreen extends Screen {
 	var button:Button;
 	var bg:Bitmap;
 	
-	public function new (win:Bool = false) {
+	public function new () {
 		super();
 		
 		var path:String = "img/screen_lose.jpg";
-		if (win)	path = "img/screen_win.jpg";
+		if (Manager.INST.win)	path = "img/screen_win.jpg";
 		
 		bg = new Bitmap(Assets.getBitmapData(path));
 		addChild(bg);
+		
+		trace(Manager.INST.beacons.length);
 		
 		button = new Button(endGame, 0xFFFFFF);
 		button.x = button.y = 20;

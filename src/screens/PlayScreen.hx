@@ -184,6 +184,8 @@ class PlayScreen extends Screen {
 		// Update manager
 		Manager.INST.update();
 		
+		light.update();
+		
 		if (menu.active)	menu.update();
 		if (level.map.active)	level.map.update();
 	}
@@ -232,15 +234,16 @@ class PlayScreen extends Screen {
 		//
 		var p = level.distanceToGoal(player.mapPos.x, player.mapPos.y);
 		if (p.x == 0 && p.y == 0) {
-			trace("AMAZING! PERFECT EXIT! " + p);
-			Game.INST.changeScreen(ScreenName.Win);
+			//trace("AMAZING! PERFECT EXIT! " + p);
+			Manager.INST.win = true;
+			Manager.INST.perfect = true;
 		} else if (p.x <= 2 && p.y <= 2) {
-			trace("YOU MADE IT! " + p);
-			Game.INST.changeScreen(ScreenName.Win);
+			//trace("YOU MADE IT! " + p);
+			Manager.INST.win = true;
 		} else {
-			trace("YOU ARE TOTALLY LOST... " + p);
-			Game.INST.changeScreen(ScreenName.Lose);
+			//trace("YOU ARE TOTALLY LOST... " + p);
 		}
+		Game.INST.changeScreen(ScreenName.End);
 	}
 	
 	function viewMap () {

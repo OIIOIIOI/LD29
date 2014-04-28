@@ -16,6 +16,7 @@ import flash.geom.Point;
 class Light extends Sprite {
 	
 	var scale:Int = 5;
+	var size:Float;
 	
 	var shape:Shape;
 	var bmpData:BitmapData;
@@ -25,6 +26,7 @@ class Light extends Sprite {
 		super();
 		
 		scale = 5;
+		size = Manager.INST.lightSize;
 		
 		shape = new Shape();
 		bmpData = new BitmapData(Math.ceil(Manager.SCREEN_SIZE / scale), Math.ceil(Manager.SCREEN_SIZE / scale), true, 0xFF000000);
@@ -38,21 +40,26 @@ class Light extends Sprite {
 		addChild(bmp);
 	}
 	
+	public function update () {
+		if (size != Manager.INST.lightSize) {
+			size = Manager.INST.lightSize;
+			reset();
+			
+		}
+	}
+	
 	public function reset () {
-		var size:Float = 0.95;
-		
 		shape.graphics.clear();
 		shape.graphics.beginFill(0xB36298);//0xB36298//0x663456
-		shape.graphics.drawCircle(Manager.SCREEN_SIZE / 2 / scale, Manager.SCREEN_SIZE / 2 / scale, Manager.SCREEN_SIZE / 2 / scale * size);
+		shape.graphics.drawCircle(Manager.SS_HALF / scale, Manager.SS_HALF / scale, Manager.SS_HALF / scale * Manager.INST.lightSize);
 		shape.graphics.endFill();
 		shape.graphics.beginFill(0xFFEFBF);//0xFFEFBF//0xFBE08F
-		shape.graphics.drawCircle(Manager.SCREEN_SIZE / 2 / scale, Manager.SCREEN_SIZE / 2 / scale, Manager.SCREEN_SIZE / 2 / scale * size / 2);
+		shape.graphics.drawCircle(Manager.SS_HALF / scale, Manager.SS_HALF / scale, Manager.SS_HALF / scale * Manager.INST.lightSize / 2);
 		shape.graphics.endFill();
 		
 		bmpData.fillRect(bmpData.rect, 0xFF000000);
 		bmpData.draw(shape);
 		Manager.TAP.setTo(0, 0);
-		//bmpData.applyFilter(bmpData, bmpData.rect, Manager.TAP, new BlurFilter(10 * size, 10 * size));
 		bmpData.applyFilter(bmpData, bmpData.rect, Manager.TAP, new BlurFilter(5, 5));
 	}
 	

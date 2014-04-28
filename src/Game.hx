@@ -49,8 +49,7 @@ class Game extends Sprite {
 			case ScreenName.Start: new StartScreen();
 			case ScreenName.Intro: new IntroScreen();
 			case ScreenName.Play: new PlayScreen();
-			case ScreenName.Win: new EndScreen(true);
-			case ScreenName.Lose: new EndScreen();
+			case ScreenName.End: new EndScreen();
 		}
 		addChild(screen);
 	}
