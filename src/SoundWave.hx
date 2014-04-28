@@ -33,7 +33,6 @@ class SoundWave extends Entity
 		displayed = false;
 		waveType = type;
 		startCycle();
-		cycleDuration = 110;
 	}
 	
 	private function startCycle() {
@@ -42,28 +41,31 @@ class SoundWave extends Entity
 			case SpotType.Train:
 				colorsetup = [0xA99280, 0xA99280];
 				pulseLife = 100;
-				pulseNumber = 2;
+				pulseNumber = 3;
 				pulseInterval = 10;
+				cycleDuration = 220;
 			case SpotType.Water:
 				colorsetup = [0x008BFF,0x008BFF];
-				pulseLife = 100;
-				pulseNumber = 2;
-				pulseInterval = 10;
+				pulseLife = 150;
+				pulseNumber = 1;
+				cycleDuration = 200;
 			case SpotType.Church:
 				colorsetup = [0xCB9A6E,0xCB9A6E];
-				pulseLife = 100;
-				pulseNumber = 2;
-				pulseInterval = 10;
+				pulseLife = 50;
+				pulseNumber = 1;
+				cycleDuration = 100;
 			case SpotType.Factory:
 				colorsetup = [0x767676,0x767676];
-				pulseLife = 100;
-				pulseNumber = 2;
-				pulseInterval = 10;
+				pulseLife = 50;
+				pulseNumber = 4;
+				pulseInterval = 5;
+				cycleDuration = 120;
 			case SpotType.Sheep:
 				colorsetup = [0xE7E5E5,0xE7E5E5];
-				pulseLife = 100;
+				pulseLife = 50;
 				pulseNumber = 2;
 				pulseInterval = 10;
+				cycleDuration = 110;
 			default:
 				throw new Error("Invalid SpotType");
 		}
@@ -81,11 +83,10 @@ class SoundWave extends Entity
 		p.graphics.beginGradientFill(GradientType.RADIAL,colorsetup,[0,0.3],[Math.round(255*ringSize),255],Gmatrix);
 		p.graphics.drawCircle(0, 0, range);
 		p.graphics.endFill();
-		p.scaleX = 0.01;
-		p.scaleY = 0.01;
-		p.scaleXMod = Math.pow(1/p.scaleX, 1/p.totalLife);
-		p.scaleYMod = Math.pow(1/p.scaleX, 1/p.totalLife);
-		
+		p.scaleX = 0;
+		p.scaleY = 0;
+		/*p.scaleXMod = Math.pow(1/p.scaleX, 1/p.totalLife);
+		p.scaleYMod = Math.pow(1/p.scaleX, 1/p.totalLife);*/
 	}
 	
 	public function update(e:Event) {
@@ -94,22 +95,31 @@ class SoundWave extends Entity
 			return;
 		}
 		if (cycleProgress > cycleDuration) {
+			for (i in pulseList) {
+				if (contains(i)) {
+					removeChild(i);
+					//trace("end: " + i.name+" removed");
+				}
+			}
 			startCycle();
 		}else {
 			for (i in 0...pulseNumber) {
 				if (cycleProgress == i * pulseInterval) {
 					newPulse = new Particle(pulseLife);
-					drawPulse(newPulse, 100, 0.6);
+					drawPulse(newPulse, 100, 0.8);
 					pulseList.add(newPulse);
 					addChild(newPulse);
+					//trace(cycleProgress + ": " + newPulse.name +"created");
 					break;
 				}
 			}
 			for (i in pulseList) {
 				i.update();
+				i.alpha = 1 - Math.sqrt(cycleProgress / cycleDuration);
 				if ( i.isDead) {
 					if (contains(i)) {
 						removeChild(i);
+						//trace(cycleProgress + ": " + i.name +"removed");
 					}
 				}
 			}

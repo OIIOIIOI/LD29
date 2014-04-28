@@ -9,8 +9,8 @@ import openfl.Assets;
 class Particle extends Sprite
 {
 	public var isDead: Bool;
-	public var scaleYMod: Float;
-	public var scaleXMod: Float;
+	/*public var scaleYMod: Float;
+	public var scaleXMod: Float;*/
 	public var ySpeed: Int;
 	public var xSpeed: Int;
 	public var alphaMod: Float;
@@ -23,18 +23,20 @@ class Particle extends Sprite
 		super();
 		totalLife = currentlife = life;
 		xSpeed = ySpeed = 0;
-		scaleXMod = scaleYMod = 1;
+		//scaleXMod = scaleYMod = 0;
 		alphaMod = 0;
 	}
 	
 	public function update() {
+		lifeState = currentlife / totalLife;
 		currentlife--;
 		x += xSpeed;
 		y += ySpeed;
-		scaleX *= scaleXMod;
-		scaleY *= scaleYMod;
+		/*scaleX *=scaleXMod;
+		scaleY *= scaleYMod;*/
+		scaleX = Math.sqrt(1-lifeState); 
+		scaleY = Math.sqrt(1-lifeState); 
 		alpha += alphaMod;
-		lifeState = currentlife / totalLife;
 		if (currentlife <= 0) {
 			isDead = true;
 		}
