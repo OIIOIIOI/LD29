@@ -57,7 +57,7 @@ class SoundWave extends Entity
 				centerSymbol.x = -centerSymbol.width / 2;
 				centerSymbol.y = -centerSymbol.height / 2;
 				addChild(centerSymbol);
-				snd = Assets.getSound("snd/railroad.mp3");
+				snd = Assets.getSound("snd/railroads.mp3");
 				sndRange = 55;
 				
 			case SpotType.Water:
@@ -108,7 +108,7 @@ class SoundWave extends Entity
 				colorsetup = [0xE7E5E5,0xE7E5E5];
 				pulseLife = 125;
 				pulseNumber = 1;
-				cycleDuration = 600;
+				cycleDuration = 200;
 				waveRange = 100;
 				pulseSize = 0.4;
 				centerSymbol = new BitmapTile(IconSheep, Game.TILES, 2);

@@ -152,13 +152,16 @@ class Level {
 		var dist:Float;
 		var vol:Float;
 		
+		var muffle = false;
 		for (s in spots) {
 			dx = pp.x - s.entity.mapPos.x;
 			dy = pp.y - s.entity.mapPos.y;
 			dist = Math.sqrt(dx * dx + dy * dy);
 			vol = 1 - Math.min(1, dist / s.entity.sndRange);
 			s.entity.updateSnd(vol);
+			if (vol > 0)	muffle = true;
 		}
+		SoundMan.muffle(muffle);
 		
 	}
 	

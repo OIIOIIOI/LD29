@@ -3,6 +3,7 @@ package screens;
 import flash.display.Bitmap;
 import openfl.Assets;
 import screens.Screen;
+import SoundMan;
 
 /**
  * ...
@@ -31,11 +32,13 @@ class EndScreen extends Screen {
 		// Title
 		titleText = new Text(58, true, Manager.COl_ORANGE, 600, !Manager.INST.win);
 		if (Manager.INST.win) {
+			SoundMan.play(Track.WinTrack, false);
 			if (Manager.INST.perfect)	titleText.text = "PERFECT!";
 			else						titleText.text = "WELL DONE!";
 			titleText.x = 20;
 			titleText.y = 230;
 		} else {
+			SoundMan.play(Track.LoseTrack, false);
 			titleText.text = "GAME OVER";
 			titleText.x = Std.int((bg.width - titleText.width) / 2);
 			titleText.y = 350;

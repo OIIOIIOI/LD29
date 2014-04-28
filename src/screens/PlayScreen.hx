@@ -8,10 +8,13 @@ import flash.errors.Error;
 import flash.events.Event;
 import flash.geom.Matrix;
 import flash.Lib;
+import flash.media.Sound;
 import flash.ui.Keyboard;
 import haxe.Timer;
+import openfl.Assets;
 import Player;
 import screens.Screen;
+import SoundMan;
 
 /**
  * ...
@@ -104,6 +107,8 @@ class PlayScreen extends Screen {
 		// Menu
 		menu = new IGMenu(menuHandler);
 		addChild(menu);
+		
+		SoundMan.play(Track.GameTrack, true);
 		
 		/*var coll = new Bitmap(level.collData);
 		coll.scaleX = coll.scaleY = 5;
@@ -254,6 +259,10 @@ class PlayScreen extends Screen {
 		//
 		player.setAnim(PlayerAnim.Dig);
 		Timer.delay(digUpEnded, 3000);
+		//
+		var s:Sound = Assets.getSound("snd/sortiefrottezizi.mp3");
+		s.play();
+		SoundMan.muffle();
 	}
 	
 	function digUpEnded () {

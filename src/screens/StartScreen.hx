@@ -5,6 +5,7 @@ import flash.Lib;
 import flash.ui.Keyboard;
 import openfl.Assets;
 import screens.Screen;
+import SoundMan;
 
 /**
  * ...
@@ -30,13 +31,9 @@ class StartScreen extends Screen {
 		t.x = 400;
 		t.y = 460;
 		addChild(t);
+		
+		SoundMan.play(Track.StartTrack, true);
 	}
-	
-	/*override public function update () {
-		if (KeyboardMan.INST.getState(Keyboard.SPACE).justPressed) {
-			launchIntro();
-		}
-	}*/
 	
 	function launchIntro () {
 		Game.INST.changeScreen(ScreenName.Intro);

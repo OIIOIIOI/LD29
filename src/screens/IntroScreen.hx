@@ -3,8 +3,10 @@ package screens;
 import flash.display.Bitmap;
 import flash.Lib;
 import flash.ui.Keyboard;
+import haxe.Timer;
 import openfl.Assets;
 import screens.Screen;
+import SoundMan;
 
 /**
  * ...
@@ -18,13 +20,13 @@ class IntroScreen extends Screen {
 	var text:Text;
 	
 	var f:Int;
-	var timeLeft:Int;
+	var timer:Timer;
 	
 	public function new () {
 		super();
 		
 		f = 1;
-		timeLeft = 120;
+		//timeLeft = 120;
 		
 		bg = new Bitmap(Assets.getBitmapData("img/screen_intro_1.jpg"));
 		addChild(bg);
@@ -39,27 +41,41 @@ class IntroScreen extends Screen {
 		text.x = button.x;
 		text.y = button.y;
 		addChild(text);
-	}
-	
-	override public function update () {
-		if (timeLeft >= 0)	timeLeft--;
-		else				next();
+		
+		SoundMan.play(Track.IntroTrack, false);
+		
+		timer = new Timer(3954);
+		timer.run = next;
 	}
 	
 	function next () {
+		timer.stop();
+		timer = null;
+		//
 		if (f < 5) {
 			bg.bitmapData.dispose();
 			f++;
 			bg.bitmapData = Assets.getBitmapData("img/screen_intro_" + f + ".jpg");
-			timeLeft = switch (f) {
-				default: 120;
-			};
+			
+			var delay = switch (f) {
+				case 2: 4150;
+				case 3: 2040;
+				case 4: 3900;
+				default: 10000;
+			}
+			timer = new Timer(delay);
+			timer.run = next;
+			//Timer.delay(next, delay);
 		} else {
-			Game.INST.changeScreen(ScreenName.Play);
+			skip();
 		}
 	}
 	
 	function skip () {
+		if (timer != null) {
+			timer.stop();
+			timer = null;
+		}
 		Game.INST.changeScreen(ScreenName.Play);
 	}
 	
@@ -73,9 +89,9 @@ class IntroScreen extends Screen {
 		}
 		bg = null;
 		
-		//button.destroy();
-		//removeChild(button);
-		//button = null;
+		button.destroy();
+		removeChild(button);
+		button = null;
 	}
 	
 }
