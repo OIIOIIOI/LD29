@@ -55,20 +55,13 @@ width:130px;
 box-shadow:5px 5px 10px -5px #000000;
 }
 #altContent{
-<<<<<<< HEAD
-	position: relative;
-	margin: 0 auto;
-	box-shadow: 5px 5px 10px -5px #000000;
-	margin-bottom: 5px;
-	background-color: black;
-=======
-position:relative;
-margin:0 auto;
+position: relative;
+margin: 0 auto;
 -webkit-box-shadow:5px 5px 10px -5px #000000;
 -moz-box-shadow:5px 5px 10px -5px #000000;
 box-shadow:5px 5px 10px -5px #000000;
-margin-bottom:5px;
->>>>>>> 2668fe68ee95d5826923c3b76556a262c10cf219
+margin-bottom: 5px;
+background-color: black;
 }
 #content{
 position:relative;
@@ -102,7 +95,7 @@ box-shadow:0px -25px 25px -25px #000000 inset, 0px 25px 25px -25px #000000 inset
 position:relative;
 height:465px;
 width:100%;
-margin-bottom:40px;
+margin-bottom:0px;
 }
 #header span{
 font-size:80px;
