@@ -36,7 +36,7 @@ a:focus{
 	width: 100%;
 	height: 100%;
 	z-index: 10;
-	padding-top: 50px;
+	padding-top: 5px;
 	text-align: center;
 	background-color: rgba(0,0,0,0.8);
 	display: none;
@@ -59,12 +59,12 @@ a:focus{
 	position: relative;
 	margin: 0 auto;
 	box-shadow: 5px 5px 10px -5px #000000;
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 }
 #content{
 	position: relative;
-	min-height: 100%;
-	height: 1000px;
+	/*min-height: 100%;
+	height: 1000px;*/
 	width: 900px;
 	margin: 0 auto;
 	padding-top: 20px;
@@ -76,7 +76,7 @@ a:focus{
 	height: 120px;
 	width: 100%;
 	padding-left: 40px;
-	margin-bottom: 60px;
+	margin-bottom: 0px;
 	background-image: url('./images/headerBg.png');
 	line-height: 120px;
 	font-size: 30px;
@@ -203,3 +203,31 @@ a:focus{
 	background-color: #9E8169;
 	transition: 0.5s ease;
 }
+
+.info {
+	font-family: Arial, "sans-serif";
+	text-align: center;
+	padding: 20px 0px;
+}
+
+.credits {
+	font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
