@@ -60,6 +60,7 @@ a:focus{
 	margin: 0 auto;
 	box-shadow: 5px 5px 10px -5px #000000;
 	margin-bottom: 5px;
+	background-color: black;
 }
 #content{
 	position: relative;

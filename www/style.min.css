@@ -6,7 +6,7 @@ a{text-decoration:none;border:none;}
 a:focus{outline:0;}
 #gameOverlay{position:fixed;width:100%;height:100%;z-index:10;padding-top:5px;text-align:center;background-color:rgba(0,0,0,0.8);display:none;color:white;text-decoration:underline;font-size:25px;text-shadow:3px 3px 3px #552200;}
 #exit{position:relative;margin:0 auto;cursor:pointer;background-color:#826c59;height:40px;line-height:40px;width:130px;box-shadow:5px 5px 10px -5px #000000;}
-#altContent{position:relative;margin:0 auto;box-shadow:5px 5px 10px -5px #000000;margin-bottom:5px;}
+#altContent{position:relative;margin:0 auto;box-shadow:5px 5px 10px -5px #000000;margin-bottom:5px;background-color:black;}
 #content{position:relative;width:900px;margin:0 auto;padding-top:20px;background-color:#dbc89e;box-shadow:0px 0px 25px 0px #000000;}
 #header{position:relative;height:120px;width:100%;padding-left:40px;margin-bottom:0px;background-image:url('./images/headerBg.png');line-height:120px;font-size:30px;color:white;box-shadow:0px -25px 25px -25px #000000 inset,0px 25px 25px -25px #000000 inset;}
 #tuto{position:relative;height:465px;width:100%;margin-bottom:40px;}
