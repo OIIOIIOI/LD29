@@ -160,6 +160,7 @@ a:focus{
 .slideShowItem div{
 	display: inline-block;
 	width: 300px;
+	margin-left: 20px;
 }
 #tutoIllu{
 	position: absolute;
